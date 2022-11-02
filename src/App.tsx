@@ -37,6 +37,34 @@ const OCaml = ({code}: {code: string}) => {
     )
 }
 
+const CoinSort = <TopicCard title={"Coin Sort"} color={"rgba(139,147,26,0.34)"}>
+    <OCaml code={`(*list of coins, amount to make with those
+    coins, return the sequence of coin added to the amount*)
+let rec change (coins : int list) ( amt : int) : int list = 
+  match coins with 
+  | _ when amt = 0 -> [] (**we dont care what the amount of coin is ,
+  ignore the coin *)(* - succes *)
+  |  [] -> raise Change (*if we match all the coins *)  (*   failure  *) 
+             if coin :: cs  -> (*if the coin is too big fo to the other coin *)
+             (* make a recursive call witht he smaller amount *)
+               if coin > amt then change cs amt else 
+                 coin :: change (coin :: cs) (amt - coin)
+                 (*amount decrease with the acoin*)
+                   try 
+                     coin :: change (coin :: cs) (amt = coin)
+                   with 
+                   | Change -> change cs amt (*if we raise the change exception
+                   , we go back*)                                 
+let change' coin amt : int list option = 
+  try 
+    Some (change coins amt)
+  with 
+  |Change -> None`}
+    />
+    <p> The change function is a recursive function that takes a list of coins and an amount to make with those coins. It returns the sequence of coins that add up to the amount. </p>
+
+</TopicCard>
+
 const TypeInferenceTopic = <TopicCard title={"Type Inference"} color={"#4ae5a6"}>
    <ul>
          <li>
@@ -211,7 +239,7 @@ const ProofTopic = <TopicCard title={"Proofs"} color="rgba(0,255,0,0.3)">
         <li><Pair item1={"Inductive Step"}>{`P l -> P (h::l)`}</Pair></li>
     </ul>
     <h4>Code Example  - rev / rev_tr</h4>
-    <SyntaxHighlighter customStyle={customStyle} language={"ocaml"} >
+    <OCaml code=
         {
             `(* naive *)
 (* rev: 'a list -> 'a list *)
@@ -232,7 +260,7 @@ let rec length l = match l with
 \t| [] -> 0
 \t| h::t -> 1 + length t`
         }
-    </SyntaxHighlighter>
+    />
 </TopicCard>
 const HOFTopic = <TopicCard title={"Higher Order Functions"} color="rgba(0,255,255,0.3)">
     <h4>Binary Tree HOFs</h4>
@@ -285,12 +313,12 @@ const ChurchTopic = <TopicCard title={"Church Encoding"} color="rgba(255,0,255,0
     </SyntaxHighlighter>
     //TODO: What logic operators do the following functions represent? (oct 25th rec 42:58)
     <h4>Church Logic</h4>
-    <OCaml code={`let mystery_1 i1 i2 = fun a b -> i1 (i2 a b) b`}/>
     <caption>Mystery one is the same as {`fun a b -> a && b`}</caption>
-    <OCaml code={`let mystery_2 i1 i2 = fun a b -> i1 a (i2 a b)`}/>
+    <OCaml code={`let mystery_1 i1 i2 = fun a b -> i1 (i2 a b) b`}/>
     <caption>Mystery two is the same as {`fun a b -> a || b`}</caption>
-    <OCaml code={`let mystery_3 i1 i2 = fun a b -> i1 (i2 a b) a`}/>
+    <OCaml code={`let mystery_2 i1 i2 = fun a b -> i1 a (i2 a b)`}/>
     <caption>Mystery three is the same as {`fun a b -> a && (not b)`}</caption>
+    <OCaml code={`let mystery_3 i1 i2 = fun a b -> i1 (i2 a b) a`}/>
     {/*//TODO: verify*/}
 </TopicCard>
 
@@ -427,6 +455,7 @@ function App() {
       {CurryTopic}
       {TuplesTopic}
       {MathTopic}
+      {CoinSort}
       </body>
   );
 }
