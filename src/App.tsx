@@ -12,15 +12,6 @@ const Pair = ({item1, children}: {item1: string, children: React.ReactNode}) => 
   )
 }
 
-const ProofPair  = ({item1, children}: {item1: string, children: React.ReactNode}) => {
-    return (
-        <div>
-        <p>{item1}</p>
-        <code>{children}</code>
-        </div>
-    )
-}
-
 const customStyle={
     margin: 0,
     padding: 0,
@@ -126,10 +117,6 @@ rev_tr 1 [];;`} />
     </span>
 </TopicCard>
 
-
-const PlaceHolder = <TopicCard title={"Placeholder"} color={"#ffffff"}>
-    <h1>Placeholder</h1>
-</TopicCard>
 
 const CoinSort = <TopicCard title={"Coin Sort"} color={"rgba(139,147,26,0.34)"}>
     <OCaml code={`(*list of coins, amount to make with those
@@ -602,7 +589,7 @@ function App() {
       <div className={"slimmerBoiColumn"} style={{height: "100%"}}>
           {OptionalTopic}
           {ChurchTopic}
-
+          {TypesTopic}
       </div>
       </body>
   );
