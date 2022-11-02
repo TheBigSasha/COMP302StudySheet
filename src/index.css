@@ -62,6 +62,16 @@ h2 {
 
 }
 
+.twoCol{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
 strong {
     font-size: var(--font-size);
     font-kerning: auto;
@@ -160,4 +170,12 @@ div {
 pre {
   margin: 0;
     padding: 0;
+}
+
+.slimmerBoiColumn > .topic-card{
+    width: calc(11in / var(--numcols) * 0.6);
+}
+
+.slimBoiColumn > .topic-card{
+    width: calc(11in / var(--numcols) * 0.9);
 }

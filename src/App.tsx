@@ -232,6 +232,7 @@ const ProofTopic = <TopicCard title={"Proofs"} color="rgba(0,255,0,0.3)">
     <ul>
         <li><Pair item1={"Associativity"}>{`a + (b + c) = (a + b) + c`}</Pair></li>
         <li><Pair item1={"Commutativity"}>{`a + b = b + a`}</Pair></li>
+        <li><Pair item1={"Function Associativity"}>{`Functions are left associative`}</Pair></li>
     </ul>
     <h4>Proving Equivalence Via Induction</h4>
     <ul>
@@ -239,14 +240,21 @@ const ProofTopic = <TopicCard title={"Proofs"} color="rgba(0,255,0,0.3)">
         <li><Pair item1={"Inductive Step"}>{`P l -> P (h::l)`}</Pair></li>
     </ul>
     <h4>Code Example  - rev / rev_tr</h4>
-    <OCaml code=
-        {
-            `(* naive *)
+    <span className={"twoCol"}>
+          <OCaml code=
+                     {
+                         `(* naive *)
 (* rev: 'a list -> 'a list *)
 let rec rev l = match l with
 \t| [] -> []
 \t| x::l -> (rev l) @ [x];;
-(* tail recursive *)
+(* Define length *)
+let rec length l = match l with
+\t| [] -> 0
+\t| h::t -> 1 + length t`
+                     }
+          />
+        <OCaml code={`(* tail recursive *)
 (* rev': 'a list -> 'a list *)
 let rev' l =
 (* rev_tr: 'a list -> 'a list -> 'a list *)
@@ -254,13 +262,9 @@ let rev' l =
 \t| [] -> асс
 \t| h::t -> rev_tr t (h: :acc)
 in
-rev_tr 1 [];;
-(* Define length *)
-let rec length l = match l with
-\t| [] -> 0
-\t| h::t -> 1 + length t`
-        }
-    />
+rev_tr 1 [];;`} />
+    </span>
+
 </TopicCard>
 const HOFTopic = <TopicCard title={"Higher Order Functions"} color="rgba(0,255,255,0.3)">
     <h4>Binary Tree HOFs</h4>
@@ -443,19 +447,30 @@ const BasicSyntaxTopic = <TopicCard title={"Basic Syntax"} color="rgba(100,100,2
 function App() {
   return (
       <body>
+      <div className={"slimmerBoiColumn"}>
       {ListHOFTopic}
       {BasicSyntaxTopic}
       {HOFTopic}
       {ChurchTopic}
+      </div>
+      <div className={"slimBoiColumn"}>
       {ProofTopic}
       {TypeInferenceTopic}
+      </div>
+      <div className={"slimBoiColumn"}>
       {CPSTopic}
       {ListOperationsTopic}
+      </div>
       {TypesTopic}
       {CurryTopic}
       {TuplesTopic}
       {MathTopic}
       {CoinSort}
+      <div className={"slimmerBoiColumn"}>
+          <TopicCard title={"Placeholder"} color={"#ffffff"}>
+              <h1>Placeholder</h1>
+          </TopicCard>
+      </div>
       </body>
   );
 }
