@@ -1,7 +1,7 @@
 
 :root {
 --numcols: 4.0;
---font-size: 8px;
+--font-size: 9px;
 }
 
 body {
@@ -70,6 +70,26 @@ h2 {
     margin: 0;
     padding: 0;
     width: 100%;
+}
+
+pre{
+    font-size: var(--font-size) - 2;
+    font-family: "Manrope" , monospace;
+    font-kerning: auto;
+    letter-spacing: -0.5px;
+    font-variant-ligatures: contextual;
+    margin: 0;
+    padding: 0;
+}
+
+.smolText {
+    font-size: var(--font-size) - 2;
+    font-family: "Manrope" , monospace;
+    font-kerning: auto;
+    letter-spacing: -0.5px;
+    font-variant-ligatures: contextual;
+    margin: 0;
+    padding: 0;
 }
 
 strong {
@@ -178,4 +198,10 @@ pre {
 
 .slimBoiColumn > .topic-card{
     width: calc(11in / var(--numcols) * 0.9);
+}
+
+@media print {
+    body{
+        border: none;
+    }
 }

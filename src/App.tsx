@@ -37,6 +37,100 @@ const OCaml = ({code}: {code: string}) => {
     )
 }
 
+const OptionalTopic = <TopicCard title={"Optional"} color={"rgba(0,255,255,0.25)"}>
+
+    <ul>
+        <li><Pair item1={"Optional int 42"}><OCaml code={`Some 42`}></OCaml></Pair></li>
+        <li><Pair item1={"Optional None"}><OCaml code={`None`}></OCaml></Pair></li>
+        <li><Pair item1={"Optional.get()"}><OCaml code={`let extract o =
+  match o with
+  | Some i -> string_of_int i
+  | None -> "";;`}></OCaml></Pair></li>
+        <li><Pair item1={"extract Some 42"}>42</Pair></li>
+        <li><Pair item1={"extract None"}>None</Pair></li>
+        <li><Pair item1={"t option"}>a type for every type t</Pair></li>
+        <li><Pair item1={"None"}>a value of type 'a option</Pair></li>
+        <li><Pair item1={"Some e "}>an expression of type t option if e : t</Pair></li>
+        <li><Pair item1={"Some e "}>{`If e ==> v then Some e ==> Some v`}</Pair></li>
+    </ul>
+</TopicCard>
+
+const CodeExamples = <TopicCard title={"Code Examples"} color={"rgba(255,128,0,0.25)"}>
+    <h4>Conversion to CPS</h4>
+    <caption>Consider function pow : {`int -> int -> int`} that computes nk</caption>
+    <OCaml code={`let pow k n =
+   if k = o then 1
+   else n * pow (k -1) n`}/>
+    <caption>Tail recursive Version</caption>
+    <OCaml code={`
+let is_even n = 
+  n mod 2 = 0
+  
+let pow base exponent =
+  if exponent < 0 then invalid_arg "exponent can not be negative" else
+  let rec aux accumulator base = function
+    | 0 -> accumulator
+    | 1 -> base * accumulator
+    | e when is_even e -> aux accumulator (base * base) (e / 2)
+    | e -> aux (base * accumulator) (base * base) ((e - 1) / 2) in
+  aux 1 base exponent
+    `}/>
+    <h4>Vector Scale</h4>
+    <OCaml code={`implement a scale : ‘a vector * (’a → ‘b) → ‘b vector 
+let scale: 'a vector * ('a -> 'b) -> 'b vector = 
+  fun (v, f) -> map f v;;`}/>
+    <h4>HOF Example</h4>
+    <span className={"twoCol"}>
+        <OCaml code={`let rec repeated (f,n) = 
+if (n=0) then fun x → x 
+ else x → f ((repeated (f,n-1) x)`}/>
+        <caption>takes a function f and a non-negative integer n as arg. and returns the function that implies f:n times</caption>
+    </span>
+    <h4>Find card in list</h4>
+    <OCaml code={`(it is tail recursive since every single recursive call is returned)
+(output type is card option)
+let rec find_color (c: color) (l: card mylist): card option =  match l with
+|Nil -> None
+|Cons ( (col,v), l) ->
+if col = c then Some (col, v)
+(the color didn't matched)
+else find_color c l (imidiately returned)`}></OCaml>
+<h4>Head of list that doesn't exist</h4>
+    <OCaml code={`let head (l: 'a mylist): 'a = match l with
+|Cons (x, _) ->x
+|Nil -> raise EmptyList`}/>
+    <h4>*** Code Example  - rev / rev_tr</h4>
+    <span className={"twoCol"}>
+          <OCaml code=
+                     {
+                         `(* naive *)
+(* rev: 'a list -> 'a list *)
+let rec rev l = match l with
+\t| [] -> []
+\t| x::l -> (rev l) @ [x];;
+(* Define length *)
+let rec length l = match l with
+\t| [] -> 0
+\t| h::t -> 1 + length t`
+                     }
+          />
+        <OCaml code={`(* tail recursive *)
+(* rev': 'a list -> 'a list *)
+let rev' l =
+(* rev_tr: 'a list -> 'a list -> 'a list *)
+\tlet rec rev_tr l acc = match l with
+\t| [] -> асс
+\t| h::t -> rev_tr t (h: :acc)
+in
+rev_tr 1 [];;`} />
+    </span>
+</TopicCard>
+
+
+const PlaceHolder = <TopicCard title={"Placeholder"} color={"#ffffff"}>
+    <h1>Placeholder</h1>
+</TopicCard>
+
 const CoinSort = <TopicCard title={"Coin Sort"} color={"rgba(139,147,26,0.34)"}>
     <OCaml code={`(*list of coins, amount to make with those
     coins, return the sequence of coin added to the amount*)
@@ -96,11 +190,12 @@ const MathTopic = <TopicCard title={"Math"} color={"#ef6e6e"}>
   | Var -> Const 1.0
   | Plus (e1, e2) -> Plus (diff e1, diff e2)
   | Times (e1, e2) -> Plus (Times (diff e1, e2), Times (e1, diff e2))
-  | Pow (e1, i) -> Times (Times (Const (float_of_int i), Pow (e1, i - 1)), diff e1)`}/>
+  | Pow (e1, i) -> Times (Times
+                (Const (float_of_int i), Pow (e1, i - 1)), diff e1)`}/>
     <caption>Collect Variables</caption>
     <OCaml code={`let collect_variables (formula : formula) : Variable_set.t =
   let rec collect_variables_helper (formula : formula)
-                                (acc : Variable_set.t) : Variable_set.t =
+                        (acc : Variable_set.t) : Variable_set.t =
     match formula with
     | Variable v -> Variable_set.add v acc
     | Conjunction (f1, f2) -> collect_variables_helper f1
@@ -136,7 +231,7 @@ const TypesTopic = <TopicCard title={"Generic Types"} color={"rgba(98,231,191,0.
 
 </TopicCard>
 
-const TuplesTopic = <TopicCard title={"Tuples"} color={"rgba(231,98,193,0.3)"}>
+const TuplesTopic = <TopicCard title={"Tuples"} color={"rgba(234,255,1,0.29)"}>
     <OCaml code={`let minmax (a, b) : float * float =
   if a < b then (a, b) else (b, a)`}/>
     <caption>Here (a,b) is a tuple of type float * float</caption>
@@ -152,7 +247,6 @@ let add x:int y:int = x + y`}/>
 let add (x:int, y:int) = x + y`}/>
     <OCaml code={`(* val add : (int * int) -> int = <fun> *)
 let add = fun (z : int * int) -> match z with (x, y) -> x + y`}/>
-    <p>Currying is using a tuple for your function inputs. It affects the input types.</p>
     <ul>
         <li><Pair item1={"Curried"}>{`(int * int) → int`}</Pair></li>
         <li><Pair item1={"!Curried"}>{`int → int → int`}</Pair></li>
@@ -222,7 +316,7 @@ match list with
         <li><Pair item1={"List.rev"}> {`’a list −> ’a list`}</Pair></li>
         <li><Pair item1={"List.find_opt"}> {`(’ a −> bool) −> ’a list −> ’a option`}</Pair></li>
         <li><Pair item1={"List.filter"}> {`(’ a −> bool) −> ’a list −> ’a list`}</Pair></li>
-        <li><Pair item1={"List.init"}> {`int −> (int −> ’a) −> ’a list (∗ by index ∗)`}</Pair></li>
+        <li><Pair item1={"List.init"}> {`int −> (int −> ’a) −> ’a list (∗by index∗)`}</Pair></li>
     </ul>
 
 </TopicCard>
@@ -239,32 +333,68 @@ const ProofTopic = <TopicCard title={"Proofs"} color="rgba(0,255,0,0.3)">
         <li><Pair item1={"Base Case"}>{`P []`}</Pair></li>
         <li><Pair item1={"Inductive Step"}>{`P l -> P (h::l)`}</Pair></li>
     </ul>
-    <h4>Code Example  - rev / rev_tr</h4>
-    <span className={"twoCol"}>
-          <OCaml code=
-                     {
-                         `(* naive *)
-(* rev: 'a list -> 'a list *)
-let rec rev l = match l with
-\t| [] -> []
-\t| x::l -> (rev l) @ [x];;
-(* Define length *)
-let rec length l = match l with
-\t| [] -> 0
-\t| h::t -> 1 + length t`
-                     }
-          />
-        <OCaml code={`(* tail recursive *)
-(* rev': 'a list -> 'a list *)
-let rev' l =
-(* rev_tr: 'a list -> 'a list -> 'a list *)
-\tlet rec rev_tr l acc = match l with
-\t| [] -> асс
-\t| h::t -> rev_tr t (h: :acc)
-in
-rev_tr 1 [];;`} />
-    </span>
-
+    <p>So let’s strengthen the claim we are making. Instead of showing that fact n = facti 1 n, we’ll try to show forall p, p * fact n = facti p n. That generalizes the k + 1 we were stuck on to an arbitrary quantity p.
+    </p>
+    <OCaml code={`let rec facti acc n =
+  if n = 0 then acc else facti (acc * n) (n - 1)
+let fact_tr n = facti 1 n
+val facti : int -> int -> int = <fun>
+val fact_tr : int -> int = <fun>
+`}/>
+    <p>Claim: forall n, forall p . p * fact n = facti p n</p>
+    <p>Proof: by induction on n.
+    </p>
+    <code>        P(n) = forall p, p * fact n = facti p n </code>
+<p>Base case:  n = 0 ; Show: forall p,  p * fact 0 = facti p 0</p>
+    <ul>
+        <li><Pair item1={`p * fact 0 = p`}>
+        by evaluation and algebra
+        </Pair></li>
+        <li><Pair item1={`p = facti p 0`}>by evaluation</Pair></li>
+    </ul>
+    <p>Inductive case: n = k + 1
+    </p>
+    <p>Show: <code>forall p,  p * fact (k + 1) = facti p (k + 1)</code>
+    </p>
+    <p>IH:<code> forall p,  p * fact k = facti p k</code>
+    </p>
+    <ul>
+        <li><Pair item1={`p * fact (k + 1) = p * (k + 1) * fact k`}>
+            by evaluation
+        </Pair></li>
+        <li><Pair item1={` = facti (p * (k + 1)) k`}>IH, instantiating its p as p * (k + 1)</Pair></li>
+        <li><Pair item1={`facti p (k + 1) = facti (p * (k + 1)) k`}>By evaluation</Pair></li>
+    </ul>
+    <p>Claim: forall n, fact n = fact_tr n</p>
+    <p>Proof</p>
+    <ul>
+        <li><Pair item1={`fact n`}>
+        </Pair></li>
+        <li><Pair item1={`= 1 * fact n`}>by algebra</Pair></li>
+        <li><Pair item1={`= facti 1 n`}>by previous claim</Pair></li>
+        <li><Pair item1={`= fact_tr n`}>by evaluation</Pair></li>
+    </ul>
+    <h4>Second Example</h4>
+    <caption>We will prove by induction on s that for any k,</caption>
+    <pre className={"smolText"}>
+        <OCaml code={`fold_right' s k = k (fold_right f s b).`}/>
+        {`Basis: s = [].`}</pre>
+    <OCaml code={`fold_right' [] k = k b = k (fold_right f [] b)`}/>
+    <pre>{`by the first clauses in the definitions of fold_right'
+and fold_right. Induction step: s = x::xs.`}</pre>
+    <OCaml code={`fold_right' (x::xs) k = fold_right' xs (fun y -> k (f x y))`}/>
+    <pre>{`by the second clause in the definition of fold_right'
+= (fun y -> k (f x y)) (fold_right f xs b)
+by the induction hypothesis
+= k (f x (fold_right f xs b))
+by the substitution model
+= k (fold_right f (x::xs) b)
+by the second clause in the definition of fold_right.
+In particular, for k the identity function
+fn x => x on which fold_right' is initially called,
+fold_right' s (fn x -> x) = fold_right f s b
+thus the 2 fold_rights above are equivalent.`}
+    </pre>
 </TopicCard>
 const HOFTopic = <TopicCard title={"Higher Order Functions"} color="rgba(0,255,255,0.3)">
     <h4>Binary Tree HOFs</h4>
@@ -379,15 +509,9 @@ const CPSTopic = <TopicCard title={"Continuation Passing Style"} color="rgba(0,0
         <li>change type: A into (A → ‘r) → ‘r</li>
         <li>change implementat: call continuation instead of returning</li>
     </ul>
-    <caption>Definition of binary tree</caption>
-    <SyntaxHighlighter customStyle={customStyle} language={"ocaml"}>
-        {
-            `type 'a tree = 
-  |Empty 
-  |Node of 'a tree * 'a * 'a tree`
-        }
-        </SyntaxHighlighter>
+
     <caption>Original, non-cps function, pseudocode (p function checks if condition is true, node x is the root of the subtree we care about)</caption>
+    <span className={'twoCol'}>
     <SyntaxHighlighter customStyle={customStyle} language={"ocaml"}>
         {
             `(*('a -> bool) -> 'a tree -> 'a list *)
@@ -403,6 +527,15 @@ let find_all p x: =
       good_l @ good_r`
 
         }</SyntaxHighlighter>
+        <div>   <caption>Definition of binary tree</caption>
+    <SyntaxHighlighter customStyle={customStyle} language={"ocaml"}>
+        {
+            `type 'a tree = 
+  |Empty 
+  |Node of 'a tree * 'a * 'a tree`
+        }
+        </SyntaxHighlighter></div>
+        </span>
     <caption>CPS / Tail Recursive version → note that we recurse with the continuation in the args to our recursive call for the left side and inside that for the right side.</caption>
     <SyntaxHighlighter customStyle={customStyle} language={"ocaml"}>
         {
@@ -450,26 +583,26 @@ function App() {
       <div className={"slimmerBoiColumn"}>
       {ListHOFTopic}
       {BasicSyntaxTopic}
-      {HOFTopic}
-      {ChurchTopic}
+      {HOFTopic}{TuplesTopic}
+          {TypeInferenceTopic}
+          {ListOperationsTopic}
       </div>
       <div className={"slimBoiColumn"}>
-      {ProofTopic}
-      {TypeInferenceTopic}
+          {MathTopic}
+
+          {ProofTopic}
       </div>
       <div className={"slimBoiColumn"}>
       {CPSTopic}
-      {ListOperationsTopic}
+          {CurryTopic}
       </div>
-      {TypesTopic}
-      {CurryTopic}
-      {TuplesTopic}
-      {MathTopic}
+      {CodeExamples}
       {CoinSort}
-      <div className={"slimmerBoiColumn"}>
-          <TopicCard title={"Placeholder"} color={"#ffffff"}>
-              <h1>Placeholder</h1>
-          </TopicCard>
+
+      <div className={"slimmerBoiColumn"} style={{height: "100%"}}>
+          {OptionalTopic}
+          {ChurchTopic}
+
       </div>
       </body>
   );
