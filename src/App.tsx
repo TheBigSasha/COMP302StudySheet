@@ -3,6 +3,7 @@ import './App.css';
 import {TopicCard} from "./TopicCard";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/cjs/prism";
 import Latex from "react-latex";
+import styled from "styled-components";
 
 const Pair = ({item1, children}: {item1: string, children: React.ReactNode}) => {
   return (
@@ -12,6 +13,37 @@ const Pair = ({item1, children}: {item1: string, children: React.ReactNode}) => 
         </span>
   )
 }
+
+const MarginText = styled.p`
+  margin: 0;
+    padding: 0;
+    font-size: 8px;
+    text-align: left;
+    width: max-content;
+  position: absolute;
+    top: 0;
+    left: 0;
+`
+
+const Divider = styled.hr`
+    border: 0.5px solid rgba(0,0,0,0.4);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+`
+
+const DotDivider = styled(Divider)`
+    border: 0.5px dotted rgba(0,0,0,0.4);
+`
+
+// inline variable name, inline code
+const Variable = styled.code`
+  background: rgba(0,0,0,0.1);
+    padding: 0 2px;
+    border-radius: 2px;
+  display: inline-block !important;
+`
+
 
 const customStyle={
     margin: 0,
@@ -25,6 +57,14 @@ const OCaml = ({code}: {code: string}) => {
         <SyntaxHighlighter language="ocaml" customStyle={customStyle}>
             {code}
         </SyntaxHighlighter>
+    )
+}
+
+const Ltx = (x: {children: string}) => {
+    return (
+        <span style={{fontSize: 12}}>
+        <Latex>{`$${(x.children)}$`}</Latex>
+            </span>
     )
 }
 
@@ -572,34 +612,311 @@ const LaTeXTestTopic = <TopicCard title={"LaTeX Test"} color="rgba(100,100,255,0
 </TopicCard>
 
 
+const InferenceRules = <TopicCard title={"Inference Rules"} color="rgba(100,100,255,0.3)">
+    <ul>
+        <li><Pair item1={"Basic Format, premises on top must be true then e is true"}><Ltx>{"\\frac{p_1 \\cdots p_n}{e}"}</Ltx></Pair></li>
+    </ul>
+</TopicCard>
+
+const LazyTopic = <TopicCard title={"Lazy vs Eager Evaluation"} color="rgba(100,0,0,0.3)">
+    <ul>
+        <li><Pair item1={"Lazy"}>evaluate only when needed (call by reference)</Pair></li>
+        <li><Pair item1={"Eager"}>evaluate as soon as possible (call by value)</Pair></li>
+        <DotDivider/>
+        <li><Pair item1={"Pros & Cons"}>Lazy Cannot easily reason, may make effects unpredictable</Pair></li>
+        <li><Pair item1={"..."}>Eager Can reason about effects, but may be inefficient</Pair></li>
+        <li><Pair item1={"..."}>Lazy may unnecessarily execute multiple times, fixable using ref</Pair></li>
+    </ul>
+    <Divider/>
+    <p>
+    When we have the function <Variable>eval</Variable>, the cases for <Variable>Let</Variable>, <Variable>Var</Variable>, and <Variable>Fun</Variable> can be modified for lazy.
+    </p>
+    {/*TODO: verify this code*/}
+    <OCaml code={`let rec eval (e : expr) : value =
+ | Let (x, e1, e2) -> 
+ (*...previous code...*)
+\tlet v = r e1 in         (*First eval e1 with the old env*)
+\tlet r' = (x,v) :: r in  (*Now append the value of the computation to env*)
+\teval r' e2              (*Carry on with e2 with the new env*)
+| Var x -> eval List.assoc x r (*return eval env.get(x)*)
+| Fun (x, e) -> FunV (x, e, r)
+(*Use ref to not repeat evaluations with every lookup*)`}/>
+</TopicCard>
+
+const EvalTopic = <TopicCard title={"Evaluation"} color="rgba(10,24,100,0.3)">
+    <p>The function <Variable>eval</Variable> requires some types and setup first.</p>
+    <OCaml code={
+`type tp =
+  | Arrow of tp list * tp | Int | Bool (* function type: S1 S2 ... Sn -> T *)
+ type name = string
+ type primop = Equals | LessThan | Plus | Minus | Times | Negate
+type exp =
+  | I of int                          (* 0 | 1 | 2 | ... *)
+  | B of bool                         (* true | false *)
+  | If of exp * exp * exp             (* if e then e1 else e2 *)
+  | Primop of primop * exp list       (* e1 <op> e2  or <op> e *)
+  | Fn of (name * tp) list * exp      (* fn (x_1: t_1, ..., x_n: t_n) => e *)
+  | Rec of name * tp * exp            (* rec (f: t) => e *)
+  | Let of name * exp * exp           (* let x = e1 in e2 end *)
+  | Apply of exp * (exp list)         (* e (e_1, e_2, ..., e_n) *)
+  | Var of name                       (* x *)
+  | Clo of env * name * exp (*This weirdo represents what a fn returned.
+
+  
+Stores the env from when The fn was defined -> saves states of the local vars*)
+and 
+type env = (name * exp) list (*map of names to their values,
+                                index via List.assoc*)`}/>
+</TopicCard>
+
+const TypeInferenceForFun = <TopicCard title={"Type Inference for Functions"} color="rgba(10,24,100,0.3)">
+    <OCaml code={
+        `type ctx = list (name * typ)
+let rec eval (g: ctx) (e: exp): exp = function
+ (* ...prev with g added to calls *)
+| Let (x, e1, e2) -> (*Let x = e1 in e2*)
+\tlet t = infer g e1 in (*Infer type of e1*)
+\tinfer ((x,t) :: g) e2 (*append the infr'd g to first exp, infer e2*)
+| Fun (x, t, e) ->
+\tArrow (t, infer ((x, t)::g) e)(*Type is arrow of function's
+\t type annotation to type inference given context on the body*)
+| Var x -> List.assoc x g (*lo*)`
+    }/>
+
+</TopicCard>
+
+
+
+const Unification = <TopicCard title={"Unification"} color="rgba(10,24,100,0.3)">
+    <p>Unification is the process of finding a substitution that makes two types equal.</p>
+    <p>For example, if we have <Variable>Arrow (TInt, TBool)</Variable> and <Variable>Arrow (TInt, TInt)</Variable>, we can unify them by substituting <Variable>TBool</Variable> for <Variable>TInt</Variable>.</p>
+    <OCaml code={`let unify =
+  let rec unify substitution t1 t2 =
+    match t1, t2 with
+    (* Unifying identical concrete types does nothing *)
+    | UInt, UInt
+    | UBool, UBool -> substitution
+    | UTVar a, UTVar a' when a = a' -> substitution
+
+    (* For type constructors, recursively unify the parts *)
+    | UArrow (t1, t1'), UArrow (t2, t2') ->
+        let substitution' = unify substitution t1 t2 in
+        unify substitution' t1' t2'
+
+    | UCross ts1, UCross ts2 ->
+      (try
+        let type_pairs = List.combine ts1 ts2 in
+        List.fold_left
+          (fun substitution' (t1, t2) -> unify substitution' t1 t2)
+          substitution
+          type_pairs
+      with
+      | Invalid_argument _ -> unif_error @@ UnifMismatch (t1, t2))
+
+    | UTVar a, _ -> unifyVar substitution a t2
+    | _, UTVar b -> unifyVar substitution b t1
+    (* All other cases are mismatched types. *)
+    | _, _ -> unif_error @@ UnifMismatch (t1, t2)
+    
+      (* Unify a variable with a type *)
+  and unifyVar substitution a t =
+    let rec occurs = function
+      | UInt | UBool -> false
+      | UArrow (t1, t2) -> occurs t1 || occurs t2
+      | UCross ts -> List.exists occurs ts
+      | UTVar b ->
+          if a = b
+          then true
+          else
+            match UTVarMap.find_opt b substitution with
+            | None -> false
+            | Some t' -> occurs t'
+    in
+    if occurs t
+    then unif_error UnifOccursCheckFails
+    else 
+      match UTVarMap.find_opt a substitution with
+      | None -> UTVarMap.add a t substitution
+      | Some t' -> unify substitution t t'
+  in fun t1 t2 -> unify UTVarMap.empty t1 t2
+
+`} />
+</TopicCard>
+
+const InferCode = <TopicCard title={"Type Inference Implementation"} color="rgba(10,24,100,0.3)">
+    <OCaml code={`let rec infer ctx e =
+  match e with
+  | Var x ->
+      begin
+        try lookup x ctx
+        with Not_found -> raise (TypeError (Free_variable x))
+      end
+  | I _ -> Int
+  | B _ -> Bool
+
+  | Primop (po, exps) ->
+      let (domain, range) = primopType po in
+      check ctx exps domain range
+
+  | If (e, e1, e2) ->
+      begin
+        match infer ctx e with
+        | Bool ->
+            let t1 = infer ctx e1 in
+            let t2 = infer ctx e2 in
+            if t1 = t2 then t1
+            else type_mismatch t1 t2
+        | t -> type_mismatch Bool t
+      end
+
+  | Let (x, e1, e2) ->
+      let t1 = infer ctx e1 in
+      infer (extend ctx (x, t1)) e2
+
+  | Rec (f, t, e) ->
+      let ctx' = extend ctx (f, t) in
+      let t' = infer ctx' e in
+      if t' = t then t
+      else type_mismatch t t'
+
+  | Fn (xs, e) ->
+      let ctx' = extend_list ctx xs in
+      let ts = List.map snd xs in
+      Arrow (ts, infer ctx' e)
+
+  | Apply (e, es) ->
+      begin
+        match infer ctx e with
+        | Arrow (ts, t) -> check ctx es ts t
+        | t' -> raise (TypeError (Apply_non_arrow t'))
+      end
+
+and check ctx exps tps result =
+  match exps, tps with
+  | [], [] -> result
+  | e :: es, t :: ts ->
+      let t' = infer ctx e in
+      if t = t' then check ctx es ts result
+      else type_mismatch t t'
+  | _ -> raise (TypeError Arity_mismatch)`}/>
+</TopicCard>
+
+const EvalImpl = <TopicCard title={"Evaluation Implementation"} color="rgba(10,24,100,0.3)">
+    <OCaml code={`let rec eval exp =
+  match exp with
+  (* Values evaluate to themselves *)
+  | I _ -> exp
+  | B _ -> exp
+  | Fn _ -> exp
+  (* This evaluator is _not_ environment-based. Variables should never
+     appear during evaluation since they should be substituted away when
+     eliminating binding constructs, e.g. function applications and lets.
+     Therefore, if we encounter a variable, we raise an error. *)
+  | Var x -> raise (Stuck (Free_variable x))
+  (* Primitive operations: +, -, *, <, = *)
+  | Primop (po, args) ->
+      let args = List.map eval args in
+      begin
+        match eval_op po args with
+        | None -> raise (Stuck Bad_primop_args)
+        | Some v -> v
+      end
+  | If (e, e1, e2) ->
+      begin
+        match eval e with
+        | B true -> eval e1
+        | B false -> eval e2
+        | _ -> raise (Stuck If_non_true_false)
+      end
+  | Let (x, e1, e2) ->
+      let e1 = eval e1 in
+      eval (subst (e1, x) e2)
+  | Rec (f, _, e) -> eval (subst (exp, f) e)
+  | Apply (e, es) ->
+      begin
+        match eval e with
+        | Fn (xs, e) ->
+            if List.length xs = List.length es then
+              let es = List.map eval es in
+              let xs = List.map fst xs in
+              let subs = List.combine es xs in
+              eval (subst_list subs e)
+            else
+              raise (Stuck Arity_mismatch)
+
+        | _ -> raise (Stuck Apply_non_fn)
+      end
+      `}/>
+</TopicCard>
+
+
+
+
 
 function App() {
+
+    const midterm = <>
+        <div className={"slimmerBoiColumn"}>
+            {ListHOFTopic}
+            {BasicSyntaxTopic}
+            {HOFTopic}{TuplesTopic}
+            {TypeInferenceTopic}
+            {ListOperationsTopic}
+        </div>
+        <div className={"slimBoiColumn"}>
+            {MathTopic}
+            {/*{LaTeXTestTopic}*/}
+            {ProofTopic}
+        </div>
+        <div className={"slimBoiColumn"}>
+            {CPSTopic}
+            {CurryTopic}
+        </div>
+        {CodeExamples}
+        {CoinSort}
+
+        <div className={"slimmerBoiColumn"} style={{height: "100%"}}>
+            {OptionalTopic}
+            {ChurchTopic}
+            {TypesTopic}
+        </div></>
+
+    //TODO: Given an expressiom (Ocaml code or text), turn it into a proof with
+    // the fraction looking thing
+    /*
+       fractiony-proof -> ocaml code
+       ocaml code -> fractiony-proof
+       explain fractiony-proof / code
+     */
+
+    // TODO: freevar example (substituions)
+    const final = <>
+        <div className={"slimBoiColumn"}>
+            {Unification}
+        </div>
+        <div className={"slimBoiColumn"}>
+            {InferCode}
+        </div>
+        <div className={"slimBoiColumn"}>
+            {EvalImpl}
+        </div>
+
+        <div className={"slimBoiColumn"}>
+            {EvalTopic}
+            {LazyTopic}
+            {TypeInferenceForFun}
+        </div>
+        <div className={"slimmerBoiColumn"}>
+            {InferenceRules}
+        </div>
+        </>
   return (
       <body>
-      <div className={"slimmerBoiColumn"}>
-      {ListHOFTopic}
-      {BasicSyntaxTopic}
-      {HOFTopic}{TuplesTopic}
-          {TypeInferenceTopic}
-          {ListOperationsTopic}
-      </div>
-      <div className={"slimBoiColumn"}>
-          {MathTopic}
-          {/*{LaTeXTestTopic}*/}
-          {ProofTopic}
-      </div>
-      <div className={"slimBoiColumn"}>
-      {CPSTopic}
-          {CurryTopic}
-      </div>
-      {CodeExamples}
-      {CoinSort}
-
-      <div className={"slimmerBoiColumn"} style={{height: "100%"}}>
-          {OptionalTopic}
-          {ChurchTopic}
-          {TypesTopic}
-      </div>
+      <MarginText>
+          A monad is a monoid in the category of endofunctors | CPS can be expressed as a monad | Monads are useful for handling side effects
+      </MarginText>
+      {/*TODO: Enhance on CPS*/}
+      {final}
       </body>
   );
 }
