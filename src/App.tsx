@@ -2,12 +2,13 @@ import React from 'react';
 import './App.css';
 import {TopicCard} from "./TopicCard";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/cjs/prism";
+import Latex from "react-latex";
 
 const Pair = ({item1, children}: {item1: string, children: React.ReactNode}) => {
   return (
       <span className={"pair"}>
-        <p>{item1}</p>
-        <code>{children}</code>
+        <p style={{textAlign: 'left', width: 'max-content', fontSize: '8px'}}>{item1}</p>
+        <code style={{textAlign: 'right', width: 'fit-content'}}>{children}</code>
         </span>
   )
 }
@@ -17,8 +18,7 @@ const customStyle={
     padding: 0,
     fontSize: 6,
     width: "100%",
-    backgroundColor: "rgba(255,255,255,0.7)",
-    borderBottom: "1px solid rgba(0,0,0,0.8)",}
+    backgroundColor: "rgba(255,255,255,0.7)",}
 
 const OCaml = ({code}: {code: string}) => {
     return (
@@ -48,10 +48,10 @@ const OptionalTopic = <TopicCard title={"Optional"} color={"rgba(0,255,255,0.25)
 
 const CodeExamples = <TopicCard title={"Code Examples"} color={"rgba(255,128,0,0.25)"}>
     <h4>Conversion to CPS</h4>
-    <caption>Consider function pow : {`int -> int -> int`} that computes nk</caption>
+    <span className={"twoCol"}> <caption>Consider function pow : {`int -> int -> int`} that computes nk</caption>
     <OCaml code={`let pow k n =
    if k = o then 1
-   else n * pow (k -1) n`}/>
+   else n * pow (k -1) n`}/></span>
     <caption>Tail recursive Version</caption>
     <OCaml code={`
 let is_even n = 
@@ -225,18 +225,18 @@ const TuplesTopic = <TopicCard title={"Tuples"} color={"rgba(234,255,1,0.29)"}>
 </TopicCard>
 
 const CurryTopic = <TopicCard title={"Currying"} color={"rgba(150,231,98,0.3)"}>
-    <caption>simple add function in OCaml which is NOT CURRIED</caption>
+    <caption>simple add function in OCaml which is CURRIED</caption>
     <OCaml code={`(* val add : int -> int -> int = <fun> *)
 let add x:int y:int = x + y`}/>
     <OCaml code={`let add = function (x : int) -> function (y : int) -> x + y`}/>
-    <caption>Here, the function is curried.</caption>
+    <caption>Here, the function is NOT curried.</caption>
     <OCaml code={`(* val add : (int * int) -> int = <fun> *)
 let add (x:int, y:int) = x + y`}/>
     <OCaml code={`(* val add : (int * int) -> int = <fun> *)
 let add = fun (z : int * int) -> match z with (x, y) -> x + y`}/>
     <ul>
-        <li><Pair item1={"Curried"}>{`(int * int) → int`}</Pair></li>
-        <li><Pair item1={"!Curried"}>{`int → int → int`}</Pair></li>
+        <li><Pair item1={"!Curried"}>{`(int * int) → int`}</Pair></li>
+        <li><Pair item1={"Curried"}>{`int → int → int`}</Pair></li>
     </ul>
 </TopicCard>
 
@@ -370,14 +370,14 @@ val fact_tr : int -> int = <fun>
     <pre>{`by the first clauses in the definitions of fold_right'
 and fold_right. Induction step: s = x::xs.`}</pre>
     <OCaml code={`fold_right' (x::xs) k = fold_right' xs (fun y -> k (f x y))`}/>
-    <pre>{`by the second clause in the definition of fold_right'
-= (fun y -> k (f x y)) (fold_right f xs b)
-by the induction hypothesis
-= k (f x (fold_right f xs b))
-by the substitution model
-= k (fold_right f (x::xs) b)
-by the second clause in the definition of fold_right.
-In particular, for k the identity function
+<pre>{`by the second clause in the definition of fold_right'`}</pre>
+        <ul>
+        <li><Pair item1={"= (fun y -> k (f x y)) (fold_right f xs b)"}>by the induction hypothesis</Pair></li>
+        <li><Pair item1={"= k (f x (fold_right f xs b))"}>by the substitution model</Pair></li>
+        <li><Pair item1={"= k (fold_right f (x::xs) b)\n"}>by 2nd clause in defn of fold_right.
+        </Pair></li>
+        </ul>
+<pre>{`In particular, for k the identity function
 fn x => x on which fold_right' is initially called,
 fold_right' s (fn x -> x) = fold_right f s b
 thus the 2 fold_rights above are equivalent.`}
@@ -411,14 +411,18 @@ const ChurchTopic = <TopicCard title={"Church Encoding"} color="rgba(255,0,255,0
         <li><Pair item1={"Church Some"}>{`fun x -> fun y -> x`}</Pair></li>
     </ul>
     <h4>Multiply 2 Church Numerals</h4>
-    <SyntaxHighlighter customStyle={customStyle} language={"ocaml"} >
+    <SyntaxHighlighter customStyle={{...customStyle, fontSize: '5.5px'}} language={"ocaml"} >
         {
     `let mult (n1 : 'b church) (n2 : 'b church) : 'b church =
-  fun z s -> n2 (n1 z s) (fun x -> s (s x))`
+    fun z s -> n1 z (fun r -> n2 r s)`
         }
     </SyntaxHighlighter>
+    <p>{`This one is similar to add. However, the base case for n1 is now zero. The successor case is more interesting; it
+            takes in some church numeral r and applies it to n2 r s, which basically means "add n2 to r."
+            Putting it all together, the successor function that we pass to n1 is the "add by n2" function, which gives us
+            multiplication `}</p>
     <h4>Add 2 Church Numerals</h4>
-    <SyntaxHighlighter customStyle={customStyle} language={"ocaml"} >
+    <SyntaxHighlighter customStyle={{...customStyle, fontSize: '5.5px'}} language={"ocaml"} >
         {
             `let add (n1 : 'b church) (n2 : 'b church) : 'b church =
   fun z s -> n2 (n1 z s) s
@@ -432,7 +436,6 @@ const ChurchTopic = <TopicCard title={"Church Encoding"} color="rgba(255,0,255,0
   List.fold_left (fun acc x -> add acc x) zero l`
         }
     </SyntaxHighlighter>
-    //TODO: What logic operators do the following functions represent? (oct 25th rec 42:58)
     <h4>Church Logic</h4>
     <caption>Mystery one is the same as {`fun a b -> a && b`}</caption>
     <OCaml code={`let mystery_1 i1 i2 = fun a b -> i1 (i2 a b) b`}/>
@@ -562,6 +565,12 @@ const BasicSyntaxTopic = <TopicCard title={"Basic Syntax"} color="rgba(100,100,2
     </ul>
 </TopicCard>
 
+const LaTeXTestTopic = <TopicCard title={"LaTeX Test"} color="rgba(100,100,255,0.3)">
+    <Latex>Here is some math: $x^2 + y^2 = z^2$</Latex>
+    <Latex>{"Here is some more math: $\\frac{2}{3}$"}</Latex>
+    <Latex>{`$\\frac{e_1 \\downarrow \\textbf{true} \\ \\ e_2 \\downarrow v}{\\textbf{if} \\ e \\ \\textbf{then} e_1 \\textbf{else} e_2}$`}</Latex>
+</TopicCard>
+
 
 
 function App() {
@@ -576,7 +585,7 @@ function App() {
       </div>
       <div className={"slimBoiColumn"}>
           {MathTopic}
-
+          {/*{LaTeXTestTopic}*/}
           {ProofTopic}
       </div>
       <div className={"slimBoiColumn"}>
