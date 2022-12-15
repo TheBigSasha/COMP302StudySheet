@@ -2,28 +2,28 @@ import React from "react";
 import "./App.css";
 import { Route, Routes, Link, Outlet } from "react-router-dom";
 import {
-  BasicSyntaxTopic,
-  ChurchTopic,
-  CodeExamples,
-  CoinSort,
-  CPSTopic,
-  CurryTopic,
-  EvalImpl,
-  EvalTopic,
-  HOFTopic,
-  InferCode,
-  InferenceRules,
-  LazyTopic,
-  ListHOFTopic,
-  ListOperationsTopic,
-  MathTopic,
-  OptionalTopic,
-  ProofTopic,
-  TuplesTopic,
-  TypeInferenceForFun,
-  TypeInferenceTopic,
-  TypesTopic,
-  Unification,
+    BasicSyntaxTopic,
+    ChurchTopic,
+    CodeExamples,
+    CoinSort,
+    CPSTopic,
+    CurryTopic,
+    EvalImpl,
+    EvalTopic,
+    HOFTopic,
+    InferCode,
+    InferenceRules,
+    LazyTopic,
+    ListHOFTopic,
+    ListOperationsTopic,
+    MathTopic,
+    OptionalTopic,
+    ProofTopic, References, SubTypingTopic,
+    TuplesTopic,
+    TypeInferenceForFun,
+    TypeInferenceTopic,
+    TypesTopic,
+    Unification,
 } from "./topics/Topics";
 import { PageBase } from "./components/Styled";
 import {Helmet} from "react-helmet";
@@ -69,6 +69,10 @@ function App() {
   // TODO: freevar example (substituions)
   const final = (
     <>
+        <div className={"slimmerBoiColumn"}>
+            {InferenceRules}
+            {References}
+        </div>
       <div className={"slimBoiColumn"}>{Unification}</div>
       <div className={"slimBoiColumn"}>{InferCode}</div>
       <div className={"slimBoiColumn"}>{EvalImpl}</div>
@@ -77,8 +81,10 @@ function App() {
         {EvalTopic}
         {LazyTopic}
         {TypeInferenceForFun}
+          {SubTypingTopic}
       </div>
-      <div className={"slimmerBoiColumn"}>{InferenceRules}</div>
+
+
     </>
   );
 

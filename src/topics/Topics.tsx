@@ -1,10 +1,10 @@
 import { TopicCard } from "../TopicCard";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/cjs/prism";
 import React from "react";
-import { Pair } from "../components/Pair";
+import {ListPairItem, Pair} from "../components/Pair";
 import { customStyle, OCaml } from "../components/OCaml";
 import { Divider, DotDivider, Variable } from "../components/Styled";
-import { Ltx } from "../components/Latex";
+import {Ltx, LtxVariable} from "../components/Latex";
 
 export const OptionalTopic = (
   <TopicCard title={"Optional"} color={"rgba(0,255,255,0.25)"}>
@@ -804,7 +804,7 @@ export const InferenceRules = (
         <Pair
           item1={"Basic Format, premises on top must be true then e is true"}
         >
-          <Ltx>{"\\frac{p_1 \\cdots p_n}{e}"}</Ltx>
+          <Ltx bigFont>{"\\frac{p_1 \\cdots p_n}{e}"}</Ltx>
         </Pair>
       </li>
     </ul>
@@ -1094,3 +1094,35 @@ export const EvalImpl = (
     />
   </TopicCard>
 );
+
+export const References = <TopicCard title={"References"} color="rgba(244,10,0,0.3)">
+  <ul>
+      <li><Pair item1={"mutable type"}><OCaml code={`type t = { mutable i : int }`}/></Pair></li>
+      <li><Pair item1={"init"}><OCaml code={` let x = ref 0     let y = { i = 5 }`}/></Pair></li>
+      <li><Pair item1={"retrieval"}><OCaml code={`let val1 = !x      let val2 = y.i`}/></Pair></li>
+      <li><Pair item1={"assignment"}><OCaml code={`x:=9      y.i < -1`}/></Pair></li>
+  </ul>
+    <p>
+        We can imagine a type <Variable>T ref</Variable> as a tuple of a read and write func <Variable>{`(unit -> T) * (T -> unit)`}</Variable>
+    </p>
+</TopicCard>;
+
+    export const SubTypingTopic = <TopicCard title={"Subtyping"} color="rgba(244,10,0,0.1)">
+    <ul>
+        <ListPairItem item1={"Built-in Types"} item2={<p>eg. <Variable>{`int <= float`}</Variable></p>}/>
+        <ListPairItem item1={"Reflexivity"} item2={"Every item is its own subtype"}/>
+        <ListPairItem item1={"Transitivity"} item2={<Ltx>if \ S \leq T \  and \  T \leq U,  \ then  \ S \leq U</Ltx>}/>
+        <ListPairItem item1={"Product Types Covariant"} item2={<Variable>int * float ≤ float * float</Variable>}/>
+        <p>Functions</p>
+        <ListPairItem item1={"Covariant on output"} item2={<p><LtxVariable>{`T \\rightarrow \\textbf{int}`}</LtxVariable> ≤ <LtxVariable>{`T \\rightarrow \\textbf{float}`}</LtxVariable></p>}/>
+        <ListPairItem item1={"Contravariant on input"} item2={<p><LtxVariable>{`\\textbf{float} \\rightarrow T `}</LtxVariable> ≤ <LtxVariable>{`\\textbf{int} \\rightarrow T `}</LtxVariable></p>}/>
+        <ListPairItem item1={"& Both at once"} item2={<p><LtxVariable>{`\\textbf{float} \\rightarrow \\textbf{int} `}</LtxVariable> ≤ <LtxVariable>{`\\textbf{int} \\rightarrow \\textbf{float} `}</LtxVariable></p>}/>
+    </ul>
+        <DotDivider/>
+        <p>Whenever we see a subtype, the compiler adds a special casting function up which upcasts S to T</p>
+        <DotDivider/>
+        <ul>
+            <ListPairItem item1={"S-FN Subtyping rule"} item2={<Ltx bigFont>{`\\frac{T_1 \\leq S_1 \ \ \ \ \ S_2 \\leq T_2}{S_1 \\rightarrow S_2 \\leq T_1 \\rightarrow T_2}`}</Ltx> }/>
+        </ul>
+
+    </TopicCard>
