@@ -92,15 +92,16 @@ function App() {
             <div className={"slimBoiColumn"}>{Unification}</div>
       <div className={"slimBoiColumn"}>{FreeVariables}         {TypeInferenceForFun}
       </div>
-      <div className={"slimBoiColumn"}>
+      <div className={""}>
           {EvalImpl}
-          {TypeVariables}
+          {InfinteData}
+
       </div>
 
       <div className={"slimBoiColumn"}>
         {EvalTopic}
-        {SubTypingTopic}
-        {InfinteData}
+          {TypeVariables}
+          {SubTypingTopic}
       </div>
     </>
   );

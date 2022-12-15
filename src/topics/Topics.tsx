@@ -1182,7 +1182,7 @@ export const References = (
 );
 
 export const SubTypingTopic = (
-  <TopicCard title={"Subtyping"} color="rgba(244,10,0,0.1)">
+  <TopicCard title={"Subtyping"} color="rgba(24,129,10,0.1)">
     <ul>
       <ListPairItem
         item1={"Built-in Types"}
@@ -1425,10 +1425,6 @@ export const OCamlNotes = (
 
 export const InfinteData = (
   <TopicCard title={"Infinite Data"} color="rgba(255,0,0,1)">
-    <ul>
-      <ListPairItem item1={"Infinite data"} item2={"TODO"} />
-        <ListPairItem item1={"Suspension"} item2={"TODO"}/>
-    </ul>
       <OCaml code={`type 'a susp = Susp of (unit -> 'a)                         
 (* ways to get in and out *) 
 let delay (f:unit -> 'a) : 'a susp = Susp f (*get into the susp world*) (*unit -> 'a*)
