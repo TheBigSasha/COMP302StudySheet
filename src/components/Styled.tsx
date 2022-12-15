@@ -19,6 +19,21 @@ const MarginTextBottom = styled(MarginText)`
   left: auto;
 `;
 
+const MarginTextTR = styled(MarginText)`
+    top: 0;
+    right: 0;
+    left: auto;
+    bottom: auto;
+`;
+
+const MarginTextBL = styled(MarginText)`
+    top: auto;
+    right: auto;
+    left: 0;
+    bottom: 0;
+`;
+
+
 export const Divider = styled.hr`
   border: 0.5px solid rgba(0, 0, 0, 0.4);
   width: 100%;
@@ -44,13 +59,14 @@ export const PageBase: React.FC<
   <body className={printMode ? "printmode" : "noPrint"}>
     <MarginText className={"printonly"}>
       A monad is a monoid in the category of endofunctors | CPS can be expressed
-      as a monad | Monads are useful for handling side effects | Study Sheet
-      from https://thebigsasha.github.io/COMP302StudySheet
+      as a monad | Monads are useful for handling side effects
     </MarginText>
     {children}
     <MarginTextBottom className={"printonly"}>
       Made with ❤️ by sashaphoto.ca
     </MarginTextBottom>
+    <MarginTextBL className={"printonly"}>🐫 OCaml more like NO CAMEL ❌</MarginTextBL>
+    <MarginTextTR className={"printonly"}>Soruce: github/TheBigSasha/COMP302StudySheet</MarginTextTR>
   </body>
 );
 
