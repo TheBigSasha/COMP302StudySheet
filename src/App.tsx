@@ -850,7 +850,7 @@ const EvalImpl = <TopicCard title={"Evaluation Implementation"} color="rgba(10,2
 const PageBase: React.FC<React.PropsWithChildren<{}>> = ({children}) =>
     <body>
     <MarginText>
-        A monad is a monoid in the category of endofunctors | CPS can be expressed as a monad | Monads are useful for handling side effects
+        A monad is a monoid in the category of endofunctors | CPS can be expressed as a monad | Monads are useful for handling side effects | Study Sheet from https://thebigsasha.github.io/COMP302StudySheet
     </MarginText>
     {children}
     </body>
