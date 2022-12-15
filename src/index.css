@@ -204,4 +204,9 @@ pre {
     body{
         border: none;
     }
+
+    .never-print{
+        display: none;
+    }
 }
+

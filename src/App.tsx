@@ -4,7 +4,11 @@ import {TopicCard} from "./TopicCard";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/cjs/prism";
 import Latex from "react-latex";
 import styled from "styled-components";
-
+import {
+    Route,
+    Routes,
+    Link, Outlet
+} from "react-router-dom";
 const Pair = ({item1, children}: {item1: string, children: React.ReactNode}) => {
   return (
       <span className={"pair"}>
@@ -395,8 +399,7 @@ val fact_tr : int -> int = <fun>
     <p>Claim: forall n, fact n = fact_tr n</p>
     <p>Proof</p>
     <ul>
-        <li><Pair item1={`fact n`}>
-        </Pair></li>
+        <li><Pair item1={`fact n`}><></></Pair></li>
         <li><Pair item1={`= 1 * fact n`}>by algebra</Pair></li>
         <li><Pair item1={`= facti 1 n`}>by previous claim</Pair></li>
         <li><Pair item1={`= fact_tr n`}>by evaluation</Pair></li>
@@ -844,6 +847,14 @@ const EvalImpl = <TopicCard title={"Evaluation Implementation"} color="rgba(10,2
 </TopicCard>
 
 
+const PageBase: React.FC<React.PropsWithChildren<{}>> = ({children}) =>
+    <body>
+    <MarginText>
+        A monad is a monoid in the category of endofunctors | CPS can be expressed as a monad | Monads are useful for handling side effects
+    </MarginText>
+    {children}
+    </body>
+
 
 
 
@@ -904,16 +915,67 @@ function App() {
             {InferenceRules}
         </div>
         </>
-  return (
-      <body>
-      <MarginText>
-          A monad is a monoid in the category of endofunctors | CPS can be expressed as a monad | Monads are useful for handling side effects
-      </MarginText>
-      {/*TODO: Enhance on CPS*/}
-      {final}
-      {midterm}
-      </body>
-  );
+
+
+    const Final =        <PageBase>
+        {final}
+    </PageBase>
+    const Midterm =        <PageBase>
+        {midterm}
+    </PageBase>
+    const Home =  <div>
+
+        <h1>Welcome to the COMP302 Study sheet.</h1>
+        <p>This sheet is of extreme quality and density.</p>
+        <strong>This is a weirdly formatted page for a reason. The intended medium is PAPER. It is sized precisely so that it will print properly and preview as it will look on paper.</strong>
+        <h2>Instructions</h2>
+        <ol>
+            <li>Click on final or midterm</li>
+            <li>Print the webpage (letter size paper)</li>
+            <li>Profit</li>
+
+        </ol>
+                    <Link to="/midterm">Midterm</Link>
+                     <Link to="/final">Final</Link>
+
+
+
+    </div>
+
+        return (
+                <>
+                    <nav style={{position: "fixed", right: 0, top: 0, }} className={"never-print"} >
+                        <ul>
+                            <li>
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li>
+                                <Link to="/midterm">Midterm</Link>
+                            </li>
+                            <li>
+                                <Link to="/final">Final</Link>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+                    <Routes>
+                        <Route path="/" element={Home}>
+
+                        </Route>
+                        <Route path="/midterm" element={Midterm}>
+
+                        </Route>
+                        <Route path="/final" element={Final}>
+
+                        </Route>
+                    </Routes>
+                    <Outlet />
+
+                </>
+
+        );
 }
 
 export default App;
