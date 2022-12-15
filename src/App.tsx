@@ -605,12 +605,6 @@ const BasicSyntaxTopic = <TopicCard title={"Basic Syntax"} color="rgba(100,100,2
     </ul>
 </TopicCard>
 
-const LaTeXTestTopic = <TopicCard title={"LaTeX Test"} color="rgba(100,100,255,0.3)">
-    <Latex>Here is some math: $x^2 + y^2 = z^2$</Latex>
-    <Latex>{"Here is some more math: $\\frac{2}{3}$"}</Latex>
-    <Latex>{`$\\frac{e_1 \\downarrow \\textbf{true} \\ \\ e_2 \\downarrow v}{\\textbf{if} \\ e \\ \\textbf{then} e_1 \\textbf{else} e_2}$`}</Latex>
-</TopicCard>
-
 
 const InferenceRules = <TopicCard title={"Inference Rules"} color="rgba(100,100,255,0.3)">
     <ul>
@@ -917,6 +911,7 @@ function App() {
       </MarginText>
       {/*TODO: Enhance on CPS*/}
       {final}
+      {midterm}
       </body>
   );
 }
