@@ -24,6 +24,10 @@
   font-variant-ligatures: discretionary-ligatures contextual;
 }
 
+.printonly{
+  visibility: hidden;
+}
+
 @media not print {
   body {
     overflow: hidden;
@@ -51,6 +55,9 @@
     align-content: space-around;
     font-variant-ligatures: discretionary-ligatures contextual;
   }
+    .printonly{
+        visibility: visible;
+    }
 }
 
 

@@ -142,6 +142,11 @@ function App() {
                     Print Mode: {printMode ? "On" : "Off"}
                 </button>
             </li>
+            <li>
+                <button onClick={() => window.print()}>
+                    Print
+                </button>
+            </li>
         </ul>
       </nav>
 

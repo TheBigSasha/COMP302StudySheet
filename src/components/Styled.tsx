@@ -12,6 +12,13 @@ export const MarginText = styled.p`
   left: 0;
 `;
 
+const MarginTextBottom = styled(MarginText)`
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: auto;
+`
+
 export const Divider = styled.hr`
   border: 0.5px solid rgba(0, 0, 0, 0.4);
   width: 100%;
@@ -36,12 +43,15 @@ export const PageBase: React.FC<React.PropsWithChildren<{printMode?: boolean}>> 
                                                                                        printMode
 }) => (
   <body className={printMode ? "printmode" : "noPrint"}>
-    <MarginText>
+    <MarginText className={"printonly"}>
       A monad is a monoid in the category of endofunctors | CPS can be expressed
       as a monad | Monads are useful for handling side effects | Study Sheet
       from https://thebigsasha.github.io/COMP302StudySheet
     </MarginText>
     {children}
+    <MarginTextBottom className={"printonly"}>
+        Made with ❤️ by sashaphoto.ca
+    </MarginTextBottom>
   </body>
 );
 
