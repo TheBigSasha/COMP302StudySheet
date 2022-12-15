@@ -38,6 +38,7 @@ jobs:
         with:
             node-version: ${{ matrix.node-version }}
       - run: npm install
+      - run: npm i react-scripts
       - run: react-scripts build
       - name: Setup Pages
         uses: actions/configure-pages@v2
