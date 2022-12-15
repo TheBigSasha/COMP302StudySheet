@@ -26,6 +26,7 @@ import {
   Unification,
 } from "./topics/Topics";
 import { PageBase } from "./components/Styled";
+import {Helmet} from "react-helmet";
 
 function App() {
   const midterm = (
@@ -105,7 +106,13 @@ function App() {
 
   return (
     <>
-      <nav
+        <Helmet>
+            <title>COMP302 Study Sheet</title>
+            <meta name="description" content="COMP302 Study Sheet by TheBigSasha, with some insane density of information, syntax highlighting, and more!" />
+        </Helmet>
+
+
+        <nav
         style={{ position: "fixed", right: 0, top: 0 }}
         className={"never-print"}
       >
