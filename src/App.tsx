@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./App.css";
 import { Route, Routes, Link, Outlet } from "react-router-dom";
 import {
@@ -29,7 +29,10 @@ import { PageBase } from "./components/Styled";
 import {Helmet} from "react-helmet";
 
 function App() {
-  const midterm = (
+    const [printMode, setPrintMode] = useState<boolean>(true);
+
+
+    const midterm = (
     <>
       <div className={"slimmerBoiColumn"}>
         {ListHOFTopic}
@@ -88,8 +91,8 @@ function App() {
     </>
   );
 
-  const Final = <PageBase>{final}</PageBase>;
-  const Midterm = <PageBase>{midterm}</PageBase>;
+  const Final = <PageBase printMode={printMode}>{final}</PageBase>;
+  const Midterm = <PageBase printMode={printMode}>{midterm}</PageBase>;
   const Home = (
     <div>
       <h1>Welcome to the COMP302 Study sheet.</h1>
@@ -110,6 +113,7 @@ function App() {
     </div>
   );
 
+
   return (
     <>
         <Helmet>
@@ -120,8 +124,9 @@ function App() {
 
         <nav
         style={{ position: "fixed", right: 0, top: 0 }}
-        className={"never-print"}
+        className={"card never-print"}
       >
+            <h3>Controls</h3>
         <ul>
           <li>
             <Link to="/">Home</Link>
@@ -132,6 +137,11 @@ function App() {
           <li>
             <Link to="/final">Final</Link>
           </li>
+            <li>
+                <button onClick={() => setPrintMode(!printMode)}>
+                    Print Mode: {printMode ? "On" : "Off"}
+                </button>
+            </li>
         </ul>
       </nav>
 

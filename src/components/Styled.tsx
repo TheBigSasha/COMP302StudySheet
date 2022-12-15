@@ -31,10 +31,11 @@ export const Variable = styled.code`
   display: inline-block !important;
 `;
 
-export const PageBase: React.FC<React.PropsWithChildren<{}>> = ({
+export const PageBase: React.FC<React.PropsWithChildren<{printMode?: boolean}>> = ({
   children,
+                                                                                       printMode
 }) => (
-  <body>
+  <body className={printMode ? "printmode" : "noPrint"}>
     <MarginText>
       A monad is a monoid in the category of endofunctors | CPS can be expressed
       as a monad | Monads are useful for handling side effects | Study Sheet
@@ -43,3 +44,7 @@ export const PageBase: React.FC<React.PropsWithChildren<{}>> = ({
     {children}
   </body>
 );
+
+PageBase.defaultProps = {
+    printMode: true
+}
