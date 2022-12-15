@@ -6,6 +6,8 @@ import { customStyle, OCaml } from "../components/OCaml";
 import { Divider, DotDivider, Variable } from "../components/Styled";
 import { Ltx, LtxVariable } from "../components/Latex";
 
+const eqArrow = "=>";
+
 export const OptionalTopic = (
   <TopicCard title={"Optional"} color={"rgba(0,255,255,0.25)"}>
     <ul>
@@ -1321,8 +1323,85 @@ export const FreeVariables = (
         }
       />
     </ul>
+      <DotDivider/>
+      <p>Context, written as <LtxVariable>{`\\Gamma`}</LtxVariable> contains pairs of <Variable>name * type</Variable> which can be read from a list with <Variable>List.assoc name listVar</Variable> It can be said that <Variable>e</Variable> has a type <Variable>T</Variable> given context <LtxVariable>{`\\Gamma`}</LtxVariable> if <LtxVariable>{`\\Gamma \\vdash e : T`}</LtxVariable></p>
+      <ul>
+<ListPairItem
+        item1={"T-FN w/ context"}
+        item2={
+            <Ltx bigFont>{`\\frac{\\Gamma, \\   x \\ : \\ T_1 \\  \\vdash \\ \\ e \\  \\ : T_2}{\\Gamma \\ \\vdash \\ \\textbf{fn} \\ \\  x \\rightarrow e\\ \\  : \\ \\ \\  T_1 \\rightarrow T_2}`}</Ltx>
+        }
+        />
+
+          <ListPairItem
+              item1={"T-APP w/ context"}
+              item2={
+                  <Ltx bigFont>{`\\frac{\\Gamma  \\ \\vdash \\ \\ e_1 \\  \\ : T_2 \\rightarrow T \\ \\ \\ \\ \\ \\ \\Gamma \\  \\vdash e_2 : T_2}{\\Gamma \\ \\vdash e_1 \\ e_2 \\ : T}`}</Ltx>
+              }
+          />
+      </ul>
   </TopicCard>
 );
+
+export const TypeVariables = <TopicCard title={"Type Variables"} color="rgba(244,10,0,0.1)">
+   <p>A type substitution can be denoted with <LtxVariable>\sigma</LtxVariable>. Saying <LtxVariable>[\sigma]\Gamma \ \vdash e : [\sigma]T</LtxVariable> is saying that with the substitution <LtxVariable>\sigma</LtxVariable>, the type of <LtxVariable>e</LtxVariable> is <LtxVariable>T</LtxVariable></p>
+    <ul>
+<ListPairItem
+        item1={<Variable><Ltx>\vdash</Ltx> fn x {eqArrow} x</Variable>}
+        item2={
+            <Ltx>\alpha \rightarrow \alpha</Ltx>
+        }
+        />
+        <ListPairItem
+            item1={<Variable><Ltx>\vdash</Ltx> fn f {eqArrow} fn x {eqArrow} f(f(x))</Variable>}
+            item2={
+                <Ltx>(\alpha \rightarrow \alpha) \rightarrow \alpha \rightarrow \alpha</Ltx>
+            }
+        />
+        <ListPairItem
+            item1={<Variable><Ltx>x : \alpha \vdash</Ltx> fn f {eqArrow} f x</Variable>}
+            item2={
+                <Ltx>(\alpha \rightarrow \beta) \rightarrow \beta</Ltx>
+            }
+        />
+    </ul>
+    <DotDivider/>
+    <p><strong>Damas-H.M.</strong> Style Type Inference</p>
+    <ol>
+        <li>Analyze <LtxVariable>e</LtxVariable> as above given type rules</li>
+        <li>Create an arbitrary type <LtxVariable>\alpha</LtxVariable> and add constraints recursively</li>
+        <li><LtxVariable>T</LtxVariable> is a type skeleton which may contain type variables</li>
+        <li>Solve the constraints to generate a substitution <LtxVariable>\sigma</LtxVariable>.</li>
+        <li>Failing to solve constraints means badly typed. Else e has a type <LtxVariable>[\sigma]T</LtxVariable></li>
+    </ol>
+    <p>Example: <Variable>fn x {eqArrow} fn y {eqArrow} if x then y else 2 + 2</Variable></p>
+    <ol>
+        <li>Start inner-most <Variable>if x then y else 2 + 2 </Variable> -- arbitrary types: <LtxVariable>x : \alpha</LtxVariable> <LtxVariable>y: \beta</LtxVariable></li>
+        <li>Constraints: <LtxVariable>x</LtxVariable> is an if condition thus <LtxVariable>{`\\alpha = \\textbf{bool}`}</LtxVariable></li>
+        <li>Infer <Variable>2 + 2 </Variable> has type <Variable>Int</Variable>, and by if rules, <LtxVariable>{`\\beta = \\textbf{int}`}</LtxVariable></li>
+        <li><LtxVariable>\alpha \rightarrow \beta \rightarrow \beta</LtxVariable> given <LtxVariable>{`\\alpha = \\textbf{bool}`}</LtxVariable> and  <LtxVariable>{`\\beta = \\textbf{int}`}</LtxVariable>;  <LtxVariable>{`\\textbf{bool} \\rightarrow \\textbf{int} \\rightarrow \\textbf{int}`}</LtxVariable></li>
+    </ol>
+    <ul>
+        <ListPairItem
+            item1={<Variable>fn x {eqArrow} x + 1</Variable>}
+            item2={
+                <Ltx>{`\\alpha \\rightarrow \\textbf{int} / \\{\\alpha = \\textbf{int}\\}`}</Ltx>
+            }/>
+        <ListPairItem
+            item1={<>Badly typed <Variable>fn x {eqArrow} if x then x + 1 else 2</Variable></>}
+            item2={
+                <Ltx>{`.../ \\{\\alpha = \\textbf{bool}, \\alpha = \\textbf{int}\\}`}</Ltx>
+            }/>
+        <ListPairItem
+            item1={<Variable>fn f {eqArrow} fn x {eqArrow} f (f x)</Variable>}
+            item2={
+                <Ltx>{`.../ \\{\\alpha = \\beta \\rightarrow \\alpha_0, \\alpha = \\alpha_0 \\rightarrow \\alpha_1\\}`}</Ltx>
+            }/>
+    </ul>
+    <p>Unification</p>
+    <p>Two types are unifiable if a <LtxVariable>\sigma</LtxVariable> exists where <LtxVariable>[\sigma]T_1 = [\sigma]T_2</LtxVariable></p>
+
+</TopicCard>
 
 export const OCamlNotes = (
   <TopicCard title={"OCaml Notes"} color="rgba(10,0,244,0.1)">

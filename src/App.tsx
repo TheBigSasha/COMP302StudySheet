@@ -2,34 +2,34 @@ import React, { useState } from "react";
 import "./App.css";
 import { Route, Routes, Link, Outlet } from "react-router-dom";
 import {
-  BasicSyntaxTopic,
-  ChurchTopic,
-  CodeExamples,
-  CoinSort,
-  CPSTopic,
-  CurryTopic,
-  EvalImpl,
-  EvalTopic,
-  FreeVariables,
-  HOFTopic,
-  InferCode,
-  InferenceRules,
-  InfinteData,
-  LazyTopic,
-  ListHOFTopic,
-  ListOperationsTopic,
-  MathTopic,
-  OCamlNotes,
-  OptionalTopic,
-  PartialEvaluation,
-  ProofTopic,
-  References,
-  SubTypingTopic,
-  TuplesTopic,
-  TypeInferenceForFun,
-  TypeInferenceTopic,
-  TypesTopic,
-  Unification,
+    BasicSyntaxTopic,
+    ChurchTopic,
+    CodeExamples,
+    CoinSort,
+    CPSTopic,
+    CurryTopic,
+    EvalImpl,
+    EvalTopic,
+    FreeVariables,
+    HOFTopic,
+    InferCode,
+    InferenceRules,
+    InfinteData,
+    LazyTopic,
+    ListHOFTopic,
+    ListOperationsTopic,
+    MathTopic,
+    OCamlNotes,
+    OptionalTopic,
+    PartialEvaluation,
+    ProofTopic,
+    References,
+    SubTypingTopic,
+    TuplesTopic,
+    TypeInferenceForFun,
+    TypeInferenceTopic,
+    TypesTopic, TypeVariables,
+    Unification,
 } from "./topics/Topics";
 import { PageBase } from "./components/Styled";
 import { Helmet } from "react-helmet";
@@ -87,6 +87,7 @@ function App() {
       <div className={"slimBoiColumn"}>{FreeVariables}</div>
       <div className={"slimBoiColumn"}>
         {EvalImpl}
+          {TypeVariables}
         {PartialEvaluation}
       </div>
 

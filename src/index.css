@@ -195,6 +195,19 @@ ul {
   width: 100%;
 }
 
+ol {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  list-style-position: inside;
+}
+
+ol > li {
+  margin: 0;
+  padding: 0;
+  border-block-start: 1px solid rgba(0,0,0,0.05);
+  border-radius: 2px;
+}
 code {
   display: inline;
   font-family: "JetBrains Mono", monospace;
