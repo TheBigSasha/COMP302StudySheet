@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "McGill COMP302 Study Sheet",
+  "name": "The ultimate cribsheet for COMP302 - Programming Languages at McGill university",
   "icons": [
     {
       "src": "favicon.ico",
