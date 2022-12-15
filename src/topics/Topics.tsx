@@ -811,11 +811,7 @@ export const BasicSyntaxTopic = (
   </TopicCard>
 );
 
-export const ExecutionBNFTopic = (
-  <TopicCard title={"Backus-Naur Form"} color="rgba(100,100,255,0.3)">
-    <ul></ul>
-  </TopicCard>
-);
+
 
 export const InferenceRules = (
   <TopicCard title={"Backus Naur Form - Exec"} color="rgba(100,100,255,0.3)">
@@ -849,6 +845,15 @@ export const InferenceRules = (
           }
         />
       </li>
+        <p>Let, Apply <i>(incl Substitution)</i></p>
+        <ListPairItem item1={<>B-LET</>} item2={<Ltx bigFont>{`\\frac{e_1 \\downarrow v_1 \\ \\ \\ [v_1 / x] e_2 \\downarrow v}{\\textbf{let} \\ x = e_1 \\ \\textbf{in} \\ e_2 \\ \\textbf{end} \\ \\downarrow v}`}</Ltx>}/>
+        <ListPairItem item1={<>B-APP</>} item2={
+            <Ltx bigFont>
+                {`\\frac
+                {e_1 \\downarrow \\textbf{fn} x \\rightarrow e \\ \\ \\ \\ \\ e_2 \\downarrow v_2 \\ \\ \\ \\ \\ [v_2 / x] e \\downarrow v}
+                {e_1 \\ e_2 \\ \\downarrow v}`}
+            </Ltx>
+        }/>
     </ul>
     <Divider />
     Every sub expression of the main one on the above line of the inference rule
@@ -1343,6 +1348,7 @@ export const InfinteData = (
   <TopicCard title={"Infinite Data"} color="rgba(255,0,0,1)">
     <ul>
       <ListPairItem item1={"Infinite data"} item2={"TODO"} />
+        <ListPairItem item1={"Suspension"} item2={"TODO"}/>
     </ul>
   </TopicCard>
 );
