@@ -9,14 +9,14 @@ import {
     CPSTopic,
     CurryTopic,
     EvalImpl,
-    EvalTopic,
+    EvalTopic, FreeVariables,
     HOFTopic,
     InferCode,
     InferenceRules,
     LazyTopic,
     ListHOFTopic,
     ListOperationsTopic,
-    MathTopic,
+    MathTopic, OCamlNotes,
     OptionalTopic,
     ProofTopic, References, SubTypingTopic,
     TuplesTopic,
@@ -35,7 +35,8 @@ function App() {
     const midterm = (
     <>
       <div className={"slimmerBoiColumn"}>
-        {ListHOFTopic}
+          {OCamlNotes}
+          {ListHOFTopic}
         {BasicSyntaxTopic}
         {HOFTopic}
         {TuplesTopic}
@@ -85,6 +86,7 @@ function App() {
         {LazyTopic}
         {TypeInferenceForFun}
           {SubTypingTopic}
+          {FreeVariables}
       </div>
 
 

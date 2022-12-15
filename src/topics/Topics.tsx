@@ -797,8 +797,16 @@ export const BasicSyntaxTopic = (
   </TopicCard>
 );
 
+export const ExecutionBNFTopic = (
+    <TopicCard title={"Backus-Naur Form"} color="rgba(100,100,255,0.3)">
+        <ul>
+
+        </ul>
+    </TopicCard>
+);
+
 export const InferenceRules = (
-  <TopicCard title={"Inference Rules"} color="rgba(100,100,255,0.3)">
+  <TopicCard title={"Backus Naur Form - Exec"} color="rgba(100,100,255,0.3)">
     <ul>
       <li>
         <Pair
@@ -807,7 +815,26 @@ export const InferenceRules = (
           <Ltx bigFont>{"\\frac{p_1 \\cdots p_n}{e}"}</Ltx>
         </Pair>
       </li>
+
+          <Variable>if...then...else</Variable>
+        <li>
+          <ListPairItem item1={"B_IFTRUE"} item2={<Ltx bigFont>{`\\frac{e_1 \\downarrow \\textbf{true} \\ \\ \\ \\ e_2 \\downarrow v}{\\textbf{if} \\ e \\  \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2}`}</Ltx>}/>
+        </li>
+        <li>
+          <ListPairItem item1={"B_IFFALSE"} item2={<Ltx bigFont>{`\\frac{e_1 \\downarrow \\textbf{false} \\ \\ \\ \\ e_3 \\downarrow v}{\\textbf{if} \\ e \\  \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2}`}</Ltx>}/>
+        </li>
     </ul>
+      <Divider/>
+       Every sub expression of the main one on the above line of the inference rule recursively, in the same form as the call tree of the function (see IntelliJ debugger) → that is a proof
+      <Divider/>
+      <p>Question: execute</p>
+      <Ltx>
+          {`\\frac{}{\\textbf{if} \\ ((4-1)\\lt6) \\ \\textbf{then} \\ 3 + 2 \\ \\textbf{else} \\ 4 }`}
+      </Ltx>
+      <p>Answer:</p>
+      <Ltx bigFont>
+          {`\\frac{\\frac{\\frac{\\frac{}{4 \\downarrow 4} \\ \\frac{}{1 \\downarrow 1}}{4 - 1 \\downarrow 3}}{((4 - 1) \\lt 6) \\downarrow \\textbf{true}} \\ \\ \\ \\frac{\\frac{}{3 \\downarrow 3} \\ \\  \\frac{}{2 \\downarrow 2}}{(3 + 2) \\downarrow 5}}{\\textbf{if} \\ ((4-1)\\lt6) \\ \\textbf{then} \\ 3 + 2 \\ \\textbf{else} \\ 4 \\downarrow 5}`}
+      </Ltx>
   </TopicCard>
 );
 
@@ -1117,6 +1144,7 @@ export const References = <TopicCard title={"References"} color="rgba(244,10,0,0
         <ListPairItem item1={"Covariant on output"} item2={<p><LtxVariable>{`T \\rightarrow \\textbf{int}`}</LtxVariable> ≤ <LtxVariable>{`T \\rightarrow \\textbf{float}`}</LtxVariable></p>}/>
         <ListPairItem item1={"Contravariant on input"} item2={<p><LtxVariable>{`\\textbf{float} \\rightarrow T `}</LtxVariable> ≤ <LtxVariable>{`\\textbf{int} \\rightarrow T `}</LtxVariable></p>}/>
         <ListPairItem item1={"& Both at once"} item2={<p><LtxVariable>{`\\textbf{float} \\rightarrow \\textbf{int} `}</LtxVariable> ≤ <LtxVariable>{`\\textbf{int} \\rightarrow \\textbf{float} `}</LtxVariable></p>}/>
+        <ListPairItem item1={"Reference"} item2={<p>Apply fn rules on read and write <LtxVariable>{`(\\textbf{unit} \\rightarrow T) * (T \\rightarrow \\textbf{unit})`}</LtxVariable></p>}/>
     </ul>
         <DotDivider/>
         <p>Whenever we see a subtype, the compiler adds a special casting function up which upcasts S to T</p>
@@ -1126,3 +1154,19 @@ export const References = <TopicCard title={"References"} color="rgba(244,10,0,0
         </ul>
 
     </TopicCard>
+
+export const FreeVariables = <TopicCard title={"Free Variables"} color="rgba(244,10,0,0.1)">
+    <ul>
+        <ListPairItem item1={"FV(x)"} item2={<Ltx>{`\\{x\\}`}</Ltx>}/>
+        <ListPairItem item1={"FV(e1 op e2)"} item2={<Ltx>{`\\textbf{FV}(e_1) \\cup \\textbf{FV}(e_2)`}</Ltx>}/>
+        <ListPairItem item1={"FV(if e then e1 else e2)"} item2={<Ltx>{`\\textbf{FV}(e) \\cup \\textbf{FV}(e_1) \\cup \\textbf{FV}(e_2)`}</Ltx>}/>
+        <ListPairItem item1={"FV(let x = e1 in e2 end)"} item2={<Ltx>{`\\textbf{FV}(e_1) \\cup (\\textbf{FV}(e_2) \\backslash \\{x\\})`}</Ltx>}/>
+    </ul>
+</TopicCard>
+
+export const OCamlNotes = <TopicCard title={"OCaml Notes"} color="rgba(10,0,244,0.1)">
+    <ul>
+        <ListPairItem item1={"Functions are lazy"} item2={"functions not exec'd until needed"}/>
+        <ListPairItem item1={"Functions are right associative"} item2={<p><Variable>{`fun a -> fun b -> fun c`}</Variable> = <Variable>{`fun a -> (fun b -> fun c)`}</Variable></p>}/>
+    </ul>
+</TopicCard>

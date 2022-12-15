@@ -4,7 +4,7 @@ import {Variable} from "./Styled";
 
 export const Ltx = (x: { children: string, bigFont?: boolean }) => {
   return (
-    <span style={{ fontSize: x.bigFont ? 12 : 6 }}>
+    <span style={{ fontSize: x.bigFont ? 10 : 6, marginBottom: x.bigFont ? 3 : 0 }}>
       <Latex>{`$${x.children}$`}</Latex>
     </span>
   );
