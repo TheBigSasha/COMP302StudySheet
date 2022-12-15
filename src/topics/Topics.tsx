@@ -1292,6 +1292,14 @@ export const FreeVariables = (
         item1={<Ltx>{`[e' / x](e_1 \\ \\textbf{op} \\ e_2)`}</Ltx>}
         item2={<Ltx>{`[e' / x]e_1 \\ \\textbf{op} \\ [e' / x]e_2`}</Ltx>}
       />
+        <ListPairItem
+            item1={<Ltx>{`[e' / x](\\textbf{if} \\ e \\ \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2)`}</Ltx>}
+            item2={<Ltx>{`\\textbf{if} \\ [e' / x]e \\ \\textbf{then} \\ [e' / x]e_1 \\ \\textbf{else} \\ [e' / x]e_2`}</Ltx>}
+        />
+        <ListPairItem
+            item1={<Ltx>{`[e' / x](\\textbf{let} \\ y = e_1 \\ \\textbf{in} \\ e_2 \\ \\textbf{end})`}</Ltx>}
+            item2={<><Ltx>{`\\textbf{let} \\ y = [e' / x]e_1 \\ \\textbf{in} \\ [e' / x]e_2 \\ \\textbf{end}`}</Ltx><p> provided that <Ltx>{`x \\neq y \\ \\& \\ y \\not\\in \\textbf{FV}(e')`}</Ltx></p></>}
+        />
     </ul>
   </TopicCard>
 );
