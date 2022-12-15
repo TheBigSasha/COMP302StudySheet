@@ -1,7 +1,7 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css";
 :root {
   --numcols: 4;
-  --font-size: 9px;
+  --font-size: 8px;
 }
 
 .printmode {
@@ -24,38 +24,19 @@
   font-variant-ligatures: discretionary-ligatures contextual;
 }
 
+
 .printonly {
   visibility: hidden;
 }
 
-@media not print {
-  body {
-    overflow: hidden;
-  }
-}
 
 @media print {
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-      "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    width: 11in;
-    height: 8.5in;
-    border: 1px solid black;
-    font-size: 8px;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-content: space-around;
-    font-variant-ligatures: discretionary-ligatures contextual;
-  }
   .printonly {
     visibility: visible;
+  }
+
+  .printmode {
+    border: none;
   }
 }
 
@@ -271,7 +252,23 @@ pre {
 
 @media print {
   body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 11in;
+    height: 8.5in;
     border: none;
+    font-size: 8px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: space-around;
+    font-variant-ligatures: discretionary-ligatures contextual;
   }
 
   .never-print {

@@ -49,7 +49,7 @@ function App() {
         {ListOperationsTopic}
       </div>
       <div className={"slimBoiColumn"}>
-        {MathTopic}
+          {MathTopic}
         {ProofTopic}
       </div>
       <div className={"slimBoiColumn"}>
@@ -60,7 +60,8 @@ function App() {
       {CoinSort}
 
       <div className={"slimmerBoiColumn"} style={{ height: "100%" }}>
-        {OptionalTopic}
+          {References}
+          {OptionalTopic}
         {ChurchTopic}
         {TypesTopic}
       </div>
@@ -80,7 +81,6 @@ function App() {
     <>
       <div className={"slimmerBoiColumn"}>
           {InferenceRules}
-        {References}
         {InferCode}
       </div>
         <div className={"slimmerBoiColumn"}>
