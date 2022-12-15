@@ -21,18 +21,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    runs-on: self-hosted
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x, 14.x]
-
   # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
