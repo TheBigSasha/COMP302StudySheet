@@ -5,11 +5,12 @@ import { ListPairItem, Pair } from "../components/Pair";
 import { customStyle, OCaml } from "../components/OCaml";
 import { Divider, DotDivider, Variable } from "../components/Styled";
 import { Ltx, LtxVariable } from "../components/Latex";
+import Latex from "react-latex";
 
 const eqArrow = "=>";
 
 export const OptionalTopic = (
-  <TopicCard title={"Optional"} color={"rgba(0,255,255,0.25)"}>
+  <TopicCard title={"Optional"} color={"rgba(0,255,255,0.1)"}>
     <ul>
       <li>
         <Pair item1={"Optional int 42"}>
@@ -54,7 +55,7 @@ export const OptionalTopic = (
 );
 
 export const CodeExamples = (
-  <TopicCard title={"Code Examples"} color={"rgba(255,128,0,0.25)"}>
+  <TopicCard title={"Code Examples"} color={"rgba(255,128,0,0.1)"}>
     <h4>Conversion to CPS</h4>
     <span className={"twoCol"}>
       {" "}
@@ -161,7 +162,7 @@ let rec scan_left (f : 'b -> 'a -> 'b) (acc : 'b) (l : 'a list) : 'b list =
 );
 
 export const CoinSort = (
-  <TopicCard title={"Coin Sort"} color={"rgba(139,147,26,0.34)"}>
+  <TopicCard title={"Coin Sort"} color={"rgba(139,147,26,0.1)"}>
     <OCaml
       code={`(*list of coins, amount to make with those
     coins, return the sequence of coin added to the amount*)
@@ -269,7 +270,7 @@ export const MathTopic = (
 );
 
 export const TypesTopic = (
-  <TopicCard title={"Generic Types"} color={"rgba(98,231,191,0.3)"}>
+  <TopicCard title={"Generic Types"} color={"rgba(98,231,191,0.1)"}>
     <p>The use of ‘ before a variable name denotes a generic type.</p>
     <SyntaxHighlighter language="ocaml" customStyle={customStyle}>
       {`map ('a -> 'b) -> 'a list -> 'b list`}
@@ -296,7 +297,7 @@ export const TypesTopic = (
 );
 
 export const TuplesTopic = (
-  <TopicCard title={"Tuples"} color={"rgba(234,255,1,0.29)"}>
+  <TopicCard title={"Tuples"} color={"rgba(234,255,1,0.1)"}>
     <OCaml
       code={`let minmax (a, b) : float * float =
   if a < b then (a, b) else (b, a)`}
@@ -306,7 +307,7 @@ export const TuplesTopic = (
 );
 
 export const CurryTopic = (
-  <TopicCard title={"Currying"} color={"rgba(150,231,98,0.3)"}>
+  <TopicCard title={"Currying"} color={"rgba(150,231,98,0.1)"}>
     <caption>simple add function in OCaml which is CURRIED</caption>
     <OCaml
       code={`(* val add : int -> int -> int = <fun> *)
@@ -336,7 +337,7 @@ let add = fun (z : int * int) -> match z with (x, y) -> x + y`}
 );
 
 export const ListOperationsTopic = (
-  <TopicCard title={"List Operations"} color={"rgba(130,0,0,0.4)"}>
+  <TopicCard title={"List Operations"} color={"rgba(130,0,0,0.1)"}>
     <caption>
       Lists are comprehended with head and tail; first item and rest of list,
       deconstructed from a tuple.
@@ -376,7 +377,7 @@ export const ListOperationsTopic = (
   </TopicCard>
 );
 export const ListHOFTopic = (
-  <TopicCard title={"List Operations HOF"} color="rgba(255,0,0,0.3)">
+  <TopicCard title={"List Operations HOF"} color="rgba(255,0,0,0.1)">
     <ul>
       <li>
         <Pair item1={"List.map"}>{`(’a −> ’b) −> ’a list −> ’b list`}</Pair>
@@ -436,7 +437,7 @@ match list with
 );
 
 export const ProofTopic = (
-  <TopicCard title={"Proofs"} color="rgba(0,255,0,0.3)">
+  <TopicCard title={"Proofs"} color="rgba(0,255,0,0.1)">
     <h4>Lemmas</h4>
     <ul>
       <li>
@@ -566,7 +567,7 @@ thus the 2 fold_rights above are equivalent.`}
   </TopicCard>
 );
 export const HOFTopic = (
-  <TopicCard title={"Higher Order Functions"} color="rgba(0,255,255,0.3)">
+  <TopicCard title={"Higher Order Functions"} color="rgba(0,255,255,0.1)">
     <h4>Binary Tree HOFs</h4>
     operations on lists (List.map, List.fold_left, List.for_all, ...), church
     numerals, church-encoded option, defining HOFs for new data types such as
@@ -575,7 +576,7 @@ export const HOFTopic = (
 );
 
 export const ChurchTopic = (
-  <TopicCard title={"Church Encoding"} color="rgba(255,0,255,0.3)">
+  <TopicCard title={"Church Encoding"} color="rgba(255,0,255,0.1)">
     <caption>
       Sample Question: Suppose {`n : 'b -> ('b -> 'b) -> 'b`} is a church
       numeral. What is this in math?
@@ -655,7 +656,7 @@ export const ChurchTopic = (
 );
 
 export const CPSTopic = (
-  <TopicCard title={"Continuation Passing Style"} color="rgba(0,0,255,0.3)">
+  <TopicCard title={"Continuation Passing Style"} color="rgba(0,0,255,0.1)">
     <caption>
       CPS makes explicit notions of temporary variables and order of operations!
       It allows for exceptions, backtracking, generators, & more.
@@ -765,7 +766,7 @@ let inc_cps (x : int) (c : int -> int) : int = c (x + 1)`}
 );
 
 export const BasicSyntaxTopic = (
-  <TopicCard title={"Basic Syntax"} color="rgba(100,100,255,0.3)">
+  <TopicCard title={"Basic Syntax"} color="rgba(100,100,255,0.1)">
     <ul>
       <li>
         <Pair item1={"Floating Point Math"}>+. -. /. *.</Pair>
@@ -816,7 +817,7 @@ export const BasicSyntaxTopic = (
 
 
 export const InferenceRules = (
-  <TopicCard title={"Backus Naur Form - Exec"} color="rgba(100,100,255,0.3)">
+  <TopicCard title={"Backus Naur Form - Exec"} color="rgba(100,100,255,0.1)">
     <ul>
       <li>
         <Pair
@@ -874,11 +875,11 @@ export const InferenceRules = (
 );
 
 export const LazyTopic = (
-  <TopicCard title={"Lazy vs Eager Evaluation"} color="rgba(100,0,0,0.3)">
+  <TopicCard title={"Lazy vs Eager Evaluation"} color="rgba(100,0,0,0.1)">
     <ul>
       <li>
         <Pair item1={"Lazy"}>
-          evaluate only when needed (call by reference)
+          evaluate only when needed (call by need)
         </Pair>
       </li>
       <li>
@@ -925,7 +926,7 @@ export const LazyTopic = (
 );
 
 export const EvalTopic = (
-  <TopicCard title={"Evaluation"} color="rgba(10,24,100,0.3)">
+  <TopicCard title={"Evaluation"} color="rgba(10,24,100,0.1)">
     <p>
       The function <Variable>eval</Variable> requires some types and setup
       first.
@@ -957,7 +958,7 @@ type env = (name * exp) list (*map of names to their values,
 );
 
 export const TypeInferenceForFun = (
-  <TopicCard title={"Type Inference for Functions"} color="rgba(10,24,100,0.3)">
+  <TopicCard title={"Type Inference for Functions"} color="rgba(10,24,100,0.1)">
     <OCaml
       code={`type ctx = list (name * typ)
 let rec eval (g: ctx) (e: exp): exp = function
@@ -974,7 +975,7 @@ let rec eval (g: ctx) (e: exp): exp = function
 );
 
 export const Unification = (
-  <TopicCard title={"Unification"} color="rgba(10,24,100,0.3)">
+  <TopicCard title={"Unification"} color="rgba(10,24,100,0.1)">
     <p>
       Unification is the process of finding a substitution that makes two types
       equal.
@@ -1043,7 +1044,7 @@ export const Unification = (
 export const InferCode = (
   <TopicCard
     title={"Type Inference Implementation"}
-    color="rgba(10,24,100,0.3)"
+    color="rgba(10,24,100,0.1)"
   >
     <OCaml
       code={`let rec infer ctx e =
@@ -1099,7 +1100,7 @@ and check ctx exps tps result =
 );
 
 export const EvalImpl = (
-  <TopicCard title={"Evaluation Implementation"} color="rgba(10,24,100,0.3)">
+  <TopicCard title={"Evaluation Implementation"} color="rgba(10,24,100,0.1)">
     <OCaml
       code={`let rec eval exp =
   match exp with
@@ -1151,7 +1152,7 @@ export const EvalImpl = (
 );
 
 export const References = (
-  <TopicCard title={"References"} color="rgba(244,10,0,0.3)">
+  <TopicCard title={"References"} color="rgba(244,10,0,0.1)">
     <ul>
       <li>
         <Pair item1={"mutable type"}>
@@ -1259,11 +1260,21 @@ export const SubTypingTopic = (
         }
       />
     </ul>
+      <Divider/>
+      {/* @ts-ignore  TODO: file a bug report with React-LaTeX about maxSize prop, the string works fine here*/}
+      <Latex maxSize={"100%"}>
+          {`$\\dfrac{\\Gamma \\vdash e_1: T_1 \\times T_2 \\quad \\Gamma, x: T_1, y: T_2, \\vdash e_2: T}{\\Gamma \\vdash \\text{ let } (x, y) = e_1 \\text{ in } e_2 \\text{ end}: T}$, T-LET-MATCH`}
+      </Latex>
+      {/* @ts-ignore */}
+      <Latex maxSize={"100%"}>{`$\\Gamma \\vdash e \\Rightarrow T/C$ : Infer type $T$ for expression $e$ in the typing environment $\\Gamma$ module the constraints $C$
+$\\dfrac{x : T \\in \\Gamma}{\\Gamma \\vdash x \\Rightarrow T/\\emptyset}$ B-VAR
+$\\dfrac{\\Gamma \\vdash \\Rightarrow T/C \\quad \\Gamma \\vdash e_1 \\Rightarrow T_1/C_1 \\quad \\Gamma \\vdash e_2 \\Rightarrow T_2/C_2}{\\Gamma \\vdash \\text{if } e \\text{ then } e_1 \\text{ else } e_2 \\Rightarrow T_1/C \\cup C_1 \\cup C_2 \\cup \\{T = \\text{bool, } T_1 = T_2\\}}$ B-IF
+`}</Latex>
   </TopicCard>
 );
 
 export const FreeVariables = (
-  <TopicCard title={"Free Variables"} color="rgba(244,10,0,0.1)">
+  <TopicCard title={"Free Variables"} color="`rgba`(244,10,0,0.1)">
     <ul>
       <ListPairItem item1={"FV(x)"} item2={<Ltx>{`\\{x\\}`}</Ltx>} />
       <ListPairItem
@@ -1424,9 +1435,9 @@ export const OCamlNotes = (
 );
 
 export const InfinteData = (
-  <TopicCard title={"Infinite Data"} color="rgba(255,0,0,1)">
+  <TopicCard title={"Infinite Data -> Force Lazy in OCaml via Suspend"} color="rgba(255,0,0,0.1)">
       <OCaml code={`type 'a susp = Susp of (unit -> 'a)                         
-(* ways to get in and out *) 
+(* ways to get in and out. FUN SHIELDS FROM COMPUTATION*) 
 let delay (f:unit -> 'a) : 'a susp = Susp f (*get into the susp world*) (*unit -> 'a*)
 let force (s: 'a susp) : 'a = (*get out the susp of his world*) (*val force : 'a susp -> 'a = <fun>*)
   let (susp f) = s in f()                    
@@ -1472,10 +1483,24 @@ let nats = unfold 0 (fun n -> (n,n+1))`}></OCaml>
 );
 
 export const PartialEvaluation = (
-  <TopicCard title={"Partial Evaluation"} color="rgba(255,0,0,1)">
+  <TopicCard title={"Partial Evaluation"} color="rgba(128,128,0,0.1)">
+      <p>Lets us avoid unnecessary computations and save time. With a slow fn called conditionally.</p>
+      <p>Bad way to do it: associate x with uncalculated <Variable>x {eqArrow} horriblecomp 345</Variable>, but this can cause multi calculations in cases like <Variable>x + x</Variable> For a better way, See <strong>Lazy vs Eager</strong></p>
+      <Divider/>
     <ul>
-      <ListPairItem item1={"Peval"} item2={"TODO"} />
+        <ListPairItem item1={"List constructors"} item2={<><Variable>Nil : 'a list</Variable>, <Variable>{`Cons: 'a -> 'a list -> 'a list`}</Variable></>}/>
+        <ListPairItem item1={"Stream Observations"} item2={<> <Variable>{`head: 'a stream -> 'a`}</Variable>, <Variable>{`tail: 'a stream -> 'a stream`}</Variable></>}/>
+        <p>A list must eventually have nil as the cons, a stream needs not.</p>
+        <ListPairItem item1={<Variable>1,2,3,4,5...</Variable>} item2={<><Variable>hd = 1</Variable>, <Variable>tail = 2,3,4,5...</Variable></>} />
     </ul>
-      <div style={{height:500}}/>
+      <DotDivider/>
+      <p>The following are implemented in Infinite Data tile</p>
+      <ul>
+          <ListPairItem item1={"Susp type"} item2={"Represents a suspsended computation"}/>
+          <ListPairItem item1={"Force"} item2={"Runs a suspended computation"}/>
+          <ListPairItem item1={"Delay"} item2={"Suspends a given computation"}/>
+      </ul>
+
+
   </TopicCard>
 );
