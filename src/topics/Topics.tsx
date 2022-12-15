@@ -4,7 +4,7 @@ import React from "react";
 import { ListPairItem, Pair } from "../components/Pair";
 import { customStyle, OCaml } from "../components/OCaml";
 import { Divider, DotDivider, Variable } from "../components/Styled";
-import { Ltx, LtxVariable } from "../components/Latex";
+import { Tex, LtxVariable } from "../components/Latex";
 import Latex from "react-latex";
 
 const eqArrow = "=>";
@@ -832,7 +832,7 @@ export const InferenceRules = (
         <Pair
           item1={"Basic Format, premises on top must be true then e is true"}
         >
-          <Ltx bigFont>{"\\frac{p_1 \\cdots p_n}{e}"}</Ltx>
+          <Tex bigFont>{"\\frac{p_1 \\cdots p_n}{e}"}</Tex>
         </Pair>
       </li>
 
@@ -841,9 +841,9 @@ export const InferenceRules = (
         <ListPairItem
           item1={"B_IFTRUE"}
           item2={
-            <Ltx
+            <Tex
               bigFont
-            >{`\\frac{e_1 \\downarrow \\textbf{true} \\ \\ \\ \\ e_2 \\downarrow v}{\\textbf{if} \\ e \\  \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2}`}</Ltx>
+            >{`\\frac{e_1 \\downarrow \\textbf{true} \\ \\ \\ \\ e_2 \\downarrow v}{\\textbf{if} \\ e \\  \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2}`}</Tex>
           }
         />
       </li>
@@ -851,9 +851,9 @@ export const InferenceRules = (
         <ListPairItem
           item1={"B_IFFALSE"}
           item2={
-            <Ltx
+            <Tex
               bigFont
-            >{`\\frac{e_1 \\downarrow \\textbf{false} \\ \\ \\ \\ e_3 \\downarrow v}{\\textbf{if} \\ e \\  \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2}`}</Ltx>
+            >{`\\frac{e_1 \\downarrow \\textbf{false} \\ \\ \\ \\ e_3 \\downarrow v}{\\textbf{if} \\ e \\  \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2}`}</Tex>
           }
         />
       </li>
@@ -863,19 +863,19 @@ export const InferenceRules = (
       <ListPairItem
         item1={<>B-LET</>}
         item2={
-          <Ltx
+          <Tex
             bigFont
-          >{`\\frac{e_1 \\downarrow v_1 \\ \\ \\ [v_1 / x] e_2 \\downarrow v}{\\textbf{let} \\ x = e_1 \\ \\textbf{in} \\ e_2 \\ \\textbf{end} \\ \\downarrow v}`}</Ltx>
+          >{`\\frac{e_1 \\downarrow v_1 \\ \\ \\ [v_1 / x] e_2 \\downarrow v}{\\textbf{let} \\ x = e_1 \\ \\textbf{in} \\ e_2 \\ \\textbf{end} \\ \\downarrow v}`}</Tex>
         }
       />
       <ListPairItem
         item1={<>B-APP</>}
         item2={
-          <Ltx bigFont>
+          <Tex bigFont>
             {`\\frac
                 {e_1 \\downarrow \\textbf{fn} x \\rightarrow e \\ \\ \\ \\ \\ e_2 \\downarrow v_2 \\ \\ \\ \\ \\ [v_2 / x] e \\downarrow v}
                 {e_1 \\ e_2 \\ \\downarrow v}`}
-          </Ltx>
+          </Tex>
         }
       />
     </ul>
@@ -885,13 +885,13 @@ export const InferenceRules = (
     debugger) → that is a proof
     <Divider />
     <p>Question: execute</p>
-    <Ltx>
+    <Tex>
       {`\\frac{}{\\textbf{if} \\ ((4-1)\\lt6) \\ \\textbf{then} \\ 3 + 2 \\ \\textbf{else} \\ 4 }`}
-    </Ltx>
+    </Tex>
     <p>Answer:</p>
-    <Ltx bigFont>
+    <Tex bigFont>
       {`\\frac{\\frac{\\frac{\\frac{}{4 \\downarrow 4} \\ \\frac{}{1 \\downarrow 1}}{4 - 1 \\downarrow 3}}{((4 - 1) \\lt 6) \\downarrow \\textbf{true}} \\ \\ \\ \\frac{\\frac{}{3 \\downarrow 3} \\ \\  \\frac{}{2 \\downarrow 2}}{(3 + 2) \\downarrow 5}}{\\textbf{if} \\ ((4-1)\\lt6) \\ \\textbf{then} \\ 3 + 2 \\ \\textbf{else} \\ 4 \\downarrow 5}`}
-    </Ltx>
+    </Tex>
   </TopicCard>
 );
 
@@ -1239,7 +1239,7 @@ export const SubTypingTopic = (
       />
       <ListPairItem
         item1={"Transitivity"}
-        item2={<Ltx>if \ S \leq T \ and \ T \leq U, \ then \ S \leq U</Ltx>}
+        item2={<Tex>if \ S \leq T \ and \ T \leq U, \ then \ S \leq U</Tex>}
       />
       <ListPairItem
         item1={"Product Types Covariant"}
@@ -1294,9 +1294,9 @@ export const SubTypingTopic = (
       <ListPairItem
         item1={"S-FN Subtyping rule"}
         item2={
-          <Ltx
+          <Tex
             bigFont
-          >{`\\frac{T_1 \\leq S_1 \\ \\ \\ \\ \\ S_2 \\leq T_2}{S_1 \\rightarrow S_2 \\leq T_1 \\rightarrow T_2}`}</Ltx>
+          >{`\\frac{T_1 \\leq S_1 \\ \\ \\ \\ \\ S_2 \\leq T_2}{S_1 \\rightarrow S_2 \\leq T_1 \\rightarrow T_2}`}</Tex>
         }
       />
     </ul>
@@ -1317,59 +1317,59 @@ $\\dfrac{\\Gamma \\vdash \\Rightarrow T/C \\quad \\Gamma \\vdash e_1 \\Rightarro
 export const FreeVariables = (
   <TopicCard title={"Free Variables"} color="`rgba`(244,10,0,0.1)">
     <ul>
-      <ListPairItem item1={"FV(x)"} item2={<Ltx>{`\\{x\\}`}</Ltx>} />
+      <ListPairItem item1={"FV(x)"} item2={<Tex>{`\\{x\\}`}</Tex>} />
       <ListPairItem
         item1={"FV(e1 op e2)"}
-        item2={<Ltx>{`\\textbf{FV}(e_1) \\cup \\textbf{FV}(e_2)`}</Ltx>}
+        item2={<Tex>{`\\textbf{FV}(e_1) \\cup \\textbf{FV}(e_2)`}</Tex>}
       />
       <ListPairItem
         item1={"FV(if e then e1 else e2)"}
         item2={
-          <Ltx>{`\\textbf{FV}(e) \\cup \\textbf{FV}(e_1) \\cup \\textbf{FV}(e_2)`}</Ltx>
+          <Tex>{`\\textbf{FV}(e) \\cup \\textbf{FV}(e_1) \\cup \\textbf{FV}(e_2)`}</Tex>
         }
       />
       <ListPairItem
         item1={"FV(let x = e1 in e2 end)"}
         item2={
-          <Ltx>{`\\textbf{FV}(e_1) \\cup (\\textbf{FV}(e_2) \\backslash \\{x\\})`}</Ltx>
+          <Tex>{`\\textbf{FV}(e_1) \\cup (\\textbf{FV}(e_2) \\backslash \\{x\\})`}</Tex>
         }
       />
       <p>Substitution</p>
       <ListPairItem
         item1={"Replace all inst of x in e with e'"}
-        item2={<Ltx>{`[e' / x]e`}</Ltx>}
+        item2={<Tex>{`[e' / x]e`}</Tex>}
       />
       <ListPairItem
         item1={"Min example"}
-        item2={<Ltx>{`[5 / x](2+x) = 2 + 5`}</Ltx>}
+        item2={<Tex>{`[5 / x](2+x) = 2 + 5`}</Tex>}
       />
       <ListPairItem
-        item1={<Ltx>{`[e' / x](x)`}</Ltx>}
-        item2={<Ltx>{`e'`}</Ltx>}
+        item1={<Tex>{`[e' / x](x)`}</Tex>}
+        item2={<Tex>{`e'`}</Tex>}
       />
       <ListPairItem
-        item1={<Ltx>{`[e' / x](e_1 \\ \\textbf{op} \\ e_2)`}</Ltx>}
-        item2={<Ltx>{`[e' / x]e_1 \\ \\textbf{op} \\ [e' / x]e_2`}</Ltx>}
+        item1={<Tex>{`[e' / x](e_1 \\ \\textbf{op} \\ e_2)`}</Tex>}
+        item2={<Tex>{`[e' / x]e_1 \\ \\textbf{op} \\ [e' / x]e_2`}</Tex>}
       />
       <ListPairItem
         item1={
-          <Ltx>{`[e' / x](\\textbf{if} \\ e \\ \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2)`}</Ltx>
+          <Tex>{`[e' / x](\\textbf{if} \\ e \\ \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2)`}</Tex>
         }
         item2={
-          <Ltx>{`\\textbf{if} \\ [e' / x]e \\ \\textbf{then} \\ [e' / x]e_1 \\ \\textbf{else} \\ [e' / x]e_2`}</Ltx>
+          <Tex>{`\\textbf{if} \\ [e' / x]e \\ \\textbf{then} \\ [e' / x]e_1 \\ \\textbf{else} \\ [e' / x]e_2`}</Tex>
         }
       />
       <ListPairItem
         item1={
-          <Ltx>{`[e' / x](\\textbf{let} \\ y = e_1 \\ \\textbf{in} \\ e_2 \\ \\textbf{end})`}</Ltx>
+          <Tex>{`[e' / x](\\textbf{let} \\ y = e_1 \\ \\textbf{in} \\ e_2 \\ \\textbf{end})`}</Tex>
         }
         item2={
           <>
-            <Ltx>{`\\textbf{let} \\ y = [e' / x]e_1 \\ \\textbf{in} \\ [e' / x]e_2 \\ \\textbf{end}`}</Ltx>
+            <Tex>{`\\textbf{let} \\ y = [e' / x]e_1 \\ \\textbf{in} \\ [e' / x]e_2 \\ \\textbf{end}`}</Tex>
             <p>
               {" "}
               provided that{" "}
-              <Ltx>{`x \\neq y \\ \\& \\ y \\not\\in \\textbf{FV}(e')`}</Ltx>
+              <Tex>{`x \\neq y \\ \\& \\ y \\not\\in \\textbf{FV}(e')`}</Tex>
             </p>
           </>
         }
@@ -1388,18 +1388,18 @@ export const FreeVariables = (
       <ListPairItem
         item1={"T-FN w/ context"}
         item2={
-          <Ltx
+          <Tex
             bigFont
-          >{`\\frac{\\Gamma, \\   x \\ : \\ T_1 \\  \\vdash \\ \\ e \\  \\ : T_2}{\\Gamma \\ \\vdash \\ \\textbf{fn} \\ \\  x \\rightarrow e\\ \\  : \\ \\ \\  T_1 \\rightarrow T_2}`}</Ltx>
+          >{`\\frac{\\Gamma, \\   x \\ : \\ T_1 \\  \\vdash \\ \\ e \\  \\ : T_2}{\\Gamma \\ \\vdash \\ \\textbf{fn} \\ \\  x \\rightarrow e\\ \\  : \\ \\ \\  T_1 \\rightarrow T_2}`}</Tex>
         }
       />
 
       <ListPairItem
         item1={"T-APP w/ context"}
         item2={
-          <Ltx
+          <Tex
             bigFont
-          >{`\\frac{\\Gamma  \\ \\vdash \\ \\ e_1 \\  \\ : T_2 \\rightarrow T \\ \\ \\ \\ \\ \\ \\Gamma \\  \\vdash e_2 : T_2}{\\Gamma \\ \\vdash e_1 \\ e_2 \\ : T}`}</Ltx>
+          >{`\\frac{\\Gamma  \\ \\vdash \\ \\ e_1 \\  \\ : T_2 \\rightarrow T \\ \\ \\ \\ \\ \\ \\Gamma \\  \\vdash e_2 : T_2}{\\Gamma \\ \\vdash e_1 \\ e_2 \\ : T}`}</Tex>
         }
       />
     </ul>
@@ -1418,30 +1418,30 @@ export const TypeVariables = (
       <ListPairItem
         item1={
           <Variable>
-            <Ltx>\vdash</Ltx> fn x {eqArrow} x
+            <Tex>\vdash</Tex> fn x {eqArrow} x
           </Variable>
         }
-        item2={<Ltx>\alpha \rightarrow \alpha</Ltx>}
+        item2={<Tex>\alpha \rightarrow \alpha</Tex>}
       />
       <ListPairItem
         item1={
           <Variable>
-            <Ltx>\vdash</Ltx> fn f {eqArrow} fn x {eqArrow} f(f(x))
+            <Tex>\vdash</Tex> fn f {eqArrow} fn x {eqArrow} f(f(x))
           </Variable>
         }
         item2={
-          <Ltx>
+          <Tex>
             (\alpha \rightarrow \alpha) \rightarrow \alpha \rightarrow \alpha
-          </Ltx>
+          </Tex>
         }
       />
       <ListPairItem
         item1={
           <Variable>
-            <Ltx>x : \alpha \vdash</Ltx> fn f {eqArrow} f x
+            <Tex>x : \alpha \vdash</Tex> fn f {eqArrow} f x
           </Variable>
         }
-        item2={<Ltx>(\alpha \rightarrow \beta) \rightarrow \beta</Ltx>}
+        item2={<Tex>(\alpha \rightarrow \beta) \rightarrow \beta</Tex>}
       />
     </ul>
     <DotDivider />
@@ -1500,7 +1500,7 @@ export const TypeVariables = (
       <ListPairItem
         item1={<Variable>fn x {eqArrow} x + 1</Variable>}
         item2={
-          <Ltx>{`\\alpha \\rightarrow \\textbf{int} / \\{\\alpha = \\textbf{int}\\}`}</Ltx>
+          <Tex>{`\\alpha \\rightarrow \\textbf{int} / \\{\\alpha = \\textbf{int}\\}`}</Tex>
         }
       />
       <ListPairItem
@@ -1511,7 +1511,7 @@ export const TypeVariables = (
           </>
         }
         item2={
-          <Ltx>{`.../ \\{\\alpha = \\textbf{bool}, \\alpha = \\textbf{int}\\}`}</Ltx>
+          <Tex>{`.../ \\{\\alpha = \\textbf{bool}, \\alpha = \\textbf{int}\\}`}</Tex>
         }
       />
       <ListPairItem
@@ -1521,7 +1521,7 @@ export const TypeVariables = (
           </Variable>
         }
         item2={
-          <Ltx>{`.../ \\{\\alpha = \\beta \\rightarrow \\alpha_0, \\alpha = \\alpha_0 \\rightarrow \\alpha_1\\}`}</Ltx>
+          <Tex>{`.../ \\{\\alpha = \\beta \\rightarrow \\alpha_0, \\alpha = \\alpha_0 \\rightarrow \\alpha_1\\}`}</Tex>
         }
       />
     </ul>
@@ -1540,15 +1540,15 @@ export const TypeVariables = (
       <ul style={{ width: "100%" }}>
         <ListPairItem
           item1={"First read"}
-          item2={<Ltx>\alpha \rightarrow \beta \rightarrow \zeta</Ltx>}
+          item2={<Tex>\alpha \rightarrow \beta \rightarrow \zeta</Tex>}
         />
         <ListPairItem
           item1={"2nd read"}
-          item2={<Ltx>\alpha \rightarrow \beta list \rightarrow \zeta</Ltx>}
+          item2={<Tex>\alpha \rightarrow \beta list \rightarrow \zeta</Tex>}
         />
         <ListPairItem
           item1={"Nth read (contradiction)"}
-          item2={<Ltx>\zeta = (\beta list \rightarrow \zeta)</Ltx>}
+          item2={<Tex>\zeta = (\beta list \rightarrow \zeta)</Tex>}
         />
       </ul>
     </span>
