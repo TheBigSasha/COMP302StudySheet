@@ -811,6 +811,9 @@ export const BasicSyntaxTopic = (
       <li>
         <Pair item1={"try"}> try...with</Pair>
       </li>
+        <li>
+            <Pair item1={"list item concat"}>1 :: [1,2,3]</Pair>
+        </li>
     </ul>
   </TopicCard>
 );
@@ -874,6 +877,10 @@ export const InferenceRules = (
     </Ltx>
   </TopicCard>
 );
+
+export const MiscInfo = (
+    <TopicCard title={"Misc Info"} color="rgba(100,100,255,0.1)">
+    </TopicCard>)
 
 export const LazyTopic = (
   <TopicCard title={"Lazy vs Eager Evaluation"} color="rgba(100,0,0,0.1)">
@@ -986,6 +993,7 @@ export const Unification = (
       <Variable>Arrow (TInt, TInt)</Variable>, we can unify them by substituting{" "}
       <Variable>TBool</Variable> for <Variable>TInt</Variable>.
     </p>
+      <i>We cannot include a type in its own definintion! That is an <strong>infinite type</strong>. Example: inferring a type of <Variable>x :: y</Variable> ('a of list cons 'a list)</i>
     <OCaml
       code={`let unify =
   let rec unify substitution t1 t2 =
@@ -994,12 +1002,10 @@ export const Unification = (
     | UInt, UInt
     | UBool, UBool -> substitution
     | UTVar a, UTVar a' when a = a' -> substitution
-
     (* For type constructors, recursively unify the parts *)
     | UArrow (t1, t1'), UArrow (t2, t2') ->
         let substitution' = unify substitution t1 t2 in
         unify substitution' t1' t2'
-
     | UCross ts1, UCross ts2 ->
       (try
         let type_pairs = List.combine ts1 ts2 in
@@ -1009,12 +1015,10 @@ export const Unification = (
           type_pairs
       with
       | Invalid_argument _ -> unif_error @@ UnifMismatch (t1, t2))
-
     | UTVar a, _ -> unifyVar substitution a t2
     | _, UTVar b -> unifyVar substitution b t1
     (* All other cases are mismatched types. *)
     | _, _ -> unif_error @@ UnifMismatch (t1, t2)
-    
       (* Unify a variable with a type *)
   and unifyVar substitution a t =
     let rec occurs = function
@@ -1036,7 +1040,6 @@ export const Unification = (
       | None -> UTVarMap.add a t substitution
       | Some t' -> unify substitution t t'
   in fun t1 t2 -> unify UTVarMap.empty t1 t2
-
 `}
     />
   </TopicCard>
@@ -1144,10 +1147,8 @@ export const EvalImpl = (
               eval (subst_list subs e)
             else
               raise (Stuck Arity_mismatch)
-
         | _ -> raise (Stuck Apply_non_fn)
-      end
-      `}
+      end`}
     />
   </TopicCard>
 );
@@ -1412,6 +1413,18 @@ export const TypeVariables = <TopicCard title={"Type Variables"} color="rgba(244
     </ul>
     <p>Unification</p>
     <p>Two types are unifiable if a <LtxVariable>\sigma</LtxVariable> exists where <LtxVariable>[\sigma]T_1 = [\sigma]T_2</LtxVariable></p>
+    <Divider/>
+    <span className={"twoCol"}>
+        <OCaml code={`let rec f x l = match l with
+| [] -> x (f x l)
+| _ -> f x`}/>
+        <ul style={{width: "100%"}}>
+            <ListPairItem item1={"First read"} item2={<Ltx>\alpha \rightarrow \beta \rightarrow \zeta</Ltx>}/>
+            <ListPairItem item1={"2nd read"} item2={<Ltx>\alpha \rightarrow \beta list \rightarrow \zeta</Ltx>}/>
+            <ListPairItem item1={"Nth read (contradiction)"} item2={<Ltx>\zeta = (\beta list \rightarrow \zeta)</Ltx>}/>
+        </ul>
+    </span>
+    <p>Cannot return partial application of the same recursive function</p>
 
 </TopicCard>
 

@@ -18,7 +18,7 @@ import {
     LazyTopic,
     ListHOFTopic,
     ListOperationsTopic,
-    MathTopic,
+    MathTopic, MiscInfo,
     OCamlNotes,
     OptionalTopic,
     PartialEvaluation,
@@ -84,6 +84,7 @@ function App() {
         {InferCode}
       </div>
         <div className={"slimmerBoiColumn"}>
+            {MiscInfo}
             {LazyTopic}
             {PartialEvaluation}
 
