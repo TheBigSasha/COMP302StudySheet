@@ -7,8 +7,8 @@
 .printmode {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-  sans-serif;
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 11in;
@@ -24,7 +24,7 @@
   font-variant-ligatures: discretionary-ligatures contextual;
 }
 
-.printonly{
+.printonly {
   visibility: hidden;
 }
 
@@ -34,13 +34,12 @@
   }
 }
 
-
-@media print{
+@media print {
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     width: 11in;
@@ -55,24 +54,20 @@
     align-content: space-around;
     font-variant-ligatures: discretionary-ligatures contextual;
   }
-    .printonly{
-        visibility: visible;
-    }
+  .printonly {
+    visibility: visible;
+  }
 }
 
-
-.noPrint{
+.noPrint {
   width: 100vw;
   height: 100vh;
   overflow: auto;
   display: grid;
-    grid-gap: 0.5em;
-    font-size: var(--font-size);
+  grid-gap: 0.5em;
+  font-size: var(--font-size);
   grid-template-columns: repeat(auto-fit, minmax(300px, max-content));
-
-
 }
-
 
 button {
   font-size: 8px;
@@ -82,10 +77,10 @@ button {
 .card {
   background: lavenderblush;
   padding: 10px;
-    margin: 10px;
-    border: 1px solid black;
-    border-radius: 5px;
-    box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.37);
+  margin: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.37);
 }
 
 h1 {

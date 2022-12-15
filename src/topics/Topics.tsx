@@ -1,10 +1,10 @@
 import { TopicCard } from "../TopicCard";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/cjs/prism";
 import React from "react";
-import {ListPairItem, Pair} from "../components/Pair";
+import { ListPairItem, Pair } from "../components/Pair";
 import { customStyle, OCaml } from "../components/OCaml";
 import { Divider, DotDivider, Variable } from "../components/Styled";
-import {Ltx, LtxVariable} from "../components/Latex";
+import { Ltx, LtxVariable } from "../components/Latex";
 
 export const OptionalTopic = (
   <TopicCard title={"Optional"} color={"rgba(0,255,255,0.25)"}>
@@ -142,8 +142,9 @@ in
 rev_tr 1 [];;`}
       />
     </span>
-      <Divider/>
-      <OCaml code={`let rec fold_left f acc l = match l with
+    <Divider />
+    <OCaml
+      code={`let rec fold_left f acc l = match l with
   | Nil -> acc
   | Cons(x,xs) -> fold_left f (f acc x) xs
 let fold_left' f e l =
@@ -152,7 +153,8 @@ let rec scan_left (f : 'b -> 'a -> 'b) (acc : 'b) (l : 'a list) : 'b list =
   acc ::
     match l with
     | [] -> []
-    | x :: xs -> scan_left f (f acc x) xs`}></OCaml>
+    | x :: xs -> scan_left f (f acc x) xs`}
+    ></OCaml>
   </TopicCard>
 );
 
@@ -810,11 +812,9 @@ export const BasicSyntaxTopic = (
 );
 
 export const ExecutionBNFTopic = (
-    <TopicCard title={"Backus-Naur Form"} color="rgba(100,100,255,0.3)">
-        <ul>
-
-        </ul>
-    </TopicCard>
+  <TopicCard title={"Backus-Naur Form"} color="rgba(100,100,255,0.3)">
+    <ul></ul>
+  </TopicCard>
 );
 
 export const InferenceRules = (
@@ -828,25 +828,41 @@ export const InferenceRules = (
         </Pair>
       </li>
 
-          <Variable>if...then...else</Variable>
-        <li>
-          <ListPairItem item1={"B_IFTRUE"} item2={<Ltx bigFont>{`\\frac{e_1 \\downarrow \\textbf{true} \\ \\ \\ \\ e_2 \\downarrow v}{\\textbf{if} \\ e \\  \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2}`}</Ltx>}/>
-        </li>
-        <li>
-          <ListPairItem item1={"B_IFFALSE"} item2={<Ltx bigFont>{`\\frac{e_1 \\downarrow \\textbf{false} \\ \\ \\ \\ e_3 \\downarrow v}{\\textbf{if} \\ e \\  \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2}`}</Ltx>}/>
-        </li>
+      <Variable>if...then...else</Variable>
+      <li>
+        <ListPairItem
+          item1={"B_IFTRUE"}
+          item2={
+            <Ltx
+              bigFont
+            >{`\\frac{e_1 \\downarrow \\textbf{true} \\ \\ \\ \\ e_2 \\downarrow v}{\\textbf{if} \\ e \\  \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2}`}</Ltx>
+          }
+        />
+      </li>
+      <li>
+        <ListPairItem
+          item1={"B_IFFALSE"}
+          item2={
+            <Ltx
+              bigFont
+            >{`\\frac{e_1 \\downarrow \\textbf{false} \\ \\ \\ \\ e_3 \\downarrow v}{\\textbf{if} \\ e \\  \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2}`}</Ltx>
+          }
+        />
+      </li>
     </ul>
-      <Divider/>
-       Every sub expression of the main one on the above line of the inference rule recursively, in the same form as the call tree of the function (see IntelliJ debugger) → that is a proof
-      <Divider/>
-      <p>Question: execute</p>
-      <Ltx>
-          {`\\frac{}{\\textbf{if} \\ ((4-1)\\lt6) \\ \\textbf{then} \\ 3 + 2 \\ \\textbf{else} \\ 4 }`}
-      </Ltx>
-      <p>Answer:</p>
-      <Ltx bigFont>
-          {`\\frac{\\frac{\\frac{\\frac{}{4 \\downarrow 4} \\ \\frac{}{1 \\downarrow 1}}{4 - 1 \\downarrow 3}}{((4 - 1) \\lt 6) \\downarrow \\textbf{true}} \\ \\ \\ \\frac{\\frac{}{3 \\downarrow 3} \\ \\  \\frac{}{2 \\downarrow 2}}{(3 + 2) \\downarrow 5}}{\\textbf{if} \\ ((4-1)\\lt6) \\ \\textbf{then} \\ 3 + 2 \\ \\textbf{else} \\ 4 \\downarrow 5}`}
-      </Ltx>
+    <Divider />
+    Every sub expression of the main one on the above line of the inference rule
+    recursively, in the same form as the call tree of the function (see IntelliJ
+    debugger) → that is a proof
+    <Divider />
+    <p>Question: execute</p>
+    <Ltx>
+      {`\\frac{}{\\textbf{if} \\ ((4-1)\\lt6) \\ \\textbf{then} \\ 3 + 2 \\ \\textbf{else} \\ 4 }`}
+    </Ltx>
+    <p>Answer:</p>
+    <Ltx bigFont>
+      {`\\frac{\\frac{\\frac{\\frac{}{4 \\downarrow 4} \\ \\frac{}{1 \\downarrow 1}}{4 - 1 \\downarrow 3}}{((4 - 1) \\lt 6) \\downarrow \\textbf{true}} \\ \\ \\ \\frac{\\frac{}{3 \\downarrow 3} \\ \\  \\frac{}{2 \\downarrow 2}}{(3 + 2) \\downarrow 5}}{\\textbf{if} \\ ((4-1)\\lt6) \\ \\textbf{then} \\ 3 + 2 \\ \\textbf{else} \\ 4 \\downarrow 5}`}
+    </Ltx>
   </TopicCard>
 );
 
@@ -1127,56 +1143,175 @@ export const EvalImpl = (
   </TopicCard>
 );
 
-export const References = <TopicCard title={"References"} color="rgba(244,10,0,0.3)">
-  <ul>
-      <li><Pair item1={"mutable type"}><OCaml code={`type t = { mutable i : int }`}/></Pair></li>
-      <li><Pair item1={"init"}><OCaml code={` let x = ref 0     let y = { i = 5 }`}/></Pair></li>
-      <li><Pair item1={"retrieval"}><OCaml code={`let val1 = !x      let val2 = y.i`}/></Pair></li>
-      <li><Pair item1={"assignment"}><OCaml code={`x:=9      y.i < -1`}/></Pair></li>
-  </ul>
+export const References = (
+  <TopicCard title={"References"} color="rgba(244,10,0,0.3)">
+    <ul>
+      <li>
+        <Pair item1={"mutable type"}>
+          <OCaml code={`type t = { mutable i : int }`} />
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"init"}>
+          <OCaml code={` let x = ref 0     let y = { i = 5 }`} />
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"retrieval"}>
+          <OCaml code={`let val1 = !x      let val2 = y.i`} />
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"assignment"}>
+          <OCaml code={`x:=9      y.i < -1`} />
+        </Pair>
+      </li>
+    </ul>
     <p>
-        We can imagine a type <Variable>T ref</Variable> as a tuple of a read and write func <Variable>{`(unit -> T) * (T -> unit)`}</Variable>
+      We can imagine a type <Variable>T ref</Variable> as a tuple of a read and
+      write func <Variable>{`(unit -> T) * (T -> unit)`}</Variable>
     </p>
-</TopicCard>;
+  </TopicCard>
+);
 
-    export const SubTypingTopic = <TopicCard title={"Subtyping"} color="rgba(244,10,0,0.1)">
+export const SubTypingTopic = (
+  <TopicCard title={"Subtyping"} color="rgba(244,10,0,0.1)">
     <ul>
-        <ListPairItem item1={"Built-in Types"} item2={<p>eg. <Variable>{`int <= float`}</Variable></p>}/>
-        <ListPairItem item1={"Reflexivity"} item2={"Every item is its own subtype"}/>
-        <ListPairItem item1={"Transitivity"} item2={<Ltx>if \ S \leq T \  and \  T \leq U,  \ then  \ S \leq U</Ltx>}/>
-        <ListPairItem item1={"Product Types Covariant"} item2={<Variable>int * float ≤ float * float</Variable>}/>
-        <p>Functions</p>
-        <ListPairItem item1={"Covariant on output"} item2={<p><LtxVariable>{`T \\rightarrow \\textbf{int}`}</LtxVariable> ≤ <LtxVariable>{`T \\rightarrow \\textbf{float}`}</LtxVariable></p>}/>
-        <ListPairItem item1={"Contravariant on input"} item2={<p><LtxVariable>{`\\textbf{float} \\rightarrow T `}</LtxVariable> ≤ <LtxVariable>{`\\textbf{int} \\rightarrow T `}</LtxVariable></p>}/>
-        <ListPairItem item1={"& Both at once"} item2={<p><LtxVariable>{`\\textbf{float} \\rightarrow \\textbf{int} `}</LtxVariable> ≤ <LtxVariable>{`\\textbf{int} \\rightarrow \\textbf{float} `}</LtxVariable></p>}/>
-        <ListPairItem item1={"Reference"} item2={<p>Apply fn rules on read and write <LtxVariable>{`(\\textbf{unit} \\rightarrow T) * (T \\rightarrow \\textbf{unit})`}</LtxVariable></p>}/>
+      <ListPairItem
+        item1={"Built-in Types"}
+        item2={
+          <p>
+            eg. <Variable>{`int <= float`}</Variable>
+          </p>
+        }
+      />
+      <ListPairItem
+        item1={"Reflexivity"}
+        item2={"Every item is its own subtype"}
+      />
+      <ListPairItem
+        item1={"Transitivity"}
+        item2={<Ltx>if \ S \leq T \ and \ T \leq U, \ then \ S \leq U</Ltx>}
+      />
+      <ListPairItem
+        item1={"Product Types Covariant"}
+        item2={<Variable>int * float ≤ float * float</Variable>}
+      />
+      <p>Functions</p>
+      <ListPairItem
+        item1={"Covariant on output"}
+        item2={
+          <p>
+            <LtxVariable>{`T \\rightarrow \\textbf{int}`}</LtxVariable> ≤{" "}
+            <LtxVariable>{`T \\rightarrow \\textbf{float}`}</LtxVariable>
+          </p>
+        }
+      />
+      <ListPairItem
+        item1={"Contravariant on input"}
+        item2={
+          <p>
+            <LtxVariable>{`\\textbf{float} \\rightarrow T `}</LtxVariable> ≤{" "}
+            <LtxVariable>{`\\textbf{int} \\rightarrow T `}</LtxVariable>
+          </p>
+        }
+      />
+      <ListPairItem
+        item1={"& Both at once"}
+        item2={
+          <p>
+            <LtxVariable>{`\\textbf{float} \\rightarrow \\textbf{int} `}</LtxVariable>{" "}
+            ≤{" "}
+            <LtxVariable>{`\\textbf{int} \\rightarrow \\textbf{float} `}</LtxVariable>
+          </p>
+        }
+      />
+      <ListPairItem
+        item1={"Reference"}
+        item2={
+          <p>
+            Apply fn rules on read and write{" "}
+            <LtxVariable>{`(\\textbf{unit} \\rightarrow T) * (T \\rightarrow \\textbf{unit})`}</LtxVariable>
+          </p>
+        }
+      />
     </ul>
-        <DotDivider/>
-        <p>Whenever we see a subtype, the compiler adds a special casting function up which upcasts S to T</p>
-        <DotDivider/>
-        <ul>
-            <ListPairItem item1={"S-FN Subtyping rule"} item2={<Ltx bigFont>{`\\frac{T_1 \\leq S_1 \\ \\ \\ \\ \\ S_2 \\leq T_2}{S_1 \\rightarrow S_2 \\leq T_1 \\rightarrow T_2}`}</Ltx> }/>
-        </ul>
-
-    </TopicCard>
-
-export const FreeVariables = <TopicCard title={"Free Variables"} color="rgba(244,10,0,0.1)">
+    <DotDivider />
+    <p>
+      Whenever we see a subtype, the compiler adds a special casting function up
+      which upcasts S to T
+    </p>
+    <DotDivider />
     <ul>
-        <ListPairItem item1={"FV(x)"} item2={<Ltx>{`\\{x\\}`}</Ltx>}/>
-        <ListPairItem item1={"FV(e1 op e2)"} item2={<Ltx>{`\\textbf{FV}(e_1) \\cup \\textbf{FV}(e_2)`}</Ltx>}/>
-        <ListPairItem item1={"FV(if e then e1 else e2)"} item2={<Ltx>{`\\textbf{FV}(e) \\cup \\textbf{FV}(e_1) \\cup \\textbf{FV}(e_2)`}</Ltx>}/>
-        <ListPairItem item1={"FV(let x = e1 in e2 end)"} item2={<Ltx>{`\\textbf{FV}(e_1) \\cup (\\textbf{FV}(e_2) \\backslash \\{x\\})`}</Ltx>}/>
-        <p>Substitution</p>
-        <ListPairItem item1={"Replace all inst of x in e with e'"} item2={<Ltx>{`[e' / x]e`}</Ltx>}/>
-        <ListPairItem item1={"Min example"} item2={<Ltx>{`[5 / x](2+x) = 2 + 5`}</Ltx>}/>
-        <ListPairItem item1={<Ltx>{`[e' / x](x)`}</Ltx>} item2={<Ltx>{`e'`}</Ltx>}/>
-        <ListPairItem item1={<Ltx>{`[e' / x](e_1 \\ \\textbf{op} \\ e_2)`}</Ltx>} item2={<Ltx>{`[e' / x]e_1 \\ \\textbf{op} \\ [e' / x]e_2`}</Ltx>}/>
+      <ListPairItem
+        item1={"S-FN Subtyping rule"}
+        item2={
+          <Ltx
+            bigFont
+          >{`\\frac{T_1 \\leq S_1 \\ \\ \\ \\ \\ S_2 \\leq T_2}{S_1 \\rightarrow S_2 \\leq T_1 \\rightarrow T_2}`}</Ltx>
+        }
+      />
     </ul>
-</TopicCard>
+  </TopicCard>
+);
 
-export const OCamlNotes = <TopicCard title={"OCaml Notes"} color="rgba(10,0,244,0.1)">
+export const FreeVariables = (
+  <TopicCard title={"Free Variables"} color="rgba(244,10,0,0.1)">
     <ul>
-        <ListPairItem item1={"Functions are lazy"} item2={"functions not exec'd until needed"}/>
-        <ListPairItem item1={"Functions are right associative"} item2={<p><Variable>{`fun a -> fun b -> fun c`}</Variable> = <Variable>{`fun a -> (fun b -> fun c)`}</Variable></p>}/>
+      <ListPairItem item1={"FV(x)"} item2={<Ltx>{`\\{x\\}`}</Ltx>} />
+      <ListPairItem
+        item1={"FV(e1 op e2)"}
+        item2={<Ltx>{`\\textbf{FV}(e_1) \\cup \\textbf{FV}(e_2)`}</Ltx>}
+      />
+      <ListPairItem
+        item1={"FV(if e then e1 else e2)"}
+        item2={
+          <Ltx>{`\\textbf{FV}(e) \\cup \\textbf{FV}(e_1) \\cup \\textbf{FV}(e_2)`}</Ltx>
+        }
+      />
+      <ListPairItem
+        item1={"FV(let x = e1 in e2 end)"}
+        item2={
+          <Ltx>{`\\textbf{FV}(e_1) \\cup (\\textbf{FV}(e_2) \\backslash \\{x\\})`}</Ltx>
+        }
+      />
+      <p>Substitution</p>
+      <ListPairItem
+        item1={"Replace all inst of x in e with e'"}
+        item2={<Ltx>{`[e' / x]e`}</Ltx>}
+      />
+      <ListPairItem
+        item1={"Min example"}
+        item2={<Ltx>{`[5 / x](2+x) = 2 + 5`}</Ltx>}
+      />
+      <ListPairItem
+        item1={<Ltx>{`[e' / x](x)`}</Ltx>}
+        item2={<Ltx>{`e'`}</Ltx>}
+      />
+      <ListPairItem
+        item1={<Ltx>{`[e' / x](e_1 \\ \\textbf{op} \\ e_2)`}</Ltx>}
+        item2={<Ltx>{`[e' / x]e_1 \\ \\textbf{op} \\ [e' / x]e_2`}</Ltx>}
+      />
     </ul>
-</TopicCard>
+  </TopicCard>
+);
+
+export const OCamlNotes = (
+  <TopicCard title={"OCaml Notes"} color="rgba(10,0,244,0.1)">
+    <ul>
+      <ListPairItem
+        item1={"Functions are lazy"}
+        item2={"functions not exec'd until needed"}
+      />
+      <ListPairItem
+        item1={"Functions are right associative"}
+        item2={
+          <p>
+            <Variable>{`fun a -> fun b -> fun c`}</Variable> ={" "}
+            <Variable>{`fun a -> (fun b -> fun c)`}</Variable>
+          </p>
+        }
+      />
+    </ul>
+  </TopicCard>
+);

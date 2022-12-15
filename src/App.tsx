@@ -1,42 +1,45 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Route, Routes, Link, Outlet } from "react-router-dom";
 import {
-    BasicSyntaxTopic,
-    ChurchTopic,
-    CodeExamples,
-    CoinSort,
-    CPSTopic,
-    CurryTopic,
-    EvalImpl,
-    EvalTopic, FreeVariables,
-    HOFTopic,
-    InferCode,
-    InferenceRules,
-    LazyTopic,
-    ListHOFTopic,
-    ListOperationsTopic,
-    MathTopic, OCamlNotes,
-    OptionalTopic,
-    ProofTopic, References, SubTypingTopic,
-    TuplesTopic,
-    TypeInferenceForFun,
-    TypeInferenceTopic,
-    TypesTopic,
-    Unification,
+  BasicSyntaxTopic,
+  ChurchTopic,
+  CodeExamples,
+  CoinSort,
+  CPSTopic,
+  CurryTopic,
+  EvalImpl,
+  EvalTopic,
+  FreeVariables,
+  HOFTopic,
+  InferCode,
+  InferenceRules,
+  LazyTopic,
+  ListHOFTopic,
+  ListOperationsTopic,
+  MathTopic,
+  OCamlNotes,
+  OptionalTopic,
+  ProofTopic,
+  References,
+  SubTypingTopic,
+  TuplesTopic,
+  TypeInferenceForFun,
+  TypeInferenceTopic,
+  TypesTopic,
+  Unification,
 } from "./topics/Topics";
 import { PageBase } from "./components/Styled";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 function App() {
-    const [printMode, setPrintMode] = useState<boolean>(true);
+  const [printMode, setPrintMode] = useState<boolean>(true);
 
-
-    const midterm = (
+  const midterm = (
     <>
       <div className={"slimmerBoiColumn"}>
-          {OCamlNotes}
-          {ListHOFTopic}
+        {OCamlNotes}
+        {ListHOFTopic}
         {BasicSyntaxTopic}
         {HOFTopic}
         {TuplesTopic}
@@ -73,23 +76,22 @@ function App() {
   // TODO: freevar example (substituions)
   const final = (
     <>
-        <div className={"slimmerBoiColumn"}>
-            {InferenceRules}
-            {References}
-        </div>
+      <div className={"slimmerBoiColumn"}>
+        {InferenceRules}
+        {References}
+      </div>
       <div className={"slimBoiColumn"}>{Unification}</div>
       <div className={"slimmerBoiColumn"}>{InferCode}</div>
-      <div className={"slimBoiColumn"}>{EvalImpl}</div>
+      <div className={"slimBoiColumn"}>
+        {EvalImpl} {FreeVariables}
+      </div>
 
       <div className={"slimBoiColumn"}>
         {EvalTopic}
         {LazyTopic}
         {TypeInferenceForFun}
-          {SubTypingTopic}
-          {FreeVariables}
+        {SubTypingTopic}
       </div>
-
-
     </>
   );
 
@@ -115,20 +117,21 @@ function App() {
     </div>
   );
 
-
   return (
     <>
-        <Helmet>
-            <title>COMP302 Study Sheet</title>
-            <meta name="description" content="COMP302 Study Sheet by TheBigSasha, with some insane density of information, syntax highlighting, and more!" />
-        </Helmet>
+      <Helmet>
+        <title>COMP302 Study Sheet</title>
+        <meta
+          name="description"
+          content="COMP302 Study Sheet by TheBigSasha, with some insane density of information, syntax highlighting, and more!"
+        />
+      </Helmet>
 
-
-        <nav
+      <nav
         style={{ position: "fixed", right: 0, top: 0 }}
         className={"card never-print"}
       >
-            <h3>Controls</h3>
+        <h3>Controls</h3>
         <ul>
           <li>
             <Link to="/">Home</Link>
@@ -139,25 +142,27 @@ function App() {
           <li>
             <Link to="/final">Final</Link>
           </li>
-            <li>
-                <button onClick={() => setPrintMode(!printMode)}>
-                    Print Mode: {printMode ? "On" : "Off"}
-                </button>
-            </li>
-            <li>
-                <button onClick={() => {
-                    const prev = printMode;
-                    setPrintMode(true);
-                    async function print() {
-                        await new Promise(resolve => setTimeout(resolve, 100));
-                        window.print();
-                        setPrintMode(prev);
-                    }
-                    void print();
-                }}>
-                    Print
-                </button>
-            </li>
+          <li>
+            <button onClick={() => setPrintMode(!printMode)}>
+              Print Mode: {printMode ? "On" : "Off"}
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                const prev = printMode;
+                setPrintMode(true);
+                async function print() {
+                  await new Promise((resolve) => setTimeout(resolve, 100));
+                  window.print();
+                  setPrintMode(prev);
+                }
+                void print();
+              }}
+            >
+              Print
+            </button>
+          </li>
         </ul>
       </nav>
 

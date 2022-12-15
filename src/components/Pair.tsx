@@ -19,14 +19,16 @@ export const Pair = ({
   );
 };
 
-
 export const ListPairItem = ({
-    item1,
-    item2
-}: {item1: React.ReactNode, item2: React.ReactNode}) => {
-    return (
-      <li>
-        <Pair item1={item1}>{item2}</Pair>
-      </li>
-    )
-}
+  item1,
+  item2,
+}: {
+  item1: React.ReactNode;
+  item2: React.ReactNode;
+}) => {
+  return (
+    <li>
+      <Pair item1={item1}>{item2}</Pair>
+    </li>
+  );
+};

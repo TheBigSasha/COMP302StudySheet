@@ -13,11 +13,11 @@ export const MarginText = styled.p`
 `;
 
 const MarginTextBottom = styled(MarginText)`
-    top: auto;
-    bottom: 0;
-    right: 0;
-    left: auto;
-`
+  top: auto;
+  bottom: 0;
+  right: 0;
+  left: auto;
+`;
 
 export const Divider = styled.hr`
   border: 0.5px solid rgba(0, 0, 0, 0.4);
@@ -38,10 +38,9 @@ export const Variable = styled.code`
   display: inline-block !important;
 `;
 
-export const PageBase: React.FC<React.PropsWithChildren<{printMode?: boolean}>> = ({
-  children,
-                                                                                       printMode
-}) => (
+export const PageBase: React.FC<
+  React.PropsWithChildren<{ printMode?: boolean }>
+> = ({ children, printMode }) => (
   <body className={printMode ? "printmode" : "noPrint"}>
     <MarginText className={"printonly"}>
       A monad is a monoid in the category of endofunctors | CPS can be expressed
@@ -50,11 +49,11 @@ export const PageBase: React.FC<React.PropsWithChildren<{printMode?: boolean}>> 
     </MarginText>
     {children}
     <MarginTextBottom className={"printonly"}>
-        Made with ❤️ by sashaphoto.ca
+      Made with ❤️ by sashaphoto.ca
     </MarginTextBottom>
   </body>
 );
 
 PageBase.defaultProps = {
-    printMode: true
-}
+  printMode: true,
+};
