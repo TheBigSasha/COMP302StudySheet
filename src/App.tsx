@@ -2,34 +2,36 @@ import React, { useState } from "react";
 import "./App.css";
 import { Route, Routes, Link, Outlet } from "react-router-dom";
 import {
-    BasicSyntaxTopic,
-    ChurchTopic,
-    CodeExamples,
-    CoinSort,
-    CPSTopic,
-    CurryTopic,
-    EvalImpl,
-    EvalTopic,
-    FreeVariables,
-    HOFTopic,
-    InferCode,
-    InferenceRules,
-    InfinteData,
-    LazyTopic,
-    ListHOFTopic,
-    ListOperationsTopic,
-    MathTopic, MiscInfo,
-    OCamlNotes,
-    OptionalTopic,
-    PartialEvaluation,
-    ProofTopic,
-    References,
-    SubTypingTopic,
-    TuplesTopic,
-    TypeInferenceForFun,
-    TypeInferenceTopic,
-    TypesTopic, TypeVariables,
-    Unification,
+  BasicSyntaxTopic,
+  ChurchTopic,
+  CodeExamples,
+  CoinSort,
+  CPSTopic,
+  CurryTopic,
+  EvalImpl,
+  EvalTopic,
+  FreeVariables,
+  HOFTopic,
+  InferCode,
+  InferenceRules,
+  InfinteData,
+  LazyTopic,
+  ListHOFTopic,
+  ListOperationsTopic,
+  MathTopic,
+  MiscInfo,
+  OCamlNotes,
+  OptionalTopic,
+  PartialEvaluation,
+  ProofTopic,
+  References,
+  SubTypingTopic,
+  TuplesTopic,
+  TypeInferenceForFun,
+  TypeInferenceTopic,
+  TypesTopic,
+  TypeVariables,
+  Unification,
 } from "./topics/Topics";
 import { PageBase } from "./components/Styled";
 import { Helmet } from "react-helmet";
@@ -49,7 +51,7 @@ function App() {
         {ListOperationsTopic}
       </div>
       <div className={"slimBoiColumn"}>
-          {MathTopic}
+        {MathTopic}
         {ProofTopic}
       </div>
       <div className={"slimBoiColumn"}>
@@ -60,8 +62,8 @@ function App() {
       {CoinSort}
 
       <div className={"slimmerBoiColumn"} style={{ height: "100%" }}>
-          {References}
-          {OptionalTopic}
+        {References}
+        {OptionalTopic}
         {ChurchTopic}
         {TypesTopic}
       </div>
@@ -80,29 +82,27 @@ function App() {
   const final = (
     <>
       <div className={"slimmerBoiColumn"}>
-          {InferenceRules}
+        {InferenceRules}
         {InferCode}
       </div>
-        <div className={"slimmerBoiColumn"}>
-            {MiscInfo}
-            {LazyTopic}
-            {PartialEvaluation}
-
-
-        </div>
-            <div className={"slimBoiColumn"}>{Unification}</div>
-      <div className={"slimBoiColumn"}>{FreeVariables}         {TypeInferenceForFun}
+      <div className={"slimmerBoiColumn"}>
+        {MiscInfo}
+        {LazyTopic}
+        {PartialEvaluation}
+      </div>
+      <div className={"slimBoiColumn"}>{Unification}</div>
+      <div className={"slimBoiColumn"}>
+        {FreeVariables} {TypeInferenceForFun}
       </div>
       <div className={""}>
-          {EvalImpl}
-          {InfinteData}
-
+        {EvalImpl}
+        {InfinteData}
       </div>
 
       <div className={"slimBoiColumn"}>
         {EvalTopic}
-          {TypeVariables}
-          {SubTypingTopic}
+        {TypeVariables}
+        {SubTypingTopic}
       </div>
     </>
   );

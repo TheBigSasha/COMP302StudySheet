@@ -374,7 +374,14 @@ export const ListOperationsTopic = (
         </Pair>
       </li>
     </ul>
-      <p><strong>List FoldR</strong> This function takes an initial base case <Variable>init</Variable> (matched to []) and an inductive case (function <Variable>op hd (foldr init op tl)</Variable> which does something. In the case of summing a whole list, <Variable>init = 0</Variable> and <Variable>op = (+) </Variable>. Concat would be <Variable>init = ""</Variable> and <Variable>op = (^)</Variable></p>
+    <p>
+      <strong>List FoldR</strong> This function takes an initial base case{" "}
+      <Variable>init</Variable> (matched to []) and an inductive case (function{" "}
+      <Variable>op hd (foldr init op tl)</Variable> which does something. In the
+      case of summing a whole list, <Variable>init = 0</Variable> and{" "}
+      <Variable>op = (+) </Variable>. Concat would be{" "}
+      <Variable>init = ""</Variable> and <Variable>op = (^)</Variable>
+    </p>
   </TopicCard>
 );
 export const ListHOFTopic = (
@@ -811,14 +818,12 @@ export const BasicSyntaxTopic = (
       <li>
         <Pair item1={"try"}> try...with</Pair>
       </li>
-        <li>
-            <Pair item1={"list item concat"}>1 :: [1,2,3]</Pair>
-        </li>
+      <li>
+        <Pair item1={"list item concat"}>1 :: [1,2,3]</Pair>
+      </li>
     </ul>
   </TopicCard>
 );
-
-
 
 export const InferenceRules = (
   <TopicCard title={"Backus Naur Form - Exec"} color="rgba(100,100,255,0.1)">
@@ -852,15 +857,27 @@ export const InferenceRules = (
           }
         />
       </li>
-        <p>Let, Apply <i>(incl Substitution)</i></p>
-        <ListPairItem item1={<>B-LET</>} item2={<Ltx bigFont>{`\\frac{e_1 \\downarrow v_1 \\ \\ \\ [v_1 / x] e_2 \\downarrow v}{\\textbf{let} \\ x = e_1 \\ \\textbf{in} \\ e_2 \\ \\textbf{end} \\ \\downarrow v}`}</Ltx>}/>
-        <ListPairItem item1={<>B-APP</>} item2={
-            <Ltx bigFont>
-                {`\\frac
+      <p>
+        Let, Apply <i>(incl Substitution)</i>
+      </p>
+      <ListPairItem
+        item1={<>B-LET</>}
+        item2={
+          <Ltx
+            bigFont
+          >{`\\frac{e_1 \\downarrow v_1 \\ \\ \\ [v_1 / x] e_2 \\downarrow v}{\\textbf{let} \\ x = e_1 \\ \\textbf{in} \\ e_2 \\ \\textbf{end} \\ \\downarrow v}`}</Ltx>
+        }
+      />
+      <ListPairItem
+        item1={<>B-APP</>}
+        item2={
+          <Ltx bigFont>
+            {`\\frac
                 {e_1 \\downarrow \\textbf{fn} x \\rightarrow e \\ \\ \\ \\ \\ e_2 \\downarrow v_2 \\ \\ \\ \\ \\ [v_2 / x] e \\downarrow v}
                 {e_1 \\ e_2 \\ \\downarrow v}`}
-            </Ltx>
-        }/>
+          </Ltx>
+        }
+      />
     </ul>
     <Divider />
     Every sub expression of the main one on the above line of the inference rule
@@ -879,20 +896,25 @@ export const InferenceRules = (
 );
 
 export const MiscInfo = (
-    <TopicCard title={"Misc Info"} color="rgba(100,100,255,0.1)">
-        <ul>
-            <ListPairItem item1={"Partial Application"} item2={"Call a function w/o all args"}/>
-            <ListPairItem item1={"Constructor"} item2={"With capital letter, packages infiniteness (lazy)"}/>
-        </ul>
-    </TopicCard>)
+  <TopicCard title={"Misc Info"} color="rgba(100,100,255,0.1)">
+    <ul>
+      <ListPairItem
+        item1={"Partial Application"}
+        item2={"Call a function w/o all args"}
+      />
+      <ListPairItem
+        item1={"Constructor"}
+        item2={"With capital letter, packages infiniteness (lazy)"}
+      />
+    </ul>
+  </TopicCard>
+);
 
 export const LazyTopic = (
   <TopicCard title={"Lazy vs Eager Evaluation"} color="rgba(100,0,0,0.1)">
     <ul>
       <li>
-        <Pair item1={"Lazy"}>
-          evaluate only when needed (call by need)
-        </Pair>
+        <Pair item1={"Lazy"}>evaluate only when needed (call by need)</Pair>
       </li>
       <li>
         <Pair item1={"Eager"}>
@@ -997,7 +1019,11 @@ export const Unification = (
       <Variable>Arrow (TInt, TInt)</Variable>, we can unify them by substituting{" "}
       <Variable>TBool</Variable> for <Variable>TInt</Variable>.
     </p>
-      <i>We cannot include a type in its own definintion! That is an <strong>infinite type</strong>. Example: inferring a type of <Variable>x :: y</Variable> ('a of list cons 'a list)</i>
+    <i>
+      We cannot include a type in its own definintion! That is an{" "}
+      <strong>infinite type</strong>. Example: inferring a type of{" "}
+      <Variable>x :: y</Variable> ('a of list cons 'a list)
+    </i>
     <OCaml
       code={`let unify =
   let rec unify substitution t1 t2 =
@@ -1266,13 +1292,14 @@ export const SubTypingTopic = (
         }
       />
     </ul>
-      <Divider/>
-      {/* @ts-ignore  TODO: file a bug report with React-LaTeX about maxSize prop, the string works fine here*/}
-      <Latex maxSize={"100%"}>
-          {`$\\dfrac{\\Gamma \\vdash e_1: T_1 \\times T_2 \\quad \\Gamma, x: T_1, y: T_2, \\vdash e_2: T}{\\Gamma \\vdash \\text{ let } (x, y) = e_1 \\text{ in } e_2 \\text{ end}: T}$, T-LET-MATCH`}
-      </Latex>
+    <Divider />
+    {/* @ts-ignore  TODO: file a bug report with React-LaTeX about maxSize prop, the string works fine here*/}
+    <Latex maxSize={"100%"}>
+      {`$\\dfrac{\\Gamma \\vdash e_1: T_1 \\times T_2 \\quad \\Gamma, x: T_1, y: T_2, \\vdash e_2: T}{\\Gamma \\vdash \\text{ let } (x, y) = e_1 \\text{ in } e_2 \\text{ end}: T}$, T-LET-MATCH`}
+    </Latex>
       {/* @ts-ignore */}
-      <Latex maxSize={"100%"}>{`$\\Gamma \\vdash e \\Rightarrow T/C$ : Infer type $T$ for expression $e$ in the typing environment $\\Gamma$ module the constraints $C$
+      <Latex maxSize={"100%"}
+    >{`$\\Gamma \\vdash e \\Rightarrow T/C$ : Infer type $T$ for expression $e$ in the typing environment $\\Gamma$ module the constraints $C$
 $\\dfrac{x : T \\in \\Gamma}{\\Gamma \\vdash x \\Rightarrow T/\\emptyset}$ B-VAR
 $\\dfrac{\\Gamma \\vdash \\Rightarrow T/C \\quad \\Gamma \\vdash e_1 \\Rightarrow T_1/C_1 \\quad \\Gamma \\vdash e_2 \\Rightarrow T_2/C_2}{\\Gamma \\vdash \\text{if } e \\text{ then } e_1 \\text{ else } e_2 \\Rightarrow T_1/C \\cup C_1 \\cup C_2 \\cup \\{T = \\text{bool, } T_1 = T_2\\}}$ B-IF
 `}</Latex>
@@ -1340,97 +1367,186 @@ export const FreeVariables = (
         }
       />
     </ul>
-      <DotDivider/>
-      <p>Context, written as <LtxVariable>{`\\Gamma`}</LtxVariable> contains pairs of <Variable>name * type</Variable> which can be read from a list with <Variable>List.assoc name listVar</Variable> It can be said that <Variable>e</Variable> has a type <Variable>T</Variable> given context <LtxVariable>{`\\Gamma`}</LtxVariable> if <LtxVariable>{`\\Gamma \\vdash e : T`}</LtxVariable></p>
-      <ul>
-<ListPairItem
+    <DotDivider />
+    <p>
+      Context, written as <LtxVariable>{`\\Gamma`}</LtxVariable> contains pairs
+      of <Variable>name * type</Variable> which can be read from a list with{" "}
+      <Variable>List.assoc name listVar</Variable> It can be said that{" "}
+      <Variable>e</Variable> has a type <Variable>T</Variable> given context{" "}
+      <LtxVariable>{`\\Gamma`}</LtxVariable> if{" "}
+      <LtxVariable>{`\\Gamma \\vdash e : T`}</LtxVariable>
+    </p>
+    <ul>
+      <ListPairItem
         item1={"T-FN w/ context"}
         item2={
-            <Ltx bigFont>{`\\frac{\\Gamma, \\   x \\ : \\ T_1 \\  \\vdash \\ \\ e \\  \\ : T_2}{\\Gamma \\ \\vdash \\ \\textbf{fn} \\ \\  x \\rightarrow e\\ \\  : \\ \\ \\  T_1 \\rightarrow T_2}`}</Ltx>
+          <Ltx
+            bigFont
+          >{`\\frac{\\Gamma, \\   x \\ : \\ T_1 \\  \\vdash \\ \\ e \\  \\ : T_2}{\\Gamma \\ \\vdash \\ \\textbf{fn} \\ \\  x \\rightarrow e\\ \\  : \\ \\ \\  T_1 \\rightarrow T_2}`}</Ltx>
         }
-        />
+      />
 
-          <ListPairItem
-              item1={"T-APP w/ context"}
-              item2={
-                  <Ltx bigFont>{`\\frac{\\Gamma  \\ \\vdash \\ \\ e_1 \\  \\ : T_2 \\rightarrow T \\ \\ \\ \\ \\ \\ \\Gamma \\  \\vdash e_2 : T_2}{\\Gamma \\ \\vdash e_1 \\ e_2 \\ : T}`}</Ltx>
-              }
-          />
-      </ul>
+      <ListPairItem
+        item1={"T-APP w/ context"}
+        item2={
+          <Ltx
+            bigFont
+          >{`\\frac{\\Gamma  \\ \\vdash \\ \\ e_1 \\  \\ : T_2 \\rightarrow T \\ \\ \\ \\ \\ \\ \\Gamma \\  \\vdash e_2 : T_2}{\\Gamma \\ \\vdash e_1 \\ e_2 \\ : T}`}</Ltx>
+        }
+      />
+    </ul>
   </TopicCard>
 );
 
-export const TypeVariables = <TopicCard title={"Type Variables"} color="rgba(244,10,0,0.1)">
-   <p>A type substitution can be denoted with <LtxVariable>\sigma</LtxVariable>. Saying <LtxVariable>[\sigma]\Gamma \ \vdash e : [\sigma]T</LtxVariable> is saying that with the substitution <LtxVariable>\sigma</LtxVariable>, the type of <LtxVariable>e</LtxVariable> is <LtxVariable>T</LtxVariable></p>
+export const TypeVariables = (
+  <TopicCard title={"Type Variables"} color="rgba(244,10,0,0.1)">
+    <p>
+      A type substitution can be denoted with <LtxVariable>\sigma</LtxVariable>.
+      Saying <LtxVariable>[\sigma]\Gamma \ \vdash e : [\sigma]T</LtxVariable> is
+      saying that with the substitution <LtxVariable>\sigma</LtxVariable>, the
+      type of <LtxVariable>e</LtxVariable> is <LtxVariable>T</LtxVariable>
+    </p>
     <ul>
-<ListPairItem
-        item1={<Variable><Ltx>\vdash</Ltx> fn x {eqArrow} x</Variable>}
-        item2={
-            <Ltx>\alpha \rightarrow \alpha</Ltx>
+      <ListPairItem
+        item1={
+          <Variable>
+            <Ltx>\vdash</Ltx> fn x {eqArrow} x
+          </Variable>
         }
-        />
-        <ListPairItem
-            item1={<Variable><Ltx>\vdash</Ltx> fn f {eqArrow} fn x {eqArrow} f(f(x))</Variable>}
-            item2={
-                <Ltx>(\alpha \rightarrow \alpha) \rightarrow \alpha \rightarrow \alpha</Ltx>
-            }
-        />
-        <ListPairItem
-            item1={<Variable><Ltx>x : \alpha \vdash</Ltx> fn f {eqArrow} f x</Variable>}
-            item2={
-                <Ltx>(\alpha \rightarrow \beta) \rightarrow \beta</Ltx>
-            }
-        />
+        item2={<Ltx>\alpha \rightarrow \alpha</Ltx>}
+      />
+      <ListPairItem
+        item1={
+          <Variable>
+            <Ltx>\vdash</Ltx> fn f {eqArrow} fn x {eqArrow} f(f(x))
+          </Variable>
+        }
+        item2={
+          <Ltx>
+            (\alpha \rightarrow \alpha) \rightarrow \alpha \rightarrow \alpha
+          </Ltx>
+        }
+      />
+      <ListPairItem
+        item1={
+          <Variable>
+            <Ltx>x : \alpha \vdash</Ltx> fn f {eqArrow} f x
+          </Variable>
+        }
+        item2={<Ltx>(\alpha \rightarrow \beta) \rightarrow \beta</Ltx>}
+      />
     </ul>
-    <DotDivider/>
-    <p><strong>Damas-H.M.</strong> Style Type Inference</p>
+    <DotDivider />
+    <p>
+      <strong>Damas-H.M.</strong> Style Type Inference
+    </p>
     <ol>
-        <li>Analyze <LtxVariable>e</LtxVariable> as above given type rules</li>
-        <li>Create an arbitrary type <LtxVariable>\alpha</LtxVariable> and add constraints recursively</li>
-        <li><LtxVariable>T</LtxVariable> is a type skeleton which may contain type variables</li>
-        <li>Solve the constraints to generate a substitution <LtxVariable>\sigma</LtxVariable>.</li>
-        <li>Failing to solve constraints means badly typed. Else e has a type <LtxVariable>[\sigma]T</LtxVariable></li>
+      <li>
+        Analyze <LtxVariable>e</LtxVariable> as above given type rules
+      </li>
+      <li>
+        Create an arbitrary type <LtxVariable>\alpha</LtxVariable> and add
+        constraints recursively
+      </li>
+      <li>
+        <LtxVariable>T</LtxVariable> is a type skeleton which may contain type
+        variables
+      </li>
+      <li>
+        Solve the constraints to generate a substitution{" "}
+        <LtxVariable>\sigma</LtxVariable>.
+      </li>
+      <li>
+        Failing to solve constraints means badly typed. Else e has a type{" "}
+        <LtxVariable>[\sigma]T</LtxVariable>
+      </li>
     </ol>
-    <p>Example: <Variable>fn x {eqArrow} fn y {eqArrow} if x then y else 2 + 2</Variable></p>
+    <p>
+      Example:{" "}
+      <Variable>
+        fn x {eqArrow} fn y {eqArrow} if x then y else 2 + 2
+      </Variable>
+    </p>
     <ol>
-        <li>Start inner-most <Variable>if x then y else 2 + 2 </Variable> -- arbitrary types: <LtxVariable>x : \alpha</LtxVariable> <LtxVariable>y: \beta</LtxVariable></li>
-        <li>Constraints: <LtxVariable>x</LtxVariable> is an if condition thus <LtxVariable>{`\\alpha = \\textbf{bool}`}</LtxVariable></li>
-        <li>Infer <Variable>2 + 2 </Variable> has type <Variable>Int</Variable>, and by if rules, <LtxVariable>{`\\beta = \\textbf{int}`}</LtxVariable></li>
-        <li><LtxVariable>\alpha \rightarrow \beta \rightarrow \beta</LtxVariable> given <LtxVariable>{`\\alpha = \\textbf{bool}`}</LtxVariable> and  <LtxVariable>{`\\beta = \\textbf{int}`}</LtxVariable>;  <LtxVariable>{`\\textbf{bool} \\rightarrow \\textbf{int} \\rightarrow \\textbf{int}`}</LtxVariable></li>
+      <li>
+        Start inner-most <Variable>if x then y else 2 + 2 </Variable> --
+        arbitrary types: <LtxVariable>x : \alpha</LtxVariable>{" "}
+        <LtxVariable>y: \beta</LtxVariable>
+      </li>
+      <li>
+        Constraints: <LtxVariable>x</LtxVariable> is an if condition thus{" "}
+        <LtxVariable>{`\\alpha = \\textbf{bool}`}</LtxVariable>
+      </li>
+      <li>
+        Infer <Variable>2 + 2 </Variable> has type <Variable>Int</Variable>, and
+        by if rules, <LtxVariable>{`\\beta = \\textbf{int}`}</LtxVariable>
+      </li>
+      <li>
+        <LtxVariable>\alpha \rightarrow \beta \rightarrow \beta</LtxVariable>{" "}
+        given <LtxVariable>{`\\alpha = \\textbf{bool}`}</LtxVariable> and{" "}
+        <LtxVariable>{`\\beta = \\textbf{int}`}</LtxVariable>;{" "}
+        <LtxVariable>{`\\textbf{bool} \\rightarrow \\textbf{int} \\rightarrow \\textbf{int}`}</LtxVariable>
+      </li>
     </ol>
     <ul>
-        <ListPairItem
-            item1={<Variable>fn x {eqArrow} x + 1</Variable>}
-            item2={
-                <Ltx>{`\\alpha \\rightarrow \\textbf{int} / \\{\\alpha = \\textbf{int}\\}`}</Ltx>
-            }/>
-        <ListPairItem
-            item1={<>Badly typed <Variable>fn x {eqArrow} if x then x + 1 else 2</Variable></>}
-            item2={
-                <Ltx>{`.../ \\{\\alpha = \\textbf{bool}, \\alpha = \\textbf{int}\\}`}</Ltx>
-            }/>
-        <ListPairItem
-            item1={<Variable>fn f {eqArrow} fn x {eqArrow} f (f x)</Variable>}
-            item2={
-                <Ltx>{`.../ \\{\\alpha = \\beta \\rightarrow \\alpha_0, \\alpha = \\alpha_0 \\rightarrow \\alpha_1\\}`}</Ltx>
-            }/>
+      <ListPairItem
+        item1={<Variable>fn x {eqArrow} x + 1</Variable>}
+        item2={
+          <Ltx>{`\\alpha \\rightarrow \\textbf{int} / \\{\\alpha = \\textbf{int}\\}`}</Ltx>
+        }
+      />
+      <ListPairItem
+        item1={
+          <>
+            Badly typed{" "}
+            <Variable>fn x {eqArrow} if x then x + 1 else 2</Variable>
+          </>
+        }
+        item2={
+          <Ltx>{`.../ \\{\\alpha = \\textbf{bool}, \\alpha = \\textbf{int}\\}`}</Ltx>
+        }
+      />
+      <ListPairItem
+        item1={
+          <Variable>
+            fn f {eqArrow} fn x {eqArrow} f (f x)
+          </Variable>
+        }
+        item2={
+          <Ltx>{`.../ \\{\\alpha = \\beta \\rightarrow \\alpha_0, \\alpha = \\alpha_0 \\rightarrow \\alpha_1\\}`}</Ltx>
+        }
+      />
     </ul>
     <p>Unification</p>
-    <p>Two types are unifiable if a <LtxVariable>\sigma</LtxVariable> exists where <LtxVariable>[\sigma]T_1 = [\sigma]T_2</LtxVariable></p>
-    <Divider/>
+    <p>
+      Two types are unifiable if a <LtxVariable>\sigma</LtxVariable> exists
+      where <LtxVariable>[\sigma]T_1 = [\sigma]T_2</LtxVariable>
+    </p>
+    <Divider />
     <span className={"twoCol"}>
-        <OCaml code={`let rec f x l = match l with
+      <OCaml
+        code={`let rec f x l = match l with
 | [] -> x (f x l)
-| _ -> f x`}/>
-        <ul style={{width: "100%"}}>
-            <ListPairItem item1={"First read"} item2={<Ltx>\alpha \rightarrow \beta \rightarrow \zeta</Ltx>}/>
-            <ListPairItem item1={"2nd read"} item2={<Ltx>\alpha \rightarrow \beta list \rightarrow \zeta</Ltx>}/>
-            <ListPairItem item1={"Nth read (contradiction)"} item2={<Ltx>\zeta = (\beta list \rightarrow \zeta)</Ltx>}/>
-        </ul>
+| _ -> f x`}
+      />
+      <ul style={{ width: "100%" }}>
+        <ListPairItem
+          item1={"First read"}
+          item2={<Ltx>\alpha \rightarrow \beta \rightarrow \zeta</Ltx>}
+        />
+        <ListPairItem
+          item1={"2nd read"}
+          item2={<Ltx>\alpha \rightarrow \beta list \rightarrow \zeta</Ltx>}
+        />
+        <ListPairItem
+          item1={"Nth read (contradiction)"}
+          item2={<Ltx>\zeta = (\beta list \rightarrow \zeta)</Ltx>}
+        />
+      </ul>
     </span>
     <p>Cannot return partial application of the same recursive function</p>
-
-</TopicCard>
+  </TopicCard>
+);
 
 export const OCamlNotes = (
   <TopicCard title={"OCaml Notes"} color="rgba(10,0,244,0.1)">
@@ -1453,8 +1569,12 @@ export const OCamlNotes = (
 );
 
 export const InfinteData = (
-  <TopicCard title={"Infinite Data -> Force Lazy in OCaml via Suspend"} color="rgba(255,0,0,0.1)">
-      <OCaml code={`type 'a susp = Susp of (unit -> 'a)                         
+  <TopicCard
+    title={"Infinite Data -> Force Lazy in OCaml via Suspend"}
+    color="rgba(255,0,0,0.1)"
+  >
+    <OCaml
+      code={`type 'a susp = Susp of (unit -> 'a)                         
 (* ways to get in and out. FUN SHIELDS FROM COMPUTATION*) 
 let delay (f:unit -> 'a) : 'a susp = Susp f (*get into the susp world*) (*unit -> 'a*)
 let force (s: 'a susp) : 'a = (*get out the susp of his world*) (*val force : 'a susp -> 'a = <fun>*)
@@ -1496,36 +1616,72 @@ let rec unfold (s:a') (f: a' -> 'b * 'a) : 'b str =   let (x, s'_ = f s in {
     head =x;
     tl = delay @@ fun () -> 
       unfold s' f }  
-let nats = unfold 0 (fun n -> (n,n+1))`}></OCaml>
+let nats = unfold 0 (fun n -> (n,n+1))`}
+    ></OCaml>
   </TopicCard>
 );
 
 export const PartialEvaluation = (
   <TopicCard title={"Partial Evaluation"} color="rgba(128,128,0,0.1)">
-      <p>Lets us avoid unnecessary computations and save time. With a slow fn called conditionally.</p>
-      <p>Bad way to do it: associate x with uncalculated <Variable>x {eqArrow} horriblecomp 345</Variable>, but this can cause multi calculations in cases like <Variable>x + x</Variable> For a better way, See <strong>Lazy vs Eager</strong></p>
-      <Divider/>
+    <p>
+      Lets us avoid unnecessary computations and save time. With a slow fn
+      called conditionally.
+    </p>
+    <p>
+      Bad way to do it: associate x with uncalculated{" "}
+      <Variable>x {eqArrow} horriblecomp 345</Variable>, but this can cause
+      multi calculations in cases like <Variable>x + x</Variable> For a better
+      way, See <strong>Lazy vs Eager</strong>
+    </p>
+    <Divider />
     <ul>
-        <ListPairItem item1={"List constructors"} item2={<><Variable>Nil : 'a list</Variable>, <Variable>{`Cons: 'a -> 'a list -> 'a list`}</Variable></>}/>
-        <ListPairItem item1={"Stream Observations"} item2={<> <Variable>{`head: 'a stream -> 'a`}</Variable>, <Variable>{`tail: 'a stream -> 'a stream`}</Variable></>}/>
-        <p>A list must eventually have nil as the cons, a stream needs not.</p>
-        <ListPairItem item1={<Variable>1,2,3,4,5...</Variable>} item2={<><Variable>hd = 1</Variable>, <Variable>tail = 2,3,4,5...</Variable></>} />
+      <ListPairItem
+        item1={"List constructors"}
+        item2={
+          <>
+            <Variable>Nil : 'a list</Variable>,{" "}
+            <Variable>{`Cons: 'a -> 'a list -> 'a list`}</Variable>
+          </>
+        }
+      />
+      <ListPairItem
+        item1={"Stream Observations"}
+        item2={
+          <>
+            {" "}
+            <Variable>{`head: 'a stream -> 'a`}</Variable>,{" "}
+            <Variable>{`tail: 'a stream -> 'a stream`}</Variable>
+          </>
+        }
+      />
+      <p>A list must eventually have nil as the cons, a stream needs not.</p>
+      <ListPairItem
+        item1={<Variable>1,2,3,4,5...</Variable>}
+        item2={
+          <>
+            <Variable>hd = 1</Variable>, <Variable>tail = 2,3,4,5...</Variable>
+          </>
+        }
+      />
     </ul>
-      <DotDivider/>
-      <p>The following are implemented in Infinite Data tile</p>
-      <ul>
-          <ListPairItem item1={"Unit"} item2={"Unit is ()"}/>
-          <ListPairItem item1={"Susp type" } item2={"Represents a suspsended computation"}/>
-          <ListPairItem item1={"Force"} item2={"Runs a suspended computation"}/>
-          <ListPairItem item1={"Delay"} item2={"Suspends a given computation"}/>
-          <ListPairItem item1={"Unfold" } item2={"Same as list foldr"}/>
-      </ul>
-      <caption>The minimum stream</caption>
-      <OCaml code={`let s = repeat 5;; (*repeat 5 forever*)
+    <DotDivider />
+    <p>The following are implemented in Infinite Data tile</p>
+    <ul>
+      <ListPairItem item1={"Unit"} item2={"Unit is ()"} />
+      <ListPairItem
+        item1={"Susp type"}
+        item2={"Represents a suspsended computation"}
+      />
+      <ListPairItem item1={"Force"} item2={"Runs a suspended computation"} />
+      <ListPairItem item1={"Delay"} item2={"Suspends a given computation"} />
+      <ListPairItem item1={"Unfold"} item2={"Same as list foldr"} />
+    </ul>
+    <caption>The minimum stream</caption>
+    <OCaml
+      code={`let s = repeat 5;; (*repeat 5 forever*)
 s.hd;; (*evals to int 5*)
 s.tl;; (*evals to Susp <fun>*)
-force s.tl;; (*evals to {hd = 5; t;= Susp<fun>}*)`}/>
-
-
+force s.tl;; (*evals to {hd = 5; t;= Susp<fun>}*)`}
+    />
   </TopicCard>
 );
