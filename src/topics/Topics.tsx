@@ -1429,6 +1429,49 @@ export const InfinteData = (
       <ListPairItem item1={"Infinite data"} item2={"TODO"} />
         <ListPairItem item1={"Suspension"} item2={"TODO"}/>
     </ul>
+      <OCaml code={`type 'a susp = Susp of (unit -> 'a)                         
+(* ways to get in and out *) 
+let delay (f:unit -> 'a) : 'a susp = Susp f (*get into the susp world*) (*unit -> 'a*)
+let force (s: 'a susp) : 'a = (*get out the susp of his world*) (*val force : 'a susp -> 'a = <fun>*)
+  let (susp f) = s in f()                    
+(*collect all these information into one world*)  
+type 'a str = { hd : 'a;  tl : 'a str susp;}
+(*infinite sequence of a certain number*)(*repeat that 'a forever*)
+let rec repeat (x : 'a): 'a str = {
+  (*head of that stream is x*) 
+  head = x;
+  t1 = delay @@ fun () (**Susp part, keep repeating x*)-> repeat x } (*type alpha string susp*)  (*suspended computation *)
+    (*let s.head = repeat 5*)
+(*function extracting the nth element of the string*)(*sequence of all the natural numbers*)(*define the natural number from a starting point*) (*why first element is 0*, only tail is delayed*)
+let rec nats_from (n:int) : int str = 
+  head = n;
+  t1 = delay @@ fun () -> nats_from(n+1)}
+(*with references define natural number*)
+let nats = 
+  let n = ref 0 in 
+  let rec go() = {
+    hd = n!;
+    t1= delay @@ fun() ->
+      n:= !n+1;
+      go()} in go()
+(*way to examine the string , can print out a prefic*)(*extract the first n element of a list*)
+let rec take (n:int)(s:a'str) : a' list = 
+  match n with 
+  |0 -> []
+  |1-> [s.head]  | _ ->
+      s.head :: take (n-1) (force s.t1)    
+(*high order functions *)
+let rec map (f: 'a -> 'b) (s:'a str) : 'b str = 
+  head = f s.head;
+ t1 = delay @@ fun() -> (*when we want the tail*) map f (force s.t1)}
+(*foldr : ('a -> 'b) -> b' -> a' list -> 'b
+  undolf: a' -> ('a -> 'b * 'a) 0> 'b str*)
+(*This code creates a stream of the natural numbers, starting at 0. The function unfold takes two parameters, an initial state (s) and a function (f).The function f takes a state (s) and returns a pair (x, s') where x is the result of the transformation,and s' is the new state. The function then creates a new stream with its head set to the result of the transformation (x) and its tail set to a delayed version of the unfold function, with the new state (s')passed as the initial parameter. This new stream is then returned.*)
+let rec unfold (s:a') (f: a' -> 'b * 'a) : 'b str =   let (x, s'_ = f s in { 
+    head =x;
+    t1 = delay @@ fun () -> 
+      unfold s' f }  
+let nats = unfold 0 (fun n -> (n,n+1))`}></OCaml>
   </TopicCard>
 );
 
@@ -1437,5 +1480,6 @@ export const PartialEvaluation = (
     <ul>
       <ListPairItem item1={"Peval"} item2={"TODO"} />
     </ul>
+      <div style={{height:500}}/>
   </TopicCard>
 );

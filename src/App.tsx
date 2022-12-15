@@ -79,22 +79,26 @@ function App() {
   const final = (
     <>
       <div className={"slimmerBoiColumn"}>
-        {InferenceRules}
+          {InferenceRules}
         {References}
         {InferCode}
       </div>
-      <div className={"slimBoiColumn"}>{Unification}</div>
-      <div className={"slimBoiColumn"}>{FreeVariables}</div>
+        <div className={"slimmerBoiColumn"}>
+            {LazyTopic}
+            {PartialEvaluation}
+
+
+        </div>
+            <div className={"slimBoiColumn"}>{Unification}</div>
+      <div className={"slimBoiColumn"}>{FreeVariables}         {TypeInferenceForFun}
+      </div>
       <div className={"slimBoiColumn"}>
-        {EvalImpl}
+          {EvalImpl}
           {TypeVariables}
-        {PartialEvaluation}
       </div>
 
       <div className={"slimBoiColumn"}>
         {EvalTopic}
-        {LazyTopic}
-        {TypeInferenceForFun}
         {SubTypingTopic}
         {InfinteData}
       </div>
