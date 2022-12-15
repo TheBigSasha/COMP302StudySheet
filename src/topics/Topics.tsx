@@ -1122,7 +1122,7 @@ export const References = <TopicCard title={"References"} color="rgba(244,10,0,0
         <p>Whenever we see a subtype, the compiler adds a special casting function up which upcasts S to T</p>
         <DotDivider/>
         <ul>
-            <ListPairItem item1={"S-FN Subtyping rule"} item2={<Ltx bigFont>{`\\frac{T_1 \\leq S_1 \ \ \ \ \ S_2 \\leq T_2}{S_1 \\rightarrow S_2 \\leq T_1 \\rightarrow T_2}`}</Ltx> }/>
+            <ListPairItem item1={"S-FN Subtyping rule"} item2={<Ltx bigFont>{`\\frac{T_1 \\leq S_1 \\ \\ \\ \\ \\ S_2 \\leq T_2}{S_1 \\rightarrow S_2 \\leq T_1 \\rightarrow T_2}`}</Ltx> }/>
         </ul>
 
     </TopicCard>
