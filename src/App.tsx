@@ -10,7 +10,7 @@ import {
     CurryTopic,
     EvalImpl,
     EvalTopic,
-    FreeVariables,
+    FreeVariables, FVFoldExtra,
     HOFTopic,
     InferCode,
     InferenceRules,
@@ -84,6 +84,7 @@ function App() {
       <div className={"slimmerBoiColumn"}>
         {InferenceRules}
         {InferCode}
+          {FVFoldExtra}
       </div>
       <div className={"slimmerBoiColumn"}>
         {MiscInfo}

@@ -1742,3 +1742,16 @@ export const ProofsExtra = <TopicCard title={"Proofs Extra"} color="rgba(128,128
 
 
 </TopicCard>
+
+
+export const FVFoldExtra = <TopicCard title={"Fold Extra"} color="rgba(128,128,255,0.1)">
+    <p>Applying rules from free variables to compute free variables using fold, given some helper functions (not elsewhere defined)</p>
+    <OCaml code={`let free_variables exp = fold_exp {
+on_fun = (fun (X, fs) -> delete [X] fvs);
+on_if = (fun (fvst, fvs2, fvs3) ->
+                    unions [fvsi; fvs2; fvs3]);
+on let = (fun (x, fvsi, fvs2) ->
+               union fvsi (delete [x] fvs2)))}`}/>
+
+
+</TopicCard>
