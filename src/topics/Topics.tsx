@@ -880,6 +880,10 @@ export const InferenceRules = (
 
 export const MiscInfo = (
     <TopicCard title={"Misc Info"} color="rgba(100,100,255,0.1)">
+        <ul>
+            <ListPairItem item1={"Partial Application"} item2={"Call a function w/o all args"}/>
+            <ListPairItem item1={"Constructor"} item2={"With capital letter, packages infiniteness (lazy)"}/>
+        </ul>
     </TopicCard>)
 
 export const LazyTopic = (
