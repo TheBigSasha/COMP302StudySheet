@@ -4,7 +4,7 @@ export const Pair = ({
   item1,
   children,
 }: {
-  item1: string;
+  item1: React.ReactNode;
   children: React.ReactNode;
 }) => {
   return (
@@ -23,7 +23,7 @@ export const Pair = ({
 export const ListPairItem = ({
     item1,
     item2
-}: {item1: string, item2: React.ReactNode}) => {
+}: {item1: React.ReactNode, item2: React.ReactNode}) => {
     return (
       <li>
         <Pair item1={item1}>{item2}</Pair>

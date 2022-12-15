@@ -78,7 +78,7 @@ function App() {
             {References}
         </div>
       <div className={"slimBoiColumn"}>{Unification}</div>
-      <div className={"slimBoiColumn"}>{InferCode}</div>
+      <div className={"slimmerBoiColumn"}>{InferCode}</div>
       <div className={"slimBoiColumn"}>{EvalImpl}</div>
 
       <div className={"slimBoiColumn"}>

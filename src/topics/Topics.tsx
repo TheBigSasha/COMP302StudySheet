@@ -116,6 +116,7 @@ else find_color c l (imidiately returned)`}
 |Cons (x, _) ->x
 |Nil -> raise EmptyList`}
     />
+    {/*  TODO: put a better CPS example here */}
     <h4>*** Code Example - rev / rev_tr</h4>
     <span className={"twoCol"}>
       <OCaml
@@ -141,6 +142,17 @@ in
 rev_tr 1 [];;`}
       />
     </span>
+      <Divider/>
+      <OCaml code={`let rec fold_left f acc l = match l with
+  | Nil -> acc
+  | Cons(x,xs) -> fold_left f (f acc x) xs
+let fold_left' f e l =
+  fold_right (fun a b -> f b a) (fold_right (fun a b -> append b (Cons(a, Nil))) l Nil) e
+let rec scan_left (f : 'b -> 'a -> 'b) (acc : 'b) (l : 'a list) : 'b list =
+  acc ::
+    match l with
+    | [] -> []
+    | x :: xs -> scan_left f (f acc x) xs`}></OCaml>
   </TopicCard>
 );
 
@@ -1016,15 +1028,13 @@ export const InferCode = (
   | Var x ->
       begin
         try lookup x ctx
-        with Not_found -> raise (TypeError (Free_variable x))
-      end
+        with Not_found -> raise (TypeError
+                    (Free_variable x)) end
   | I _ -> Int
   | B _ -> Bool
-
   | Primop (po, exps) ->
       let (domain, range) = primopType po in
       check ctx exps domain range
-
   | If (e, e1, e2) ->
       begin
         match infer ctx e with
@@ -1035,29 +1045,24 @@ export const InferCode = (
             else type_mismatch t1 t2
         | t -> type_mismatch Bool t
       end
-
   | Let (x, e1, e2) ->
       let t1 = infer ctx e1 in
       infer (extend ctx (x, t1)) e2
-
   | Rec (f, t, e) ->
       let ctx' = extend ctx (f, t) in
       let t' = infer ctx' e in
       if t' = t then t
       else type_mismatch t t'
-
   | Fn (xs, e) ->
       let ctx' = extend_list ctx xs in
       let ts = List.map snd xs in
       Arrow (ts, infer ctx' e)
-
   | Apply (e, es) ->
       begin
         match infer ctx e with
         | Arrow (ts, t) -> check ctx es ts t
-        | t' -> raise (TypeError (Apply_non_arrow t'))
-      end
-
+        | t' -> raise (TypeError 
+               (Apply_non_arrow t')) end
 and check ctx exps tps result =
   match exps, tps with
   | [], [] -> result
@@ -1161,6 +1166,11 @@ export const FreeVariables = <TopicCard title={"Free Variables"} color="rgba(244
         <ListPairItem item1={"FV(e1 op e2)"} item2={<Ltx>{`\\textbf{FV}(e_1) \\cup \\textbf{FV}(e_2)`}</Ltx>}/>
         <ListPairItem item1={"FV(if e then e1 else e2)"} item2={<Ltx>{`\\textbf{FV}(e) \\cup \\textbf{FV}(e_1) \\cup \\textbf{FV}(e_2)`}</Ltx>}/>
         <ListPairItem item1={"FV(let x = e1 in e2 end)"} item2={<Ltx>{`\\textbf{FV}(e_1) \\cup (\\textbf{FV}(e_2) \\backslash \\{x\\})`}</Ltx>}/>
+        <p>Substitution</p>
+        <ListPairItem item1={"Replace all inst of x in e with e'"} item2={<Ltx>{`[e' / x]e`}</Ltx>}/>
+        <ListPairItem item1={"Min example"} item2={<Ltx>{`[5 / x](2+x) = 2 + 5`}</Ltx>}/>
+        <ListPairItem item1={<Ltx>{`[e' / x](x)`}</Ltx>} item2={<Ltx>{`e'`}</Ltx>}/>
+        <ListPairItem item1={<Ltx>{`[e' / x](e_1 \\ \\textbf{op} \\ e_2)`}</Ltx>} item2={<Ltx>{`[e' / x]e_1 \\ \\textbf{op} \\ [e' / x]e_2`}</Ltx>}/>
     </ul>
 </TopicCard>
 
