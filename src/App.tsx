@@ -143,7 +143,16 @@ function App() {
                 </button>
             </li>
             <li>
-                <button onClick={() => window.print()}>
+                <button onClick={() => {
+                    const prev = printMode;
+                    setPrintMode(true);
+                    async function print() {
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                        window.print();
+                        setPrintMode(prev);
+                    }
+                    void print();
+                }}>
                     Print
                 </button>
             </li>
