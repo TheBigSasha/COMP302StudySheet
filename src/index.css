@@ -1,14 +1,14 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css";
 :root {
---numcols: 4.0;
---font-size: 9px;
+  --numcols: 4;
+  --font-size: 9px;
 }
 
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-  sans-serif;
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 11in;
@@ -17,112 +17,110 @@ body {
   font-size: 8px;
   padding: 0;
   display: flex;
-flex-direction: column;
-justify-content: center;
-    flex-wrap: wrap;
-    align-content: space-around;
-
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: space-around;
 }
 
-h1{
-    font-size: calc(var(--font-size) * 1.5);
-    font-weight: bold;
-    font-family: "JetBrains Mono" , monospace;
-    font-kerning: auto;
-    letter-spacing: -0.5px;
-    font-variant-ligatures: contextual;
-    margin: 0;
-    padding: 0;
-    height: min-content;
+h1 {
+  font-size: calc(var(--font-size) * 1.5);
+  font-weight: bold;
+  font-family: "JetBrains Mono", monospace;
+  font-kerning: auto;
+  letter-spacing: -0.5px;
+  font-variant-ligatures: contextual;
+  margin: 0;
+  padding: 0;
+  height: min-content;
 }
 
 h2 {
-    font-size: var(--font-size);
-    font-weight: bold;
-    font-family: "JetBrains Mono" , monospace;
-    font-kerning: auto;
-    letter-spacing: -0.5px;
-    font-variant-ligatures: contextual;
-    margin: 0;
-    padding: 0;
+  font-size: var(--font-size);
+  font-weight: bold;
+  font-family: "JetBrains Mono", monospace;
+  font-kerning: auto;
+  letter-spacing: -0.5px;
+  font-variant-ligatures: contextual;
+  margin: 0;
+  padding: 0;
 }
 
 .topic-card {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    align-content: center;
-    flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  align-content: center;
+  flex-wrap: wrap;
   height: min-content;
-    width: calc(11in / var(--numcols));
-
+  width: calc(11in / var(--numcols));
 }
 
-.twoCol{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    width: 100%;
+.twoCol {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
-pre{
-    font-size: var(--font-size) - 2;
-    font-family: "Manrope" , monospace;
-    font-kerning: auto;
-    letter-spacing: -0.5px;
-    font-variant-ligatures: contextual;
-    margin: 0;
-    padding: 0;
+pre {
+  font-size: var(--font-size) - 2;
+  font-family: "Manrope", monospace;
+  font-kerning: auto;
+  letter-spacing: -0.5px;
+  font-variant-ligatures: contextual;
+  margin: 0;
+  padding: 0;
 }
 
 .smolText {
-    font-size: var(--font-size) - 2;
-    font-family: "Manrope" , monospace;
-    font-kerning: auto;
-    letter-spacing: -0.5px;
-    font-variant-ligatures: contextual;
-    margin: 0;
-    padding: 0;
+  font-size: var(--font-size) - 2;
+  font-family: "Manrope", monospace;
+  font-kerning: auto;
+  letter-spacing: -0.5px;
+  font-variant-ligatures: contextual;
+  margin: 0;
+  padding: 0;
 }
 
 strong {
-    font-size: var(--font-size);
-    font-kerning: auto;
-    font-weight: bold;
-    letter-spacing: -0.7px;
-    font-variant-ligatures: contextual;
-    margin: 0;
-    padding: 0;
-    font-family: "Comic Sans MS", serif;
+  font-size: var(--font-size);
+  font-kerning: auto;
+  font-weight: bold;
+  letter-spacing: -0.7px;
+  font-variant-ligatures: contextual;
+  margin: 0;
+  padding: 0;
+  font-family: "Comic Sans MS", serif;
 }
 
-h4{
-    font-size: var(--font-size);
-    font-weight: bold;
-    font-family: "JetBrains Mono" , monospace;
-    font-kerning: auto;
-    letter-spacing: -0.5px;
-    font-variant-ligatures: contextual;
-    margin: 0;
-    padding: 0;
+h4 {
+  font-size: var(--font-size);
+  font-weight: bold;
+  font-family: "JetBrains Mono", monospace;
+  font-kerning: auto;
+  letter-spacing: -0.5px;
+  font-variant-ligatures: contextual;
+  margin: 0;
+  padding: 0;
 }
 
 caption {
-    font-size: var(--font-size);
-    font-weight: normal;
-    font-kerning: auto;
-    letter-spacing: -0.7px;
-    font-variant-ligatures: contextual;
-    margin: 0;
-    padding: 0;
-    font-family: "Comic Sans MS", serif;
+  font-size: var(--font-size);
+  font-weight: normal;
+  font-kerning: auto;
+  letter-spacing: -0.7px;
+  font-variant-ligatures: contextual;
+  margin: 0;
+  padding: 0;
+  font-family: "Comic Sans MS", serif;
 }
 
 body > * {
@@ -139,7 +137,7 @@ ul {
 
 code {
   display: inline;
-  font-family: "JetBrains Mono" , monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: calc(var(--font-size) - 2px);
   font-weight: normal;
   font-kerning: auto;
@@ -148,18 +146,18 @@ code {
   margin: 0;
   padding: 0;
 }
-p{
+p {
   margin: 0;
   padding: 0;
   letter-spacing: -0.5px;
-    font-size:calc( var(--font-size) - 1);
+  font-size: calc(var(--font-size) - 1);
 }
 li {
-    margin: 0;
-    padding: 0;
-    letter-spacing: -0.5px;
-    text-align: left;
-    font-size: var(--font-size);
+  margin: 0;
+  padding: 0;
+  letter-spacing: -0.5px;
+  text-align: left;
+  font-size: var(--font-size);
 }
 
 div {
@@ -186,27 +184,25 @@ div {
   text-align: center;
 }
 
-
 pre {
   margin: 0;
-    padding: 0;
+  padding: 0;
 }
 
-.slimmerBoiColumn > .topic-card{
-    width: calc(11in / var(--numcols) * 0.6);
+.slimmerBoiColumn > .topic-card {
+  width: calc(11in / var(--numcols) * 0.6);
 }
 
-.slimBoiColumn > .topic-card{
-    width: calc(11in / var(--numcols) * 0.9);
+.slimBoiColumn > .topic-card {
+  width: calc(11in / var(--numcols) * 0.9);
 }
 
 @media print {
-    body{
-        border: none;
-    }
+  body {
+    border: none;
+  }
 
-    .never-print{
-        display: none;
-    }
+  .never-print {
+    display: none;
+  }
 }
-

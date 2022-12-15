@@ -1,103 +1,145 @@
-import React from 'react';
-import './App.css';
-import {TopicCard} from "./TopicCard";
+import React from "react";
+import "./App.css";
+import { TopicCard } from "./TopicCard";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/cjs/prism";
 import Latex from "react-latex";
 import styled from "styled-components";
-import {
-    Route,
-    Routes,
-    Link, Outlet
-} from "react-router-dom";
-const Pair = ({item1, children}: {item1: string, children: React.ReactNode}) => {
+import { Route, Routes, Link, Outlet } from "react-router-dom";
+const Pair = ({
+  item1,
+  children,
+}: {
+  item1: string;
+  children: React.ReactNode;
+}) => {
   return (
-      <span className={"pair"}>
-        <p style={{textAlign: 'left', width: 'max-content', fontSize: '8px'}}>{item1}</p>
-        <code style={{textAlign: 'right', width: 'fit-content'}}>{children}</code>
-        </span>
-  )
-}
+    <span className={"pair"}>
+      <p style={{ textAlign: "left", width: "max-content", fontSize: "8px" }}>
+        {item1}
+      </p>
+      <code style={{ textAlign: "right", width: "fit-content" }}>
+        {children}
+      </code>
+    </span>
+  );
+};
 
 const MarginText = styled.p`
   margin: 0;
-    padding: 0;
-    font-size: 8px;
-    text-align: left;
-    width: max-content;
+  padding: 0;
+  font-size: 8px;
+  text-align: left;
+  width: max-content;
   position: absolute;
-    top: 0;
-    left: 0;
-`
+  top: 0;
+  left: 0;
+`;
 
 const Divider = styled.hr`
-    border: 0.5px solid rgba(0,0,0,0.4);
-    width: 100%;
-    margin: 0;
-    padding: 0;
-`
+  border: 0.5px solid rgba(0, 0, 0, 0.4);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+`;
 
 const DotDivider = styled(Divider)`
-    border: 0.5px dotted rgba(0,0,0,0.4);
-`
+  border: 0.5px dotted rgba(0, 0, 0, 0.4);
+`;
 
 // inline variable name, inline code
 const Variable = styled.code`
-  background: rgba(0,0,0,0.1);
-    padding: 0 2px;
-    border-radius: 2px;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 0 2px;
+  border-radius: 2px;
   display: inline-block !important;
-`
+`;
 
+const customStyle = {
+  margin: 0,
+  padding: 0,
+  fontSize: 6,
+  width: "100%",
+  backgroundColor: "rgba(255,255,255,0.7)",
+};
 
-const customStyle={
-    margin: 0,
-    padding: 0,
-    fontSize: 6,
-    width: "100%",
-    backgroundColor: "rgba(255,255,255,0.7)",}
+const OCaml = ({ code }: { code: string }) => {
+  return (
+    <SyntaxHighlighter language="ocaml" customStyle={customStyle}>
+      {code}
+    </SyntaxHighlighter>
+  );
+};
 
-const OCaml = ({code}: {code: string}) => {
-    return (
-        <SyntaxHighlighter language="ocaml" customStyle={customStyle}>
-            {code}
-        </SyntaxHighlighter>
-    )
-}
+const Ltx = (x: { children: string }) => {
+  return (
+    <span style={{ fontSize: 12 }}>
+      <Latex>{`$${x.children}$`}</Latex>
+    </span>
+  );
+};
 
-const Ltx = (x: {children: string}) => {
-    return (
-        <span style={{fontSize: 12}}>
-        <Latex>{`$${(x.children)}$`}</Latex>
-            </span>
-    )
-}
-
-const OptionalTopic = <TopicCard title={"Optional"} color={"rgba(0,255,255,0.25)"}>
-
+const OptionalTopic = (
+  <TopicCard title={"Optional"} color={"rgba(0,255,255,0.25)"}>
     <ul>
-        <li><Pair item1={"Optional int 42"}><OCaml code={`Some 42`}></OCaml></Pair></li>
-        <li><Pair item1={"Optional None"}><OCaml code={`None`}></OCaml></Pair></li>
-        <li><Pair item1={"Optional.get()"}><OCaml code={`let extract o =
+      <li>
+        <Pair item1={"Optional int 42"}>
+          <OCaml code={`Some 42`}></OCaml>
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"Optional None"}>
+          <OCaml code={`None`}></OCaml>
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"Optional.get()"}>
+          <OCaml
+            code={`let extract o =
   match o with
   | Some i -> string_of_int i
-  | None -> "";;`}></OCaml></Pair></li>
-        <li><Pair item1={"extract Some 42"}>42</Pair></li>
-        <li><Pair item1={"extract None"}>None</Pair></li>
-        <li><Pair item1={"t option"}>a type for every type t</Pair></li>
-        <li><Pair item1={"None"}>a value of type 'a option</Pair></li>
-        <li><Pair item1={"Some e "}>an expression of type t option if e : t</Pair></li>
-        <li><Pair item1={"Some e "}>{`If e ==> v then Some e ==> Some v`}</Pair></li>
+  | None -> "";;`}
+          ></OCaml>
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"extract Some 42"}>42</Pair>
+      </li>
+      <li>
+        <Pair item1={"extract None"}>None</Pair>
+      </li>
+      <li>
+        <Pair item1={"t option"}>a type for every type t</Pair>
+      </li>
+      <li>
+        <Pair item1={"None"}>a value of type 'a option</Pair>
+      </li>
+      <li>
+        <Pair item1={"Some e "}>an expression of type t option if e : t</Pair>
+      </li>
+      <li>
+        <Pair item1={"Some e "}>{`If e ==> v then Some e ==> Some v`}</Pair>
+      </li>
     </ul>
-</TopicCard>
+  </TopicCard>
+);
 
-const CodeExamples = <TopicCard title={"Code Examples"} color={"rgba(255,128,0,0.25)"}>
+const CodeExamples = (
+  <TopicCard title={"Code Examples"} color={"rgba(255,128,0,0.25)"}>
     <h4>Conversion to CPS</h4>
-    <span className={"twoCol"}> <caption>Consider function pow : {`int -> int -> int`} that computes nk</caption>
-    <OCaml code={`let pow k n =
+    <span className={"twoCol"}>
+      {" "}
+      <caption>
+        Consider function pow : {`int -> int -> int`} that computes nk
+      </caption>
+      <OCaml
+        code={`let pow k n =
    if k = o then 1
-   else n * pow (k -1) n`}/></span>
+   else n * pow (k -1) n`}
+      />
+    </span>
     <caption>Tail recursive Version</caption>
-    <OCaml code={`
+    <OCaml
+      code={`
 let is_even n = 
   n mod 2 = 0
   
@@ -109,36 +151,47 @@ let pow base exponent =
     | e when is_even e -> aux accumulator (base * base) (e / 2)
     | e -> aux (base * accumulator) (base * base) ((e - 1) / 2) in
   aux 1 base exponent
-    `}/>
+    `}
+    />
     <h4>Vector Scale</h4>
-    <OCaml code={`implement a scale : ‘a vector * (’a → ‘b) → ‘b vector 
+    <OCaml
+      code={`implement a scale : ‘a vector * (’a → ‘b) → ‘b vector 
 let scale: 'a vector * ('a -> 'b) -> 'b vector = 
-  fun (v, f) -> map f v;;`}/>
+  fun (v, f) -> map f v;;`}
+    />
     <h4>HOF Example</h4>
     <span className={"twoCol"}>
-        <OCaml code={`let rec repeated (f,n) = 
+      <OCaml
+        code={`let rec repeated (f,n) = 
 if (n=0) then fun x → x 
- else x → f ((repeated (f,n-1) x)`}/>
-        <caption>takes a function f and a non-negative integer n as arg. and returns the function that implies f:n times</caption>
+ else x → f ((repeated (f,n-1) x)`}
+      />
+      <caption>
+        takes a function f and a non-negative integer n as arg. and returns the
+        function that implies f:n times
+      </caption>
     </span>
     <h4>Find card in list</h4>
-    <OCaml code={`(it is tail recursive since every single recursive call is returned)
+    <OCaml
+      code={`(it is tail recursive since every single recursive call is returned)
 (output type is card option)
 let rec find_color (c: color) (l: card mylist): card option =  match l with
 |Nil -> None
 |Cons ( (col,v), l) ->
 if col = c then Some (col, v)
 (the color didn't matched)
-else find_color c l (imidiately returned)`}></OCaml>
-<h4>Head of list that doesn't exist</h4>
-    <OCaml code={`let head (l: 'a mylist): 'a = match l with
+else find_color c l (imidiately returned)`}
+    ></OCaml>
+    <h4>Head of list that doesn't exist</h4>
+    <OCaml
+      code={`let head (l: 'a mylist): 'a = match l with
 |Cons (x, _) ->x
-|Nil -> raise EmptyList`}/>
-    <h4>*** Code Example  - rev / rev_tr</h4>
+|Nil -> raise EmptyList`}
+    />
+    <h4>*** Code Example - rev / rev_tr</h4>
     <span className={"twoCol"}>
-          <OCaml code=
-                     {
-                         `(* naive *)
+      <OCaml
+        code={`(* naive *)
 (* rev: 'a list -> 'a list *)
 let rec rev l = match l with
 \t| [] -> []
@@ -146,10 +199,10 @@ let rec rev l = match l with
 (* Define length *)
 let rec length l = match l with
 \t| [] -> 0
-\t| h::t -> 1 + length t`
-                     }
-          />
-        <OCaml code={`(* tail recursive *)
+\t| h::t -> 1 + length t`}
+      />
+      <OCaml
+        code={`(* tail recursive *)
 (* rev': 'a list -> 'a list *)
 let rev' l =
 (* rev_tr: 'a list -> 'a list -> 'a list *)
@@ -157,13 +210,16 @@ let rev' l =
 \t| [] -> асс
 \t| h::t -> rev_tr t (h: :acc)
 in
-rev_tr 1 [];;`} />
+rev_tr 1 [];;`}
+      />
     </span>
-</TopicCard>
+  </TopicCard>
+);
 
-
-const CoinSort = <TopicCard title={"Coin Sort"} color={"rgba(139,147,26,0.34)"}>
-    <OCaml code={`(*list of coins, amount to make with those
+const CoinSort = (
+  <TopicCard title={"Coin Sort"} color={"rgba(139,147,26,0.34)"}>
+    <OCaml
+      code={`(*list of coins, amount to make with those
     coins, return the sequence of coin added to the amount*)
 let rec change (coins : int list) ( amt : int) : int list = 
   match coins with 
@@ -186,45 +242,73 @@ let change' coin amt : int list option =
   with 
   |Change -> None`}
     />
-    <p> The change function is a recursive function that takes a list of coins and an amount to make with those coins. It returns the sequence of coins that add up to the amount. </p>
+    <p>
+      {" "}
+      The change function is a recursive function that takes a list of coins and
+      an amount to make with those coins. It returns the sequence of coins that
+      add up to the amount.{" "}
+    </p>
+  </TopicCard>
+);
 
-</TopicCard>
-
-const TypeInferenceTopic = <TopicCard title={"Type Inference"} color={"#4ae5a6"}>
-   <ul>
-         <li>
-             <OCaml code={`3 / 0`}/>
-         </li>
-       <li><Pair item1={"Type"}>Int</Pair></li>
-         <li><Pair item1={"Effect"}>DivByZero Error</Pair></li>
-   </ul>
+const TypeInferenceTopic = (
+  <TopicCard title={"Type Inference"} color={"#4ae5a6"}>
     <ul>
-        <li>
-            <OCaml code={`let head_of_empty list =
-\tlet head (x::t) = x in
-\t\thead []`}/>
-        </li>
-        <li><Pair item1={"Type"}>‘a list → ‘a <i>since we never return None, it will not be ‘a option</i></Pair></li>
-        <li><Pair item1={"Effect"}>No value; cannot decompose an empty list into head and tail</Pair></li>
+      <li>
+        <OCaml code={`3 / 0`} />
+      </li>
+      <li>
+        <Pair item1={"Type"}>Int</Pair>
+      </li>
+      <li>
+        <Pair item1={"Effect"}>DivByZero Error</Pair>
+      </li>
     </ul>
-</TopicCard>
+    <ul>
+      <li>
+        <OCaml
+          code={`let head_of_empty list =
+\tlet head (x::t) = x in
+\t\thead []`}
+        />
+      </li>
+      <li>
+        <Pair item1={"Type"}>
+          ‘a list → ‘a{" "}
+          <i>since we never return None, it will not be ‘a option</i>
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"Effect"}>
+          No value; cannot decompose an empty list into head and tail
+        </Pair>
+      </li>
+    </ul>
+  </TopicCard>
+);
 
-const MathTopic = <TopicCard title={"Math"} color={"#ef6e6e"}>
+const MathTopic = (
+  <TopicCard title={"Math"} color={"#ef6e6e"}>
     <caption>Derivative (numeric)</caption>
-    <OCaml code={`let derivative fx =
+    <OCaml
+      code={`let derivative fx =
 \tlet dx = 0.001 in
-\tfun x -> (fx (x+.dx) -. fx x) /. dx ;;`}/>
+\tfun x -> (fx (x+.dx) -. fx x) /. dx ;;`}
+    />
     <caption>Derivative (symbolic)</caption>
-    <OCaml code={`let rec diff (e : exp) : exp =
+    <OCaml
+      code={`let rec diff (e : exp) : exp =
   match e with
   | Const f -> Const 0.0
   | Var -> Const 1.0
   | Plus (e1, e2) -> Plus (diff e1, diff e2)
   | Times (e1, e2) -> Plus (Times (diff e1, e2), Times (e1, diff e2))
   | Pow (e1, i) -> Times (Times
-                (Const (float_of_int i), Pow (e1, i - 1)), diff e1)`}/>
+                (Const (float_of_int i), Pow (e1, i - 1)), diff e1)`}
+    />
     <caption>Collect Variables</caption>
-    <OCaml code={`let collect_variables (formula : formula) : Variable_set.t =
+    <OCaml
+      code={`let collect_variables (formula : formula) : Variable_set.t =
   let rec collect_variables_helper (formula : formula)
                         (acc : Variable_set.t) : Variable_set.t =
     match formula with
@@ -235,292 +319,429 @@ const MathTopic = <TopicCard title={"Math"} color={"#ef6e6e"}>
                                 (collect_variables_helper f2 acc)
     | Negation f -> collect_variables_helper f acc
   in
-  collect_variables_helper formula Variable_set.empty`}/>
+  collect_variables_helper formula Variable_set.empty`}
+    />
+  </TopicCard>
+);
 
-
-
-</TopicCard>
-
-const TypesTopic = <TopicCard title={"Generic Types"} color={"rgba(98,231,191,0.3)"}>
+const TypesTopic = (
+  <TopicCard title={"Generic Types"} color={"rgba(98,231,191,0.3)"}>
     <p>The use of ‘ before a variable name denotes a generic type.</p>
     <SyntaxHighlighter language="ocaml" customStyle={customStyle}>
-        {
-            `map ('a -> 'b) -> 'a list -> 'b list`
-        }
+      {`map ('a -> 'b) -> 'a list -> 'b list`}
     </SyntaxHighlighter>
     <caption>{`Operators like ==, >, < are automatically polymorphic → always work when using generics`}</caption>
     <h4>Custom Types</h4>
-    <OCaml code={`type fraction = { num : int; denom : int; }`}/>
-    <caption> Lower case is the variable name, uppercase is the type name.</caption>
-    <OCaml code={`type number =
-    Int of int | Float of float | Error`}/>
+    <OCaml code={`type fraction = { num : int; denom : int; }`} />
+    <caption>
+      {" "}
+      Lower case is the variable name, uppercase is the type name.
+    </caption>
+    <OCaml
+      code={`type number =
+    Int of int | Float of float | Error`}
+    />
     <caption> Without type/name, the items are an enum.</caption>
-    <OCaml code={`type sign = Positive | Negative`}/>
+    <OCaml code={`type sign = Positive | Negative`} />
     <h4>Using Custom Types</h4>
-    <OCaml code={`let sign_int n = 
-    if n >= 0 then Positive else Negative;;`}/>
+    <OCaml
+      code={`let sign_int n = 
+    if n >= 0 then Positive else Negative;;`}
+    />
+  </TopicCard>
+);
 
-</TopicCard>
-
-const TuplesTopic = <TopicCard title={"Tuples"} color={"rgba(234,255,1,0.29)"}>
-    <OCaml code={`let minmax (a, b) : float * float =
-  if a < b then (a, b) else (b, a)`}/>
+const TuplesTopic = (
+  <TopicCard title={"Tuples"} color={"rgba(234,255,1,0.29)"}>
+    <OCaml
+      code={`let minmax (a, b) : float * float =
+  if a < b then (a, b) else (b, a)`}
+    />
     <caption>Here (a,b) is a tuple of type float * float</caption>
-</TopicCard>
+  </TopicCard>
+);
 
-const CurryTopic = <TopicCard title={"Currying"} color={"rgba(150,231,98,0.3)"}>
+const CurryTopic = (
+  <TopicCard title={"Currying"} color={"rgba(150,231,98,0.3)"}>
     <caption>simple add function in OCaml which is CURRIED</caption>
-    <OCaml code={`(* val add : int -> int -> int = <fun> *)
-let add x:int y:int = x + y`}/>
-    <OCaml code={`let add = function (x : int) -> function (y : int) -> x + y`}/>
+    <OCaml
+      code={`(* val add : int -> int -> int = <fun> *)
+let add x:int y:int = x + y`}
+    />
+    <OCaml
+      code={`let add = function (x : int) -> function (y : int) -> x + y`}
+    />
     <caption>Here, the function is NOT curried.</caption>
-    <OCaml code={`(* val add : (int * int) -> int = <fun> *)
-let add (x:int, y:int) = x + y`}/>
-    <OCaml code={`(* val add : (int * int) -> int = <fun> *)
-let add = fun (z : int * int) -> match z with (x, y) -> x + y`}/>
+    <OCaml
+      code={`(* val add : (int * int) -> int = <fun> *)
+let add (x:int, y:int) = x + y`}
+    />
+    <OCaml
+      code={`(* val add : (int * int) -> int = <fun> *)
+let add = fun (z : int * int) -> match z with (x, y) -> x + y`}
+    />
     <ul>
-        <li><Pair item1={"!Curried"}>{`(int * int) → int`}</Pair></li>
-        <li><Pair item1={"Curried"}>{`int → int → int`}</Pair></li>
+      <li>
+        <Pair item1={"!Curried"}>{`(int * int) → int`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"Curried"}>{`int → int → int`}</Pair>
+      </li>
     </ul>
-</TopicCard>
+  </TopicCard>
+);
 
-const ListOperationsTopic = <TopicCard title={"List Operations"} color={"rgba(130,0,0,0.4)"}>
-    <caption>Lists are comprehended with head and tail; first item and rest of list, deconstructed from a tuple.</caption>
+const ListOperationsTopic = (
+  <TopicCard title={"List Operations"} color={"rgba(130,0,0,0.4)"}>
+    <caption>
+      Lists are comprehended with head and tail; first item and rest of list,
+      deconstructed from a tuple.
+    </caption>
     <ul>
-<li>
-    <Pair item1={"Append item - @"}><SyntaxHighlighter customStyle={customStyle} language="ocaml">
-        {
-            `# [1] @ [2; 3];;
-- : int list = [1; 2; 3]`
-        }
-    </SyntaxHighlighter></Pair>
-    <Pair item1={"Head / Tail"}><SyntaxHighlighter customStyle={customStyle} language="ocaml">
-        {
-            `let rec sum lst =
+      <li>
+        <Pair item1={"Append item - @"}>
+          <SyntaxHighlighter customStyle={customStyle} language="ocaml">
+            {`# [1] @ [2; 3];;
+- : int list = [1; 2; 3]`}
+          </SyntaxHighlighter>
+        </Pair>
+        <Pair item1={"Head / Tail"}>
+          <SyntaxHighlighter customStyle={customStyle} language="ocaml">
+            {`let rec sum lst =
   match lst with
   | [] -> 0
-  | h::t -> h + sum t`
-        }
-    </SyntaxHighlighter></Pair>
-    <Pair item1={"List Length"}><SyntaxHighlighter customStyle={customStyle} language="ocaml">
-        {
-            `let rec length lst =
+  | h::t -> h + sum t`}
+          </SyntaxHighlighter>
+        </Pair>
+        <Pair item1={"List Length"}>
+          <SyntaxHighlighter customStyle={customStyle} language="ocaml">
+            {`let rec length lst =
     match lst with
     | [] -> 0
-    | h::t -> 1 + length t`
-        }
-    </SyntaxHighlighter></Pair>
-    <Pair item1={"Concat one item - ::"}><SyntaxHighlighter customStyle={customStyle} language="ocaml">
-        {
-            `# 1 :: [2; 3];;
-- : int list = [1; 2; 3]`
-        }
-    </SyntaxHighlighter></Pair>
-
-
-</li>
-
-
+    | h::t -> 1 + length t`}
+          </SyntaxHighlighter>
+        </Pair>
+        <Pair item1={"Concat one item - ::"}>
+          <SyntaxHighlighter customStyle={customStyle} language="ocaml">
+            {`# 1 :: [2; 3];;
+- : int list = [1; 2; 3]`}
+          </SyntaxHighlighter>
+        </Pair>
+      </li>
     </ul>
-</TopicCard>
-const ListHOFTopic = <TopicCard title={"List Operations HOF"} color="rgba(255,0,0,0.3)">
+  </TopicCard>
+);
+const ListHOFTopic = (
+  <TopicCard title={"List Operations HOF"} color="rgba(255,0,0,0.3)">
     <ul>
-        <li><Pair item1={"List.map"}>{`(’a −> ’b) −> ’a list −> ’b list`}</Pair></li>
-        <SyntaxHighlighter customStyle={customStyle} code={`let rec map f list =
+      <li>
+        <Pair item1={"List.map"}>{`(’a −> ’b) −> ’a list −> ’b list`}</Pair>
+      </li>
+      <OCaml
+        code={`let rec map f list =
 match list with
  | [] -> []
- | h::t -> (f h) :: (map f t)`} language={"ocaml"} >
-        </SyntaxHighlighter>
-        <li><Pair item1={"List.length"}>{`’a list −> int`}</Pair></li>
-        <SyntaxHighlighter customStyle={customStyle} language={"ocaml"} >
-            {
-                `let rec length list =
+ | h::t -> (f h) :: (map f t)`}
+      />
+      <li>
+        <Pair item1={"List.length"}>{`’a list −> int`}</Pair>
+      </li>
+      <SyntaxHighlighter customStyle={customStyle} language={"ocaml"}>
+        {`let rec length list =
 match list with
 | [] -> 0
-| _::t -> 1 + (length t)`
-            }
-        </SyntaxHighlighter>
+| _::t -> 1 + (length t)`}
+      </SyntaxHighlighter>
 
-        <li><Pair item1={"List.fold_left"}>{`(’ a −> ’b −> ’b) −> ’a list −> ’b −> ’b`}</Pair></li>
-        <li><Pair item1={"List.for_all"}>{`(’ a −> bool) −> ’a list −> bool`} </Pair></li>
-        <li><Pair item1={"List.exists"}> {`(’ a −> bool) −> ’a list −> bool`}</Pair></li>
-        <li><Pair item1={"List.rev"}> {`’a list −> ’a list`}</Pair></li>
-        <li><Pair item1={"List.find_opt"}> {`(’ a −> bool) −> ’a list −> ’a option`}</Pair></li>
-        <li><Pair item1={"List.filter"}> {`(’ a −> bool) −> ’a list −> ’a list`}</Pair></li>
-        <li><Pair item1={"List.init"}> {`int −> (int −> ’a) −> ’a list (∗by index∗)`}</Pair></li>
+      <li>
+        <Pair
+          item1={"List.fold_left"}
+        >{`(’ a −> ’b −> ’b) −> ’a list −> ’b −> ’b`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"List.for_all"}>
+          {`(’ a −> bool) −> ’a list −> bool`}{" "}
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"List.exists"}> {`(’ a −> bool) −> ’a list −> bool`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"List.rev"}> {`’a list −> ’a list`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"List.find_opt"}>
+          {" "}
+          {`(’ a −> bool) −> ’a list −> ’a option`}
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"List.filter"}>
+          {" "}
+          {`(’ a −> bool) −> ’a list −> ’a list`}
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"List.init"}>
+          {" "}
+          {`int −> (int −> ’a) −> ’a list (∗by index∗)`}
+        </Pair>
+      </li>
     </ul>
+  </TopicCard>
+);
 
-</TopicCard>
-
-const ProofTopic = <TopicCard title={"Proofs"} color="rgba(0,255,0,0.3)">
+const ProofTopic = (
+  <TopicCard title={"Proofs"} color="rgba(0,255,0,0.3)">
     <h4>Lemmas</h4>
     <ul>
-        <li><Pair item1={"Associativity"}>{`a + (b + c) = (a + b) + c`}</Pair></li>
-        <li><Pair item1={"Commutativity"}>{`a + b = b + a`}</Pair></li>
-        <li><Pair item1={"Function Associativity"}>{`Functions are left associative`}</Pair></li>
+      <li>
+        <Pair item1={"Associativity"}>{`a + (b + c) = (a + b) + c`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"Commutativity"}>{`a + b = b + a`}</Pair>
+      </li>
+      <li>
+        <Pair
+          item1={"Function Associativity"}
+        >{`Functions are left associative`}</Pair>
+      </li>
     </ul>
     <h4>Proving Equivalence Via Induction</h4>
     <ul>
-        <li><Pair item1={"Base Case"}>{`P []`}</Pair></li>
-        <li><Pair item1={"Inductive Step"}>{`P l -> P (h::l)`}</Pair></li>
+      <li>
+        <Pair item1={"Base Case"}>{`P []`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"Inductive Step"}>{`P l -> P (h::l)`}</Pair>
+      </li>
     </ul>
-    <p>So let’s strengthen the claim we are making. Instead of showing that fact n = facti 1 n, we’ll try to show forall p, p * fact n = facti p n. That generalizes the k + 1 we were stuck on to an arbitrary quantity p.
+    <p>
+      So let’s strengthen the claim we are making. Instead of showing that fact
+      n = facti 1 n, we’ll try to show forall p, p * fact n = facti p n. That
+      generalizes the k + 1 we were stuck on to an arbitrary quantity p.
     </p>
-    <OCaml code={`let rec facti acc n =
+    <OCaml
+      code={`let rec facti acc n =
   if n = 0 then acc else facti (acc * n) (n - 1)
 let fact_tr n = facti 1 n
 val facti : int -> int -> int = <fun>
 val fact_tr : int -> int = <fun>
-`}/>
+`}
+    />
     <p>Claim: forall n, forall p . p * fact n = facti p n</p>
-    <p>Proof: by induction on n.
-    </p>
-    <code>        P(n) = forall p, p * fact n = facti p n </code>
-<p>Base case:  n = 0 ; Show: forall p,  p * fact 0 = facti p 0</p>
+    <p>Proof: by induction on n.</p>
+    <code> P(n) = forall p, p * fact n = facti p n </code>
+    <p>Base case: n = 0 ; Show: forall p, p * fact 0 = facti p 0</p>
     <ul>
-        <li><Pair item1={`p * fact 0 = p`}>
-        by evaluation and algebra
-        </Pair></li>
-        <li><Pair item1={`p = facti p 0`}>by evaluation</Pair></li>
+      <li>
+        <Pair item1={`p * fact 0 = p`}>by evaluation and algebra</Pair>
+      </li>
+      <li>
+        <Pair item1={`p = facti p 0`}>by evaluation</Pair>
+      </li>
     </ul>
-    <p>Inductive case: n = k + 1
+    <p>Inductive case: n = k + 1</p>
+    <p>
+      Show: <code>forall p, p * fact (k + 1) = facti p (k + 1)</code>
     </p>
-    <p>Show: <code>forall p,  p * fact (k + 1) = facti p (k + 1)</code>
-    </p>
-    <p>IH:<code> forall p,  p * fact k = facti p k</code>
+    <p>
+      IH:<code> forall p, p * fact k = facti p k</code>
     </p>
     <ul>
-        <li><Pair item1={`p * fact (k + 1) = p * (k + 1) * fact k`}>
-            by evaluation
-        </Pair></li>
-        <li><Pair item1={` = facti (p * (k + 1)) k`}>IH, instantiating its p as p * (k + 1)</Pair></li>
-        <li><Pair item1={`facti p (k + 1) = facti (p * (k + 1)) k`}>By evaluation</Pair></li>
+      <li>
+        <Pair item1={`p * fact (k + 1) = p * (k + 1) * fact k`}>
+          by evaluation
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={` = facti (p * (k + 1)) k`}>
+          IH, instantiating its p as p * (k + 1)
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={`facti p (k + 1) = facti (p * (k + 1)) k`}>
+          By evaluation
+        </Pair>
+      </li>
     </ul>
     <p>Claim: forall n, fact n = fact_tr n</p>
     <p>Proof</p>
     <ul>
-        <li><Pair item1={`fact n`}><></></Pair></li>
-        <li><Pair item1={`= 1 * fact n`}>by algebra</Pair></li>
-        <li><Pair item1={`= facti 1 n`}>by previous claim</Pair></li>
-        <li><Pair item1={`= fact_tr n`}>by evaluation</Pair></li>
+      <li>
+        <Pair item1={`fact n`}>
+          <></>
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={`= 1 * fact n`}>by algebra</Pair>
+      </li>
+      <li>
+        <Pair item1={`= facti 1 n`}>by previous claim</Pair>
+      </li>
+      <li>
+        <Pair item1={`= fact_tr n`}>by evaluation</Pair>
+      </li>
     </ul>
     <h4>Second Example</h4>
     <caption>We will prove by induction on s that for any k,</caption>
     <pre className={"smolText"}>
-        <OCaml code={`fold_right' s k = k (fold_right f s b).`}/>
-        {`Basis: s = [].`}</pre>
-    <OCaml code={`fold_right' [] k = k b = k (fold_right f [] b)`}/>
+      <OCaml code={`fold_right' s k = k (fold_right f s b).`} />
+      {`Basis: s = [].`}
+    </pre>
+    <OCaml code={`fold_right' [] k = k b = k (fold_right f [] b)`} />
     <pre>{`by the first clauses in the definitions of fold_right'
 and fold_right. Induction step: s = x::xs.`}</pre>
-    <OCaml code={`fold_right' (x::xs) k = fold_right' xs (fun y -> k (f x y))`}/>
-<pre>{`by the second clause in the definition of fold_right'`}</pre>
-        <ul>
-        <li><Pair item1={"= (fun y -> k (f x y)) (fold_right f xs b)"}>by the induction hypothesis</Pair></li>
-        <li><Pair item1={"= k (f x (fold_right f xs b))"}>by the substitution model</Pair></li>
-        <li><Pair item1={"= k (fold_right f (x::xs) b)\n"}>by 2nd clause in defn of fold_right.
-        </Pair></li>
-        </ul>
-<pre>{`In particular, for k the identity function
+    <OCaml
+      code={`fold_right' (x::xs) k = fold_right' xs (fun y -> k (f x y))`}
+    />
+    <pre>{`by the second clause in the definition of fold_right'`}</pre>
+    <ul>
+      <li>
+        <Pair item1={"= (fun y -> k (f x y)) (fold_right f xs b)"}>
+          by the induction hypothesis
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"= k (f x (fold_right f xs b))"}>
+          by the substitution model
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"= k (fold_right f (x::xs) b)\n"}>
+          by 2nd clause in defn of fold_right.
+        </Pair>
+      </li>
+    </ul>
+    <pre>
+      {`In particular, for k the identity function
 fn x => x on which fold_right' is initially called,
 fold_right' s (fn x -> x) = fold_right f s b
 thus the 2 fold_rights above are equivalent.`}
     </pre>
-</TopicCard>
-const HOFTopic = <TopicCard title={"Higher Order Functions"} color="rgba(0,255,255,0.3)">
+  </TopicCard>
+);
+const HOFTopic = (
+  <TopicCard title={"Higher Order Functions"} color="rgba(0,255,255,0.3)">
     <h4>Binary Tree HOFs</h4>
-    operations on lists (List.map, List.fold_left, List.for_all, ...), church numerals, church-encoded option,
-    defining HOFs for new data types such as various trees.
-</TopicCard>
+    operations on lists (List.map, List.fold_left, List.for_all, ...), church
+    numerals, church-encoded option, defining HOFs for new data types such as
+    various trees.
+  </TopicCard>
+);
 
-const ChurchTopic = <TopicCard title={"Church Encoding"} color="rgba(255,0,255,0.3)">
-    <caption>Sample Question: Suppose {`n : 'b -> ('b -> 'b) -> 'b`} is a church numeral. What is this in math?</caption>
+const ChurchTopic = (
+  <TopicCard title={"Church Encoding"} color="rgba(255,0,255,0.3)">
+    <caption>
+      Sample Question: Suppose {`n : 'b -> ('b -> 'b) -> 'b`} is a church
+      numeral. What is this in math?
+    </caption>
     <code>{`fun z s -> n z (fun a -> s (s a))`}</code>
-    <caption>Answer: <code>Multiply church by 2</code></caption>
+    <caption>
+      Answer: <code>Multiply church by 2</code>
+    </caption>
     <caption>We add 2S's to the front of the number.</caption>
     <ul>
-        <li><Pair item1={"Church 0"}>{`fun f x -> x`}</Pair></li>
-        <li><Pair item1={"Church 1"}>{`fun f x -> f x`}</Pair></li>
-        <li><Pair item1={"Church 2"}>{`fun f x -> f (f x)`}</Pair></li>
-        <li><Pair item1={"Church 3"}>{`fun f x -> f (f (f x))`}</Pair></li>
+      <li>
+        <Pair item1={"Church 0"}>{`fun f x -> x`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"Church 1"}>{`fun f x -> f x`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"Church 2"}>{`fun f x -> f (f x)`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"Church 3"}>{`fun f x -> f (f (f x))`}</Pair>
+      </li>
     </ul>
     <h4>Church Booleans</h4>
     <ul>
-        <li><Pair item1={"Church True"}>{`fun x y -> x`}</Pair></li>
-        <li><Pair item1={"Church False"}>{`fun x y -> y`}</Pair></li>
+      <li>
+        <Pair item1={"Church True"}>{`fun x y -> x`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"Church False"}>{`fun x y -> y`}</Pair>
+      </li>
     </ul>
     <h4>Church Option</h4>
     <ul>
-        <li><Pair item1={"Church None"}>{`fun x -> x`}</Pair></li>
-        <li><Pair item1={"Church Some"}>{`fun x -> fun y -> x`}</Pair></li>
+      <li>
+        <Pair item1={"Church None"}>{`fun x -> x`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"Church Some"}>{`fun x -> fun y -> x`}</Pair>
+      </li>
     </ul>
     <h4>Multiply 2 Church Numerals</h4>
-    <SyntaxHighlighter customStyle={{...customStyle, fontSize: '5.5px'}} language={"ocaml"} >
-        {
-    `let mult (n1 : 'b church) (n2 : 'b church) : 'b church =
-    fun z s -> n1 z (fun r -> n2 r s)`
-        }
+    <SyntaxHighlighter
+      customStyle={{ ...customStyle, fontSize: "5.5px" }}
+      language={"ocaml"}
+    >
+      {`let mult (n1 : 'b church) (n2 : 'b church) : 'b church =
+    fun z s -> n1 z (fun r -> n2 r s)`}
     </SyntaxHighlighter>
     <p>{`This one is similar to add. However, the base case for n1 is now zero. The successor case is more interesting; it
             takes in some church numeral r and applies it to n2 r s, which basically means "add n2 to r."
             Putting it all together, the successor function that we pass to n1 is the "add by n2" function, which gives us
             multiplication `}</p>
     <h4>Add 2 Church Numerals</h4>
-    <SyntaxHighlighter customStyle={{...customStyle, fontSize: '5.5px'}} language={"ocaml"} >
-        {
-            `let add (n1 : 'b church) (n2 : 'b church) : 'b church =
+    <SyntaxHighlighter
+      customStyle={{ ...customStyle, fontSize: "5.5px" }}
+      language={"ocaml"}
+    >
+      {`let add (n1 : 'b church) (n2 : 'b church) : 'b church =
   fun z s -> n2 (n1 z s) s
-`
-        }
+`}
     </SyntaxHighlighter>
     <h4>Sum List of Church Numerals</h4>
-    <SyntaxHighlighter customStyle={customStyle} language={"ocaml"} >
-        {
-            `let sum (l : 'b church list) : 'b church =
-  List.fold_left (fun acc x -> add acc x) zero l`
-        }
+    <SyntaxHighlighter customStyle={customStyle} language={"ocaml"}>
+      {`let sum (l : 'b church list) : 'b church =
+  List.fold_left (fun acc x -> add acc x) zero l`}
     </SyntaxHighlighter>
     <h4>Church Logic</h4>
     <caption>Mystery one is the same as {`fun a b -> a && b`}</caption>
-    <OCaml code={`let mystery_1 i1 i2 = fun a b -> i1 (i2 a b) b`}/>
+    <OCaml code={`let mystery_1 i1 i2 = fun a b -> i1 (i2 a b) b`} />
     <caption>Mystery two is the same as {`fun a b -> a || b`}</caption>
-    <OCaml code={`let mystery_2 i1 i2 = fun a b -> i1 a (i2 a b)`}/>
+    <OCaml code={`let mystery_2 i1 i2 = fun a b -> i1 a (i2 a b)`} />
     <caption>Mystery three is the same as {`fun a b -> a && (not b)`}</caption>
-    <OCaml code={`let mystery_3 i1 i2 = fun a b -> i1 (i2 a b) a`}/>
+    <OCaml code={`let mystery_3 i1 i2 = fun a b -> i1 (i2 a b) a`} />
     {/*//TODO: verify*/}
-</TopicCard>
+  </TopicCard>
+);
 
-
-
-const CPSTopic = <TopicCard title={"Continuation Passing Style"} color="rgba(0,0,255,0.3)">
-    <caption>CPS makes explicit notions of temporary variables and order of operations! It allows for exceptions, backtracking, generators, & more.</caption>
+const CPSTopic = (
+  <TopicCard title={"Continuation Passing Style"} color="rgba(0,0,255,0.3)">
+    <caption>
+      CPS makes explicit notions of temporary variables and order of operations!
+      It allows for exceptions, backtracking, generators, & more.
+    </caption>
     <h4>Exceptions</h4>
-    <caption>Here, we implement an exception using CPS with the “thro” function in JavaScript</caption>
-    <SyntaxHighlighter customStyle={customStyle} language={"javascript"} >
-        {
-            `function fact (n,ret,thro) {
+    <caption>
+      Here, we implement an exception using CPS with the “thro” function in
+      JavaScript
+    </caption>
+    <SyntaxHighlighter customStyle={customStyle} language={"javascript"}>
+      {`function fact (n,ret,thro) {
  if (n < 0) thro("n < 0") else if (n == 0) ret(1)
  else   fact(n-1, function (t0) { ret(n*t0) ;},
- thro)}`
-        }
+ thro)}`}
     </SyntaxHighlighter>
     <h4>Backtracking</h4>
     <caption>Backtracking with exception in OCaml</caption>
-    <SyntaxHighlighter customStyle={customStyle} language={"ocaml"} >
-        {
-            `let rec find tree key = match tree with
+    <SyntaxHighlighter customStyle={customStyle} language={"ocaml"}>
+      {`let rec find tree key = match tree with
 \t| Empty -> raise NotFound 
 \t| Node (l, key', v, r) ->
 \t\tif key' = key then v
 \t\t\telse
 \t\t\t\ttry
 \t\t\t\t\tfind l key
-\t\t\t\twith NotFound -> find r key`
-        }
+\t\t\t\twith NotFound -> find r key`}
     </SyntaxHighlighter>
     <caption>Backtracking with CPS in OCaml</caption>
-    <SyntaxHighlighter customStyle={customStyle} language={"ocaml"} >
-        {
-            `let rec find_cps tree key k = match tree with
+    <SyntaxHighlighter customStyle={customStyle} language={"ocaml"}>
+      {`let rec find_cps tree key k = match tree with
   | Empty -> k None
   | Node (l, key', v, r) ->
     if key' = key then k (Some v)
@@ -528,26 +749,31 @@ const CPSTopic = <TopicCard title={"Continuation Passing Style"} color="rgba(0,0
       find_cps l key (fun v ->
         match v with
         | Some _ -> k v
-        | None -> find_cps r key k)`
-        }
+        | None -> find_cps r key k)`}
     </SyntaxHighlighter>
     <h4>Performance Implications</h4>
     <ul>
-        <li><Pair item1={"CPS"}>{`Stack space optimization`}</Pair></li>
-        <li><Pair item1={"Tail Recursion"}>{`Stack space optimization`}</Pair></li>
+      <li>
+        <Pair item1={"CPS"}>{`Stack space optimization`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"Tail Recursion"}>{`Stack space optimization`}</Pair>
+      </li>
     </ul>
     <h4>Convert to CPS / TR</h4>
     <ul>
-        <li>reduce stack space use</li>
-        <li>change type: A into (A → ‘r) → ‘r</li>
-        <li>change implementat: call continuation instead of returning</li>
+      <li>reduce stack space use</li>
+      <li>change type: A into (A → ‘r) → ‘r</li>
+      <li>change implementat: call continuation instead of returning</li>
     </ul>
 
-    <caption>Original, non-cps function, pseudocode (p function checks if condition is true, node x is the root of the subtree we care about)</caption>
-    <span className={'twoCol'}>
-    <SyntaxHighlighter customStyle={customStyle} language={"ocaml"}>
-        {
-            `(*('a -> bool) -> 'a tree -> 'a list *)
+    <caption>
+      Original, non-cps function, pseudocode (p function checks if condition is
+      true, node x is the root of the subtree we care about)
+    </caption>
+    <span className={"twoCol"}>
+      <SyntaxHighlighter customStyle={customStyle} language={"ocaml"}>
+        {`(*('a -> bool) -> 'a tree -> 'a list *)
 let find_all p x: = 
   |Empty -> []
   |Node (l,x,r) ->
@@ -557,22 +783,25 @@ let find_all p x: =
     if p x then 
       good_l @ x :: good_r
     else 
-      good_l @ good_r`
-
-        }</SyntaxHighlighter>
-        <div>   <caption>Definition of binary tree</caption>
-    <SyntaxHighlighter customStyle={customStyle} language={"ocaml"}>
-        {
-            `type 'a tree = 
+      good_l @ good_r`}
+      </SyntaxHighlighter>
+      <div>
+        {" "}
+        <caption>Definition of binary tree</caption>
+        <SyntaxHighlighter customStyle={customStyle} language={"ocaml"}>
+          {`type 'a tree = 
   |Empty 
-  |Node of 'a tree * 'a * 'a tree`
-        }
-        </SyntaxHighlighter></div>
-        </span>
-    <caption>CPS / Tail Recursive version → note that we recurse with the continuation in the args to our recursive call for the left side and inside that for the right side.</caption>
+  |Node of 'a tree * 'a * 'a tree`}
+        </SyntaxHighlighter>
+      </div>
+    </span>
+    <caption>
+      CPS / Tail Recursive version → note that we recurse with the continuation
+      in the args to our recursive call for the left side and inside that for
+      the right side.
+    </caption>
     <SyntaxHighlighter customStyle={customStyle} language={"ocaml"}>
-        {
-`(* (p: 'a -> bool) (t: 'a tree) (return: 'a list -> 'r)*)
+      {`(* (p: 'a -> bool) (t: 'a tree) (return: 'a list -> 'r)*)
 let find_all_cps : p x ret =
 \t| Empty -> ret []
 \t| Node (l,x,r) ->
@@ -581,55 +810,118 @@ let find_all_cps : p x ret =
               if p x then 
                 ret (good_l @ x :: good_r)
               else 
-                ret (good_l @ good_r))`
-        }
+                ret (good_l @ good_r))`}
     </SyntaxHighlighter>
-    <OCaml code={`let inc (x : int) : int = x + 1
+    <OCaml
+      code={`let inc (x : int) : int = x + 1
 
-let inc_cps (x : int) (c : int -> int) : int = c (x + 1)`}/>
-</TopicCard>
+let inc_cps (x : int) (c : int -> int) : int = c (x + 1)`}
+    />
+  </TopicCard>
+);
 
-const BasicSyntaxTopic = <TopicCard title={"Basic Syntax"} color="rgba(100,100,255,0.3)">
+const BasicSyntaxTopic = (
+  <TopicCard title={"Basic Syntax"} color="rgba(100,100,255,0.3)">
     <ul>
-        <li><Pair item1={"Floating Point Math"}>+. -. /. *.</Pair></li>
-        <li><Pair item1={"Int Math"}> + - / *</Pair></li>
-        <li><Pair item1={"Boolean"}> && || not</Pair></li>
-        <li><Pair item1={"Comparison"}>{` = != < > <= >=`}</Pair></li>
-        <li><Pair item1={"String"}> ^ (concat)</Pair></li>
-        <li><Pair item1={"List"}> [x; y]</Pair></li>
-        <li><Pair item1={"Tuple"}> (x , y)</Pair></li>
-        <li><Pair item1={"Record"}> {`{x = 1; y = 2}`}</Pair></li>
-        <li><Pair item1={"Pattern Matching"}> match x with</Pair></li>
-        <li><Pair item1={"Function"}> {`fun x -> x + 1`}</Pair></li>
-        <li><Pair item1={"Local Variable"}> let x = 1 in</Pair></li>
-        <li><Pair item1={"Local Function"}> let f x = x + 1 in</Pair></li>
-        <li><Pair item1={"if"}> if...then...else...</Pair></li>
-        <li><Pair item1={"try"}> try...with</Pair></li>
+      <li>
+        <Pair item1={"Floating Point Math"}>+. -. /. *.</Pair>
+      </li>
+      <li>
+        <Pair item1={"Int Math"}> + - / *</Pair>
+      </li>
+      <li>
+        <Pair item1={"Boolean"}> && || not</Pair>
+      </li>
+      <li>
+        <Pair item1={"Comparison"}>{` = != < > <= >=`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"String"}> ^ (concat)</Pair>
+      </li>
+      <li>
+        <Pair item1={"List"}> [x; y]</Pair>
+      </li>
+      <li>
+        <Pair item1={"Tuple"}> (x , y)</Pair>
+      </li>
+      <li>
+        <Pair item1={"Record"}> {`{x = 1; y = 2}`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"Pattern Matching"}> match x with</Pair>
+      </li>
+      <li>
+        <Pair item1={"Function"}> {`fun x -> x + 1`}</Pair>
+      </li>
+      <li>
+        <Pair item1={"Local Variable"}> let x = 1 in</Pair>
+      </li>
+      <li>
+        <Pair item1={"Local Function"}> let f x = x + 1 in</Pair>
+      </li>
+      <li>
+        <Pair item1={"if"}> if...then...else...</Pair>
+      </li>
+      <li>
+        <Pair item1={"try"}> try...with</Pair>
+      </li>
     </ul>
-</TopicCard>
+  </TopicCard>
+);
 
-
-const InferenceRules = <TopicCard title={"Inference Rules"} color="rgba(100,100,255,0.3)">
+const InferenceRules = (
+  <TopicCard title={"Inference Rules"} color="rgba(100,100,255,0.3)">
     <ul>
-        <li><Pair item1={"Basic Format, premises on top must be true then e is true"}><Ltx>{"\\frac{p_1 \\cdots p_n}{e}"}</Ltx></Pair></li>
+      <li>
+        <Pair
+          item1={"Basic Format, premises on top must be true then e is true"}
+        >
+          <Ltx>{"\\frac{p_1 \\cdots p_n}{e}"}</Ltx>
+        </Pair>
+      </li>
     </ul>
-</TopicCard>
+  </TopicCard>
+);
 
-const LazyTopic = <TopicCard title={"Lazy vs Eager Evaluation"} color="rgba(100,0,0,0.3)">
+const LazyTopic = (
+  <TopicCard title={"Lazy vs Eager Evaluation"} color="rgba(100,0,0,0.3)">
     <ul>
-        <li><Pair item1={"Lazy"}>evaluate only when needed (call by reference)</Pair></li>
-        <li><Pair item1={"Eager"}>evaluate as soon as possible (call by value)</Pair></li>
-        <DotDivider/>
-        <li><Pair item1={"Pros & Cons"}>Lazy Cannot easily reason, may make effects unpredictable</Pair></li>
-        <li><Pair item1={"..."}>Eager Can reason about effects, but may be inefficient</Pair></li>
-        <li><Pair item1={"..."}>Lazy may unnecessarily execute multiple times, fixable using ref</Pair></li>
+      <li>
+        <Pair item1={"Lazy"}>
+          evaluate only when needed (call by reference)
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"Eager"}>
+          evaluate as soon as possible (call by value)
+        </Pair>
+      </li>
+      <DotDivider />
+      <li>
+        <Pair item1={"Pros & Cons"}>
+          Lazy Cannot easily reason, may make effects unpredictable
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"..."}>
+          Eager Can reason about effects, but may be inefficient
+        </Pair>
+      </li>
+      <li>
+        <Pair item1={"..."}>
+          Lazy may unnecessarily execute multiple times, fixable using ref
+        </Pair>
+      </li>
     </ul>
-    <Divider/>
+    <Divider />
     <p>
-    When we have the function <Variable>eval</Variable>, the cases for <Variable>Let</Variable>, <Variable>Var</Variable>, and <Variable>Fun</Variable> can be modified for lazy.
+      When we have the function <Variable>eval</Variable>, the cases for{" "}
+      <Variable>Let</Variable>, <Variable>Var</Variable>, and{" "}
+      <Variable>Fun</Variable> can be modified for lazy.
     </p>
     {/*TODO: verify this code*/}
-    <OCaml code={`let rec eval (e : expr) : value =
+    <OCaml
+      code={`let rec eval (e : expr) : value =
  | Let (x, e1, e2) -> 
  (*...previous code...*)
 \tlet v = r e1 in         (*First eval e1 with the old env*)
@@ -637,13 +929,19 @@ const LazyTopic = <TopicCard title={"Lazy vs Eager Evaluation"} color="rgba(100,
 \teval r' e2              (*Carry on with e2 with the new env*)
 | Var x -> eval List.assoc x r (*return eval env.get(x)*)
 | Fun (x, e) -> FunV (x, e, r)
-(*Use ref to not repeat evaluations with every lookup*)`}/>
-</TopicCard>
+(*Use ref to not repeat evaluations with every lookup*)`}
+    />
+  </TopicCard>
+);
 
-const EvalTopic = <TopicCard title={"Evaluation"} color="rgba(10,24,100,0.3)">
-    <p>The function <Variable>eval</Variable> requires some types and setup first.</p>
-    <OCaml code={
-`type tp =
+const EvalTopic = (
+  <TopicCard title={"Evaluation"} color="rgba(10,24,100,0.3)">
+    <p>
+      The function <Variable>eval</Variable> requires some types and setup
+      first.
+    </p>
+    <OCaml
+      code={`type tp =
   | Arrow of tp list * tp | Int | Bool (* function type: S1 S2 ... Sn -> T *)
  type name = string
  type primop = Equals | LessThan | Plus | Minus | Times | Negate
@@ -663,12 +961,15 @@ type exp =
 Stores the env from when The fn was defined -> saves states of the local vars*)
 and 
 type env = (name * exp) list (*map of names to their values,
-                                index via List.assoc*)`}/>
-</TopicCard>
+                                index via List.assoc*)`}
+    />
+  </TopicCard>
+);
 
-const TypeInferenceForFun = <TopicCard title={"Type Inference for Functions"} color="rgba(10,24,100,0.3)">
-    <OCaml code={
-        `type ctx = list (name * typ)
+const TypeInferenceForFun = (
+  <TopicCard title={"Type Inference for Functions"} color="rgba(10,24,100,0.3)">
+    <OCaml
+      code={`type ctx = list (name * typ)
 let rec eval (g: ctx) (e: exp): exp = function
  (* ...prev with g added to calls *)
 | Let (x, e1, e2) -> (*Let x = e1 in e2*)
@@ -677,17 +978,24 @@ let rec eval (g: ctx) (e: exp): exp = function
 | Fun (x, t, e) ->
 \tArrow (t, infer ((x, t)::g) e)(*Type is arrow of function's
 \t type annotation to type inference given context on the body*)
-| Var x -> List.assoc x g (*lo*)`
-    }/>
+| Var x -> List.assoc x g (*lo*)`}
+    />
+  </TopicCard>
+);
 
-</TopicCard>
-
-
-
-const Unification = <TopicCard title={"Unification"} color="rgba(10,24,100,0.3)">
-    <p>Unification is the process of finding a substitution that makes two types equal.</p>
-    <p>For example, if we have <Variable>Arrow (TInt, TBool)</Variable> and <Variable>Arrow (TInt, TInt)</Variable>, we can unify them by substituting <Variable>TBool</Variable> for <Variable>TInt</Variable>.</p>
-    <OCaml code={`let unify =
+const Unification = (
+  <TopicCard title={"Unification"} color="rgba(10,24,100,0.3)">
+    <p>
+      Unification is the process of finding a substitution that makes two types
+      equal.
+    </p>
+    <p>
+      For example, if we have <Variable>Arrow (TInt, TBool)</Variable> and{" "}
+      <Variable>Arrow (TInt, TInt)</Variable>, we can unify them by substituting{" "}
+      <Variable>TBool</Variable> for <Variable>TInt</Variable>.
+    </p>
+    <OCaml
+      code={`let unify =
   let rec unify substitution t1 t2 =
     match t1, t2 with
     (* Unifying identical concrete types does nothing *)
@@ -737,11 +1045,18 @@ const Unification = <TopicCard title={"Unification"} color="rgba(10,24,100,0.3)"
       | Some t' -> unify substitution t t'
   in fun t1 t2 -> unify UTVarMap.empty t1 t2
 
-`} />
-</TopicCard>
+`}
+    />
+  </TopicCard>
+);
 
-const InferCode = <TopicCard title={"Type Inference Implementation"} color="rgba(10,24,100,0.3)">
-    <OCaml code={`let rec infer ctx e =
+const InferCode = (
+  <TopicCard
+    title={"Type Inference Implementation"}
+    color="rgba(10,24,100,0.3)"
+  >
+    <OCaml
+      code={`let rec infer ctx e =
   match e with
   | Var x ->
       begin
@@ -795,11 +1110,15 @@ and check ctx exps tps result =
       let t' = infer ctx e in
       if t = t' then check ctx es ts result
       else type_mismatch t t'
-  | _ -> raise (TypeError Arity_mismatch)`}/>
-</TopicCard>
+  | _ -> raise (TypeError Arity_mismatch)`}
+    />
+  </TopicCard>
+);
 
-const EvalImpl = <TopicCard title={"Evaluation Implementation"} color="rgba(10,24,100,0.3)">
-    <OCaml code={`let rec eval exp =
+const EvalImpl = (
+  <TopicCard title={"Evaluation Implementation"} color="rgba(10,24,100,0.3)">
+    <OCaml
+      code={`let rec eval exp =
   match exp with
   (* Values evaluate to themselves *)
   | I _ -> exp
@@ -843,139 +1162,128 @@ const EvalImpl = <TopicCard title={"Evaluation Implementation"} color="rgba(10,2
 
         | _ -> raise (Stuck Apply_non_fn)
       end
-      `}/>
-</TopicCard>
+      `}
+    />
+  </TopicCard>
+);
 
-
-const PageBase: React.FC<React.PropsWithChildren<{}>> = ({children}) =>
-    <body>
+const PageBase: React.FC<React.PropsWithChildren<{}>> = ({ children }) => (
+  <body>
     <MarginText>
-        A monad is a monoid in the category of endofunctors | CPS can be expressed as a monad | Monads are useful for handling side effects | Study Sheet from https://thebigsasha.github.io/COMP302StudySheet
+      A monad is a monoid in the category of endofunctors | CPS can be expressed
+      as a monad | Monads are useful for handling side effects | Study Sheet
+      from https://thebigsasha.github.io/COMP302StudySheet
     </MarginText>
     {children}
-    </body>
-
-
-
+  </body>
+);
 
 function App() {
+  const midterm = (
+    <>
+      <div className={"slimmerBoiColumn"}>
+        {ListHOFTopic}
+        {BasicSyntaxTopic}
+        {HOFTopic}
+        {TuplesTopic}
+        {TypeInferenceTopic}
+        {ListOperationsTopic}
+      </div>
+      <div className={"slimBoiColumn"}>
+        {MathTopic}
+        {/*{LaTeXTestTopic}*/}
+        {ProofTopic}
+      </div>
+      <div className={"slimBoiColumn"}>
+        {CPSTopic}
+        {CurryTopic}
+      </div>
+      {CodeExamples}
+      {CoinSort}
 
-    const midterm = <>
-        <div className={"slimmerBoiColumn"}>
-            {ListHOFTopic}
-            {BasicSyntaxTopic}
-            {HOFTopic}{TuplesTopic}
-            {TypeInferenceTopic}
-            {ListOperationsTopic}
-        </div>
-        <div className={"slimBoiColumn"}>
-            {MathTopic}
-            {/*{LaTeXTestTopic}*/}
-            {ProofTopic}
-        </div>
-        <div className={"slimBoiColumn"}>
-            {CPSTopic}
-            {CurryTopic}
-        </div>
-        {CodeExamples}
-        {CoinSort}
+      <div className={"slimmerBoiColumn"} style={{ height: "100%" }}>
+        {OptionalTopic}
+        {ChurchTopic}
+        {TypesTopic}
+      </div>
+    </>
+  );
 
-        <div className={"slimmerBoiColumn"} style={{height: "100%"}}>
-            {OptionalTopic}
-            {ChurchTopic}
-            {TypesTopic}
-        </div></>
-
-    //TODO: Given an expressiom (Ocaml code or text), turn it into a proof with
-    // the fraction looking thing
-    /*
+  //TODO: Given an expressiom (Ocaml code or text), turn it into a proof with
+  // the fraction looking thing
+  /*
        fractiony-proof -> ocaml code
        ocaml code -> fractiony-proof
        explain fractiony-proof / code
      */
 
-    // TODO: freevar example (substituions)
-    const final = <>
-        <div className={"slimBoiColumn"}>
-            {Unification}
-        </div>
-        <div className={"slimBoiColumn"}>
-            {InferCode}
-        </div>
-        <div className={"slimBoiColumn"}>
-            {EvalImpl}
-        </div>
+  // TODO: freevar example (substituions)
+  const final = (
+    <>
+      <div className={"slimBoiColumn"}>{Unification}</div>
+      <div className={"slimBoiColumn"}>{InferCode}</div>
+      <div className={"slimBoiColumn"}>{EvalImpl}</div>
 
-        <div className={"slimBoiColumn"}>
-            {EvalTopic}
-            {LazyTopic}
-            {TypeInferenceForFun}
-        </div>
-        <div className={"slimmerBoiColumn"}>
-            {InferenceRules}
-        </div>
-        </>
+      <div className={"slimBoiColumn"}>
+        {EvalTopic}
+        {LazyTopic}
+        {TypeInferenceForFun}
+      </div>
+      <div className={"slimmerBoiColumn"}>{InferenceRules}</div>
+    </>
+  );
 
-
-    const Final =        <PageBase>
-        {final}
-    </PageBase>
-    const Midterm =        <PageBase>
-        {midterm}
-    </PageBase>
-    const Home =  <div>
-
-        <h1>Welcome to the COMP302 Study sheet.</h1>
-        <p>This sheet is of extreme quality and density.</p>
-        <strong>This is a weirdly formatted page for a reason. The intended medium is PAPER. It is sized precisely so that it will print properly and preview as it will look on paper.</strong>
-        <h2>Instructions</h2>
-        <ol>
-            <li>Click on final or midterm</li>
-            <li>Print the webpage (letter size paper)</li>
-            <li>Profit</li>
-
-        </ol>
-                    <Link to="/midterm">Midterm</Link>
-                     <Link to="/final">Final</Link>
-
-
-
+  const Final = <PageBase>{final}</PageBase>;
+  const Midterm = <PageBase>{midterm}</PageBase>;
+  const Home = (
+    <div>
+      <h1>Welcome to the COMP302 Study sheet.</h1>
+      <p>This sheet is of extreme quality and density.</p>
+      <strong>
+        This is a weirdly formatted page for a reason. The intended medium is
+        PAPER. It is sized precisely so that it will print properly and preview
+        as it will look on paper.
+      </strong>
+      <h2>Instructions</h2>
+      <ol>
+        <li>Click on final or midterm</li>
+        <li>Print the webpage (letter size paper)</li>
+        <li>Profit</li>
+      </ol>
+      <Link to="/midterm">Midterm</Link>
+      <Link to="/final">Final</Link>
     </div>
+  );
 
-        return (
-                <>
-                    <nav style={{position: "fixed", right: 0, top: 0, }} className={"never-print"} >
-                        <ul>
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <Link to="/midterm">Midterm</Link>
-                            </li>
-                            <li>
-                                <Link to="/final">Final</Link>
-                            </li>
-                        </ul>
-                    </nav>
+  return (
+    <>
+      <nav
+        style={{ position: "fixed", right: 0, top: 0 }}
+        className={"never-print"}
+      >
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/midterm">Midterm</Link>
+          </li>
+          <li>
+            <Link to="/final">Final</Link>
+          </li>
+        </ul>
+      </nav>
 
-                    {/* A <Switch> looks through its children <Route>s and
+      {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-                    <Routes>
-                        <Route path="/" element={Home}>
-
-                        </Route>
-                        <Route path="/midterm" element={Midterm}>
-
-                        </Route>
-                        <Route path="/final" element={Final}>
-
-                        </Route>
-                    </Routes>
-                    <Outlet />
-
-                </>
-
-        );
+      <Routes>
+        <Route path="/" element={Home}></Route>
+        <Route path="/midterm" element={Midterm}></Route>
+        <Route path="/final" element={Final}></Route>
+      </Routes>
+      <Outlet />
+    </>
+  );
 }
 
 export default App;
