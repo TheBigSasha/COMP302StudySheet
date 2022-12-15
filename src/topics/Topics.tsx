@@ -914,6 +914,18 @@ export const MiscInfo = (
             item1={"Can infinite loop be a type?"}
             item2={"NO! Runtime concept has no place in a static context"}
         />
+        <ListPairItem
+            item1={"Type of let..in?"}
+            item2={"Type is whatever comes after the in. Before is just a binding"}
+        />
+        <ListPairItem
+            item1={"Substitution preserves typing"}
+            item2={"Executing a let and using it is OK to help in type checking"}
+        />
+        <ListPairItem
+            item1={"Funcs Are Closures"}
+            item2={"Local variables are set at time of fn creation."}
+        />
     </ul>
   </TopicCard>
 );
@@ -1553,6 +1565,12 @@ export const TypeVariables = (
       </ul>
     </span>
     <p>Cannot return partial application of the same recursive function</p>
+      <DotDivider />
+        <span className={"twoCol"}>
+            <p>{"Type of a value with let...in is what's after in No constraitns on type of f itself (its oops), but after the in it's clearly string"}</p>
+            <OCaml code={`let rec f x = f x in
+    f 3 ^ "hello100"`}></OCaml>
+        </span>
   </TopicCard>
 );
 
@@ -1693,3 +1711,34 @@ force s.tl;; (*evals to {hd = 5; t;= Susp<fun>}*)`}
     />
   </TopicCard>
 );
+
+
+export const ProofsExtra = <TopicCard title={"Proofs Extra"} color="rgba(128,128,255,0.1)">
+    <p>
+        Proof on a binary search tree - <Variable>Lookup(insert(node)) {eqArrow} node</Variable>
+    </p>
+    <ul>
+        <ListPairItem item1={"Base Case"} item2={<p>Empty Tree <Variable>{"[]"}</Variable></p>} />
+        <ListPairItem item1={"Defn of Insert"} item2={<Variable>{`lookup k (Node (Empty, (k, v), Empty))`}</Variable>} />
+        <ListPairItem item1={"(RHS)By def of Lookup (k=k)"} item2={<Variable>Some v</Variable>}/>
+        <ListPairItem item1={"2 IH's"} item2={<Variable>L and R subtrees</Variable>}/>
+        <ListPairItem item1={"2 IH's"} item2={<Variable>L and R subtrees</Variable>}/>
+        <ListPairItem item1={"Subcase 1"} item2={<Variable>Node is root of subtree</Variable>}/>
+        <ListPairItem item1={"Subcase 2"} item2={<Variable>{`k < k' ... do  insert / lookup to left`}</Variable>}/>
+        <ListPairItem item1={"Subcase 3 (QED)"} item2={<Variable>{`k > k' ... do  insert / lookup to right`}</Variable>}/>
+
+    </ul>
+    <Divider/>
+    <p>
+        <Variable>Thm: map' f l= map f l</Variable>
+        <strong>Base case:</strong> map' f Nil = fold_right (fun x y {"->"} Cons((f x),y) l Nil
+        = Nil = map f Nil
+        <Variable>Now let</Variable> l= Cons(x,xs). <Variable>IH:</Variable> map' f xs = map f xs;
+        map' f Cons(x,xs)= fold_right (fun x y {"->"} Cons((f x),y) Cons(x,xs) Nil;
+        = Cons(f x, (fold_right (fun x y {"->"} Cons((f x),y) xs Nil))
+        =Cons( f x, map' f xs)= Cons(f x, map f xs) (Using IH)
+        =map f Cons(x,xs)
+    </p>
+
+
+</TopicCard>
