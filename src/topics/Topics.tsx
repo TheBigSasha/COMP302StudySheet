@@ -1292,14 +1292,29 @@ export const FreeVariables = (
         item1={<Ltx>{`[e' / x](e_1 \\ \\textbf{op} \\ e_2)`}</Ltx>}
         item2={<Ltx>{`[e' / x]e_1 \\ \\textbf{op} \\ [e' / x]e_2`}</Ltx>}
       />
-        <ListPairItem
-            item1={<Ltx>{`[e' / x](\\textbf{if} \\ e \\ \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2)`}</Ltx>}
-            item2={<Ltx>{`\\textbf{if} \\ [e' / x]e \\ \\textbf{then} \\ [e' / x]e_1 \\ \\textbf{else} \\ [e' / x]e_2`}</Ltx>}
-        />
-        <ListPairItem
-            item1={<Ltx>{`[e' / x](\\textbf{let} \\ y = e_1 \\ \\textbf{in} \\ e_2 \\ \\textbf{end})`}</Ltx>}
-            item2={<><Ltx>{`\\textbf{let} \\ y = [e' / x]e_1 \\ \\textbf{in} \\ [e' / x]e_2 \\ \\textbf{end}`}</Ltx><p> provided that <Ltx>{`x \\neq y \\ \\& \\ y \\not\\in \\textbf{FV}(e')`}</Ltx></p></>}
-        />
+      <ListPairItem
+        item1={
+          <Ltx>{`[e' / x](\\textbf{if} \\ e \\ \\textbf{then} \\ e_1 \\ \\textbf{else} \\ e_2)`}</Ltx>
+        }
+        item2={
+          <Ltx>{`\\textbf{if} \\ [e' / x]e \\ \\textbf{then} \\ [e' / x]e_1 \\ \\textbf{else} \\ [e' / x]e_2`}</Ltx>
+        }
+      />
+      <ListPairItem
+        item1={
+          <Ltx>{`[e' / x](\\textbf{let} \\ y = e_1 \\ \\textbf{in} \\ e_2 \\ \\textbf{end})`}</Ltx>
+        }
+        item2={
+          <>
+            <Ltx>{`\\textbf{let} \\ y = [e' / x]e_1 \\ \\textbf{in} \\ [e' / x]e_2 \\ \\textbf{end}`}</Ltx>
+            <p>
+              {" "}
+              provided that{" "}
+              <Ltx>{`x \\neq y \\ \\& \\ y \\not\\in \\textbf{FV}(e')`}</Ltx>
+            </p>
+          </>
+        }
+      />
     </ul>
   </TopicCard>
 );
@@ -1325,23 +1340,17 @@ export const OCamlNotes = (
 );
 
 export const InfinteData = (
-    <TopicCard title={"Infinite Data"} color="rgba(255,0,0,1)">
-        <ul>
-            <ListPairItem
-                item1={"Infinite data"}
-                item2={"TODO"}
-            />
-        </ul>
-    </TopicCard>
-)
+  <TopicCard title={"Infinite Data"} color="rgba(255,0,0,1)">
+    <ul>
+      <ListPairItem item1={"Infinite data"} item2={"TODO"} />
+    </ul>
+  </TopicCard>
+);
 
 export const PartialEvaluation = (
-    <TopicCard title={"Partial Evaluation"} color="rgba(255,0,0,1)">
-        <ul>
-            <ListPairItem
-                item1={"Peval"}
-                item2={"TODO"}
-            />
-        </ul>
-    </TopicCard>
-)
+  <TopicCard title={"Partial Evaluation"} color="rgba(255,0,0,1)">
+    <ul>
+      <ListPairItem item1={"Peval"} item2={"TODO"} />
+    </ul>
+  </TopicCard>
+);

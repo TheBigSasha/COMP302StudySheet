@@ -2,32 +2,34 @@ import React, { useState } from "react";
 import "./App.css";
 import { Route, Routes, Link, Outlet } from "react-router-dom";
 import {
-    BasicSyntaxTopic,
-    ChurchTopic,
-    CodeExamples,
-    CoinSort,
-    CPSTopic,
-    CurryTopic,
-    EvalImpl,
-    EvalTopic,
-    FreeVariables,
-    HOFTopic,
-    InferCode,
-    InferenceRules, InfinteData,
-    LazyTopic,
-    ListHOFTopic,
-    ListOperationsTopic,
-    MathTopic,
-    OCamlNotes,
-    OptionalTopic, PartialEvaluation,
-    ProofTopic,
-    References,
-    SubTypingTopic,
-    TuplesTopic,
-    TypeInferenceForFun,
-    TypeInferenceTopic,
-    TypesTopic,
-    Unification,
+  BasicSyntaxTopic,
+  ChurchTopic,
+  CodeExamples,
+  CoinSort,
+  CPSTopic,
+  CurryTopic,
+  EvalImpl,
+  EvalTopic,
+  FreeVariables,
+  HOFTopic,
+  InferCode,
+  InferenceRules,
+  InfinteData,
+  LazyTopic,
+  ListHOFTopic,
+  ListOperationsTopic,
+  MathTopic,
+  OCamlNotes,
+  OptionalTopic,
+  PartialEvaluation,
+  ProofTopic,
+  References,
+  SubTypingTopic,
+  TuplesTopic,
+  TypeInferenceForFun,
+  TypeInferenceTopic,
+  TypesTopic,
+  Unification,
 } from "./topics/Topics";
 import { PageBase } from "./components/Styled";
 import { Helmet } from "react-helmet";
@@ -79,11 +81,13 @@ function App() {
       <div className={"slimmerBoiColumn"}>
         {InferenceRules}
         {References}
+        {InferCode}
       </div>
       <div className={"slimBoiColumn"}>{Unification}</div>
-      <div className={"slimmerBoiColumn"}>{InferCode} {PartialEvaluation}</div>
+      <div className={"slimBoiColumn"}>{FreeVariables}</div>
       <div className={"slimBoiColumn"}>
-        {EvalImpl} {FreeVariables}
+        {EvalImpl}
+        {PartialEvaluation}
       </div>
 
       <div className={"slimBoiColumn"}>
@@ -91,7 +95,7 @@ function App() {
         {LazyTopic}
         {TypeInferenceForFun}
         {SubTypingTopic}
-          {InfinteData}
+        {InfinteData}
       </div>
     </>
   );
