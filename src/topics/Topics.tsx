@@ -374,6 +374,7 @@ export const ListOperationsTopic = (
         </Pair>
       </li>
     </ul>
+      <p><strong>List FoldR</strong> This function takes an initial base case <Variable>init</Variable> (matched to []) and an inductive case (function <Variable>op hd (foldr init op tl)</Variable> which does something. In the case of summing a whole list, <Variable>init = 0</Variable> and <Variable>op = (+) </Variable>. Concat would be <Variable>init = ""</Variable> and <Variable>op = (^)</Variable></p>
   </TopicCard>
 );
 export const ListHOFTopic = (
@@ -1447,18 +1448,18 @@ type 'a str = { hd : 'a;  tl : 'a str susp;}
 let rec repeat (x : 'a): 'a str = {
   (*head of that stream is x*) 
   head = x;
-  t1 = delay @@ fun () (**Susp part, keep repeating x*)-> repeat x } (*type alpha string susp*)  (*suspended computation *)
+  tl = delay @@ fun () (**Susp part, keep repeating x*)-> repeat x } (*type alpha string susp*)  (*suspended computation *)
     (*let s.head = repeat 5*)
 (*function extracting the nth element of the string*)(*sequence of all the natural numbers*)(*define the natural number from a starting point*) (*why first element is 0*, only tail is delayed*)
 let rec nats_from (n:int) : int str = 
   head = n;
-  t1 = delay @@ fun () -> nats_from(n+1)}
+  tl = delay @@ fun () -> nats_from(n+1)}
 (*with references define natural number*)
 let nats = 
   let n = ref 0 in 
   let rec go() = {
     hd = n!;
-    t1= delay @@ fun() ->
+    tl= delay @@ fun() ->
       n:= !n+1;
       go()} in go()
 (*way to examine the string , can print out a prefic*)(*extract the first n element of a list*)
@@ -1466,17 +1467,17 @@ let rec take (n:int)(s:a'str) : a' list =
   match n with 
   |0 -> []
   |1-> [s.head]  | _ ->
-      s.head :: take (n-1) (force s.t1)    
+      s.head :: take (n-1) (force s.tl)    
 (*high order functions *)
 let rec map (f: 'a -> 'b) (s:'a str) : 'b str = 
   head = f s.head;
- t1 = delay @@ fun() -> (*when we want the tail*) map f (force s.t1)}
+ tl = delay @@ fun() -> (*when we want the tail*) map f (force s.tl)}
 (*foldr : ('a -> 'b) -> b' -> a' list -> 'b
   undolf: a' -> ('a -> 'b * 'a) 0> 'b str*)
 (*This code creates a stream of the natural numbers, starting at 0. The function unfold takes two parameters, an initial state (s) and a function (f).The function f takes a state (s) and returns a pair (x, s') where x is the result of the transformation,and s' is the new state. The function then creates a new stream with its head set to the result of the transformation (x) and its tail set to a delayed version of the unfold function, with the new state (s')passed as the initial parameter. This new stream is then returned.*)
 let rec unfold (s:a') (f: a' -> 'b * 'a) : 'b str =   let (x, s'_ = f s in { 
     head =x;
-    t1 = delay @@ fun () -> 
+    tl = delay @@ fun () -> 
       unfold s' f }  
 let nats = unfold 0 (fun n -> (n,n+1))`}></OCaml>
   </TopicCard>
@@ -1496,10 +1497,17 @@ export const PartialEvaluation = (
       <DotDivider/>
       <p>The following are implemented in Infinite Data tile</p>
       <ul>
-          <ListPairItem item1={"Susp type"} item2={"Represents a suspsended computation"}/>
+          <ListPairItem item1={"Unit"} item2={"Unit is ()"}/>
+          <ListPairItem item1={"Susp type" } item2={"Represents a suspsended computation"}/>
           <ListPairItem item1={"Force"} item2={"Runs a suspended computation"}/>
           <ListPairItem item1={"Delay"} item2={"Suspends a given computation"}/>
+          <ListPairItem item1={"Unfold" } item2={"Same as list foldr"}/>
       </ul>
+      <caption>The minimum stream</caption>
+      <OCaml code={`let s = repeat 5;; (*repeat 5 forever*)
+s.hd;; (*evals to int 5*)
+s.tl;; (*evals to Susp <fun>*)
+force s.tl;; (*evals to {hd = 5; t;= Susp<fun>}*)`}/>
 
 
   </TopicCard>
