@@ -906,6 +906,14 @@ export const MiscInfo = (
         item1={"Constructor"}
         item2={"With capital letter, packages infiniteness (lazy)"}
       />
+        <ListPairItem
+            item1={"What does fn eval to?"}
+            item2={"Itself, a function"}
+        />
+        <ListPairItem
+            item1={"Can infinite loop be a type?"}
+            item2={"NO! Runtime concept has no place in a static context"}
+        />
     </ul>
   </TopicCard>
 );
